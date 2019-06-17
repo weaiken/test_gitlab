@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>student_center</title>
+  <link rel="stylesheet" href="/static/layui/css/layui.css">
+  <style type="text/css">
+  	.body-top-exam{
+  		display: flex;
+  	}
+  	.top-left{
+  		background: #009ee7;
+  		width: 65%;
+  		padding: 35px;
+  		display: flex;
+  	}
+  	.top-right{
+  		width: 30%;
+  		padding-left: 20px;
+  		display: flex;
+  		flex-direction: column;
+  		padding-right: 20px;
+  	}
+  	.top-right-top{
+  		background: #FFFFFF;
+  		flex-grow: 1;
+  		padding: 15px,20px;
+  		margin-top: 15px;
+  	}
+  	.trtfirst{
+  		height: 70px;
+  		align-items: center;
+  		padding-left: 20px;
+  		padding-bottom: 10px;
+   	}
+   	.trtspan{
+			font-size: 16px;
+   	}
+   	.num{
+   		font-size: 32px;
+   		display: inline-block;
+   		margin-left: 40px;
+   	}
+  	.top-right-bottom{
+  		background: #FFFFFF;
+  		margin-top: 10px;
+  		flex-grow: 1;
+  		margin-bottom: 15px;
+  	}
+  	.trbfirst{
+   		height: 70px;
+   		align-items: center;
+   		padding-left: 20px;
+   		padding-bottom: 10px;
+   	}
+   	.trbspan{
+			font-size: 16px;
+   	}
+   	.num2{
+   		font-size: 32px;
+   		display: inline-block;
+   		margin-left: 40px;
+   	}
+  	.body-middle-exam{
+  		background: #FFFFFF;
+  		margin-top: 10px;
+  	}
+  	.middle-top{
+  		height: 42px;
+  		line-height: 42px;
+  		padding-left: 15px;
+  		font-size: 16px;
+  		align-items: center;
+  	}
+  	.middle-body{
+  		padding: 20px,15px;
+  		border-top: 1px solid #ededed;
+  	}
+  	.ul-items{
+  		display: flex;
+  		flex-wrap: wrap;
+  		padding-top: 15px;
+  		margin-bottom: 10px;
+  		margin-left: 20px;
+  		margin-right: 20px;
+  		margin-top: 10px;
+  		border-top: 1px solid#0000FF;
+  		border-bottom: 1px solid #777777;
+  		border-left: 1px solid #777777;
+  		border-right: 1px solid #777777;
+  		
+  	}
+  	.items-detail{
+  		flex-grow: 1;
+  		margin: 0px,15px,10px;
+  		max-width: 80%;
+  	}
+  	.items-source{
+  		padding-top: 5px;
+  		padding-left: 15px;
+  		padding-bottom: 5px;
+  		width: 100%;
+  		font-size: 13px;
+  		color: #a4a8a9;
+  		padding: 5px,15px;
+  		background-color: #f7f7f7
+  	}
+  	.middle-bottom{
+  		display: flex;
+  		margin: auto;
+  		font-size: 85%;
+  	}
+  	.mibo-wra{
+  		margin-left: 500px;
+  		display: flex;
+  	}
+  	.body-bottom-exam{
+  		background: #FFFFFF;
+  		margin-top: 10px;
+  	}
+  	.bottom-top{
+  		height: 42px;
+  		line-height: 42px;
+  		padding-left: 15px;
+  		font-size: 16px;
+  		align-items: center;
+  	}
+  	.bottom-time{
+  		padding: 0px,15px;
+  		border-top: 1px solid #D0D0D0;
+  	}
+  	.timeli{
+  		margin-left: 250px;
+  		padding-top: 5px;
+  		padding-bottom: 20px;
+  	}
+  	.layui-timeline-title{
+  		left: -100px;
+  	}
+  	.total-ul{
+  		display: flex;
+  	}
+  	.total-li{
+    	line-height:28px;
+    	height:28px;
+    }
+    .ul-text{
+    	line-height:28px;
+    	height:28px;
+    }
+    .ul-text i{
+    	font-style: normal;
+    }
+    .current{
+    	margin-left: 20px;
+    	margin-right: 20px;   	
+    	line-height:28px;
+    	width: 25px;
+    	text-align: center;
+    	height:28px;
+    	background: #5FB878;
+    	margin-bottom: 8px;
+    }
+    .left-img{
+    	position: relative;
+    	width: 176px;
+    	height: 176px;
+    	border: dashed;
+    	margin-left: 100px;
+    }
+    .top-left-info{
+    	margin-left: 35px;
+    	margin-top: 50px;
+    }
+    .top-left-info p{
+    	line-height: 25px;
+    	font-size: 14px;
+    	color: #e3f1f7;
+    }
+  </style>
+  
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header header-exam" style="background-color: #FFFFFF;">
+    <div class="layui-logo a">101test</div>
+    <ul class="layui-nav layui-layout-left">
+      <li class="layui-nav-item" style="padding-right: 20px;"><a href="" style="color: #26292a;font-size: 16px;">首页</a></li>
+      <li class="layui-nav-item" style="padding-right: 20px;"><a href="" style="color: #26292a;font-size: 16px;">成绩</a></li>
+      <li class="layui-nav-item"><a href="" style="color: #FF5722;font-size: 16px;"><i class="layui-icon layui-icon-cart" style="padding-right: 10px"></i>购买练习</a></li>
+    </ul>
+    <ul class="layui-nav layui-layout-right"  style="padding-right: 100px">
+      <li class="layui-nav-item">
+        <a href="javascript:;" style="padding-right: 30px">
+          <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+          <span style="color: #26292a">昵称</span>
+        </a>
+        <dl class="layui-nav-child">
+          <dd><a href="">我的设置</a></dd>
+          <dd><a href="">我的账户</a></dd>
+          <dd><a href="">安全退出</a></dd>
+        </dl>
+      </li>
+      <li class="layui-nav-item">
+      	<a href="javascript:;" style="color: red;"><i class="layui-icon layui-icon-file-b" style="padding-right: 5px;"></i>考试入口</a>
+      </li>
+    </ul>
+  </div>
+  
+  <div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll" style="background: #1d2939;">
+      <ul class="layui-nav layui-nav-tree">
+        <li class="layui-nav-item"><a href="javascript:;"><i class="layui-icon layui-icon-component" style="padding-right: 10px"></i>成绩</a>
+         <dl class="layui-nav-child">
+            <dd><a href="javascript:;"><i class="layui-icon layui-icon-file-b" style="padding-right: 10px"></i>我的考试</a></dd>
+            <dd><a href="javascript:;"><i class="layui-icon layui-icon-file" style="padding-right: 10px"></i>未答试卷</a></dd>
+            <dd><a href="javascript:;"><i class="layui-icon layui-icon-form" style="padding-right: 10px"></i>成绩列表</a></dd>
+          </dl>
+          </li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="layui-body" style="background: #f5f7fa;">
+    <div class="body-top-exam">
+    	<div class="top-left">
+    		<div class="left-img">
+    			<img class="top-left-img" src="">
+    		</div>
+    		<div class="top-left-info">
+    			<p>总计
+    				<i>4</i></p>
+    			<p>已完成
+    				<i>3</i></p>
+    		</div>
+    	</div>
+    	<div class="top-right">
+    		<div class="top-right-top">
+    			<div class="trtfirst">
+    				<span class="trtspan">
+    					<i class="layui-icon layui-icon-file-b" style="padding-right: 10px;color: #fda224;">
+    					</i>
+    					待作答
+    				</span>
+    				<span class="num" style="color: #fda224;">1</span>
+    				<p style="border-top: 1px solid#ededed;margin-top: 10px;">带作答试卷包含答题中、未做达以及已过期的试卷</p>
+    			</div>
+    		</div>
+    		<div class="top-right-bottom">
+    			<div class="trbfirst">
+    				<span class="trbspan">
+    					<i class="layui-icon layui-icon-file-b" style="padding-right: 10px;color: #009ee7;">
+    					</i>
+    					已完成
+    				</span>
+    				<span class="num2" style="color: #009ee7;">3</span>
+    				<p style="border-top: 1px solid#ededed;margin-top: 10px;">点击可查看已完成考试的成绩与详细报告</p>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+    <div class="body-middle-exam">
+    	<div class="middle-top">待作答</div>
+    	<ul class="middle-body">
+    		<li class="ul-items">
+    			<div class="items-detail">
+    				<p style="padding-left: 15px;">小学一年级数学</p>
+    				<p style="padding-left: 15px;color: #2abb99;">15分钟</p>
+    			</div>
+    			<div class="items-source">来源邮箱邀请</div>
+    		</li>
+    	</ul>
+    	<div class="middle-bottom">
+    		<div class="mibo-wra">
+    			<div class="total">
+    				<ul class="total-ul">
+    					<div class="ul-text">
+    						<i>共</i>
+    						<i>5</i>
+    						<i style="margin-right: 20px;">页</i>
+    					</div>
+    					<li class="total-li"><a>上一页</a></li>
+    					<li class="current"><a>1</a></li>
+    					<li class="total-li"><a>下一页</a></li>
+    				</ul>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+    <div class="body-bottom-exam">
+    		<div class="bottom-top">成绩列表</div>
+    		<div class="bottom-time">
+    			<ul class="layui-timeline timeli">
+  <li class="layui-timeline-item">
+    <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+    <div class="layui-timeline-content layui-text">
+      <h3 class="layui-timeline-title timetitle">8月18日</h3>
+      <p>
+        layui 2.0 的一切准备工作似乎都已到位。发布之弦，一触即发。
+        <br>不枉近百个日日夜夜与之为伴。因小而大，因弱而强。
+        <br>无论它能走多远，抑或如何支撑？至少我曾倾注全心，无怨无悔 <i class="layui-icon"></i>
+      </p>
+    </div>
+  </li>
+  <li class="layui-timeline-item">
+    <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+    <div class="layui-timeline-content layui-text">
+      <h3 class="layui-timeline-title">8月16日</h3>
+      <p>杜甫的思想核心是儒家的仁政思想，他有“<em>致君尧舜上，再使风俗淳</em>”的宏伟抱负。个人最爱的名篇有：</p>
+      <ul>
+        <li>《登高》</li>
+        <li>《茅屋为秋风所破歌》</li>
+      </ul>
+    </div>
+  </li>
+  <li class="layui-timeline-item">
+    <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+    <div class="layui-timeline-content layui-text">
+      <h3 class="layui-timeline-title">8月15日</h3>
+      <p>
+        中国人民抗日战争胜利72周年
+        <br>常常在想，尽管对这个国家有这样那样的抱怨，但我们的确生在了最好的时代
+        <br>铭记、感恩
+        <br>所有为中华民族浴血奋战的英雄将士
+        <br>永垂不朽
+      </p>
+    </div>
+  </li>
+  <li class="layui-timeline-item">
+    <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+    <div class="layui-timeline-content layui-text">
+      <div class="layui-timeline-title">过去</div>
+    </div>
+  </li>
+</ul>
+    		</div>
+    </div>
+  </div>
+<script src="/static/layui/layui.js"></script>
+<script>
+//JavaScript代码区域
+layui.use('element', function(){
+  var element = layui.element;
+  
+});
+</script>
+</body>
+</html>
