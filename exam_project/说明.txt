@@ -1,0 +1,4 @@
+项目文件名为为exam，只放置了src文件夹和pom.xml配置文件
+（避免由于eclispe配置文件版本的不同，造成项目出问题）
+
+eclispe需要安装subclipse插件
