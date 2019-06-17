@@ -1,0 +1,148 @@
+<!-- <!DOCTYPE html> -->
+<html xmlns="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>登录</title>
+
+	<script type="text/javascript" src="js/jquery-3.4.1.min.js" th:src="@{static/js/jquery-3.4.1.min.js}"></script>
+	
+	<link type="text/css" rel="stylesheet" href="layui/css/layui.css" th:href="@{static/layui/css/layui.css}"/>
+	<!-- <script type="text/javascript" src="lay"></script> -->
+	<link type="text/css" rel="stylesheet" href="css/login_css.css" th:href="@{static/css/login_css.css}"/>
+<script type="text/javascript" src="js/login_js.js" th:src="@{static/js/login_js.js}" ></script>
+	<script>
+	$(function(){
+		$("#account1").blur(function() {
+			var value1 = $("#account1").val();
+							$.ajax({
+								url: "registerServlet",
+								type: "post",
+								dataType: "text",
+								data: {
+									"account": value1,
+								},
+								success: function(data) {
+									if(data =="a") {
+										$("#bbb").text("用户名已存在");
+									}else if(data=="b")
+										$("#bbb").text("用户名不能为空");
+									else{
+										$("#bbb").text("");
+									}
+								},
+							});
+
+						});
+						
+		$("#subaction1").click(function() {
+			var value1 = $("#account1").val();
+			var value2 = $("#password1").val();
+			if(value1==null||""==value1){
+				alert("用户名不能为空");
+				return;
+				
+			}
+				$.ajax({
+					url: "Register",
+					type: "post",
+					dataType: "text",
+					data: {
+						"account": value1,
+						"password": value2
+					},
+					success: function(data) {
+						if(data==1) {
+							alert("注册成功，请登录！");
+						} else {
+							alert("用户名存在，注册失败！");
+						}
+					},
+				});
+			});
+			
+		$("#subaction").click(function() {
+			var value = $("#account").val();
+			var value3 = $("#password").val();
+			if(value==null||""==value){
+				alert("用户名和密码不能为空");
+				return;
+			}else if(value3==null||""==value3){
+				alert("密码不能为空");
+				return;
+			}
+				$.ajax({
+					url: "Login",
+					type: "post",
+					dataType: "text",
+					data: {
+						"account": value,
+						"password": value3
+					},
+					success: function(data) {
+						if(data=="m") {
+							alert("密码错误，登录失败！");
+						}else if(data=="n"){
+							window.location.href = 'home.jsp';
+						}
+					},
+				});
+			});
+	})
+	
+	</script>
+	
+</head>
+<body class="layui-bg-gray" style="width: 100%;height: 100%;">
+	
+	<div class="content">
+		<div class="login-box">
+			<div class="login-item">
+				<ul style="list-style: none;">
+					<li class="choosed">
+						<span>登录</span>
+					</li>
+					<li >
+						<span>注册</span>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="login-register">
+				<div class="infor">
+					<form action="" method="post">
+						<div class="input-field">
+							<input name="account" id="account" type="text" spellcheck="false" placeholder="账号" autocomplete="off" />
+							<span id="sss"></span>
+						</div>
+						<div class="input-field">
+							<input name="password" id="password" spellcheck="false" type="password" placeholder="密码" autocomplete="off" />
+							<span id="aaa"></span>
+						</div>
+						<div class="action">
+							<input id="subaction" name="subaction" class="subaction" type="submit" value="登录"/>
+						</div>
+					</form>
+				</div>
+				
+				<div class="infor" style="display: none;">
+					<form>
+						<div class="input-field">
+							<input name="account" id="account1" type="text" spellcheck="false" placeholder="账号" autocomplete="off"/>
+							<span id="bbb"></span>
+						</div>
+						<div class="input-field">
+							<input name="password" id="password1" spellcheck="false" type="password" placeholder="密码" autocomplete="off" />
+							<span id="ccc"></span>
+						</div>
+						<div class="action">
+							<input id="subaction1" name="subaction" class="subaction" type="submit" value="注册"/>
+							<span id="eee" style="font-size:16px"></span>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</body>
+</html>
