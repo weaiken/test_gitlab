@@ -10,10 +10,13 @@
   		display: flex;
   	}
   	.top-left{
-  		background: #009ee7;
+  		margin-top: 15px;
+  		margin-left: 15px;
+  		background:linear-gradient(0deg,rgba(0,194,231,.75) 0,#009ee7 100%);;
   		width: 65%;
   		padding: 35px;
   		display: flex;
+  		margin-bottom: 15px;
   	}
   	.top-right{
   		width: 30%;
@@ -29,7 +32,7 @@
   		margin-top: 15px;
   	}
   	.trtfirst{
-  		height: 70px;
+  		height: 75px;
   		align-items: center;
   		padding-left: 20px;
   		padding-bottom: 10px;
@@ -49,7 +52,7 @@
   		margin-bottom: 15px;
   	}
   	.trbfirst{
-   		height: 70px;
+   		height: 75px;
    		align-items: center;
    		padding-left: 20px;
    		padding-bottom: 10px;
@@ -166,12 +169,21 @@
     	position: relative;
     	width: 176px;
     	height: 176px;
-    	border: dashed;
-    	margin-left: 100px;
+    	margin-left: 175px;
+    }
+    .top-left-img{
+    	position: absolute;
+    	top: 4px;
+    	left: 4px;
+    	width: 160px;
+    	height: 160px;
+    	border-radius: 100%;
+    	margin: 0px;
+    	border:4px solid#7ce1f0;
     }
     .top-left-info{
-    	margin-left: 35px;
-    	margin-top: 50px;
+    	margin-left: 40px;
+    	margin-top: 35px;
     }
     .top-left-info p{
     	line-height: 25px;
@@ -226,13 +238,21 @@
     <div class="body-top-exam">
     	<div class="top-left">
     		<div class="left-img">
-    			<img class="top-left-img" src="">
+    			<img class="top-left-img" src="img/login_page.jpg">
     		</div>
+    		<div class="left-info">
     		<div class="top-left-info">
-    			<p>总计
+    			<p>总计答题数
     				<i>4</i></p>
-    			<p>已完成
+    			<p>已完成考试的数目
     				<i>3</i></p>
+    				<p>
+    					<div class="layui-progress" lay-showPercent="yes" style="margin-top: 15px;">
+  								<div class="layui-progress-bar layui-bg-blue" lay-percent="75%" style=""></div>
+							</div>
+    				</p>
+    				<p style="margin-top: 10px;">快去查看未答试卷，挑战100%</p>
+    		</div>
     		</div>
     	</div>
     	<div class="top-right">
