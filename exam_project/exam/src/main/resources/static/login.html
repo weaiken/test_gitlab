@@ -30,12 +30,12 @@
     	function checkemail(){
     		//定义一个邮箱的正则表达式  ,并用 test方法验证正则表达式
 	var regCode = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
-    	var emailcheck = $('#email1').val();   //email是一个对象
-    	var $msg = $('#emailmsg').html("");//先设置为空 后面判断 再显示提示信息
+    	var emailcheck = $('#email1').val();  
+    	var $msg = $('#emailmsg').html("");
     	if(emailcheck=='' || emailcheck==null){
     		$msg.html('email cant be null')
     		return false;
-    	}else if (regCode.test(emailcheck)==false){// test() 专门做正则验证 ,如果通过,返回true ,不通过,返回false
+    	}else if (regCode.test(emailcheck)==false){
 
     		$msg.html('格式错误');
     		return false;		
@@ -52,8 +52,8 @@
     	}
     	return true;
     }
-    	//提交表单时 判断返回值 需要全部为true 才能返回后台
-    	$('#myform').submit(function(){
+    
+    $('#myform').submit(function(){
     		var flag = true;
     		if(checkemail()==false){
     			flag = false;
