@@ -10,12 +10,104 @@
 	<!-- <script type="text/javascript" src="lay"></script> -->
 	<link type="text/css" rel="stylesheet" href="css/login_css.css" th:href="@{static/css/login_css.css}"/>
 <script type="text/javascript" src="js/login_js.js" th:src="@{static/js/login_js.js}" ></script>
+	
+	
 	<script>
-	$(function(){
+	 $(function(){
+			$('#uname').blur(function(){
+				var unametxt=$(this).val();
+				if (unametxt == '' || unametxt==null) {
+					$('#ccc').text('昵称不能为空')
+				}
+			})
+			$('#uname').focus(function(){
+		$('#ccc').text('')
+			})
+			
+	
+	$('#email1').blur(checkemail);
+    $('#password1').blur(checkPassword);
+    	function checkemail(){
+    		//定义一个邮箱的正则表达式  ,并用 test方法验证正则表达式
+	var regCode = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+    	var emailcheck = $('#email1').val();   //email是一个对象
+    	var $msg = $('#emailmsg').html("");//先设置为空 后面判断 再显示提示信息
+    	if(emailcheck=='' || emailcheck==null){
+    		$msg.html('email cant be null')
+    		return false;
+    	}else if (regCode.test(emailcheck)==false){// test() 专门做正则验证 ,如果通过,返回true ,不通过,返回false
+
+    		$msg.html('格式错误');
+    		return false;		
+    	}
+    	return true;
+    	}
+   	
+   	function checkPassword(){
+    		var pwd_length = $('#password1').val().length;
+    		var $msg = $('#ggg').html("");
+    	if(pwd_length<6 || pwd_length>10){
+    		$msg.html("pwd  length   10>pwd>6");
+    		return false;
+    	}
+    	return true;
+    }
+    	//提交表单时 判断返回值 需要全部为true 才能返回后台
+    	$('#myform').submit(function(){
+    		var flag = true;
+    		if(checkemail()==false){
+    			flag = false;
+    		}
+    		if(checkePassword()==false){
+    			flag = false;
+    		}
+    		return flag;
+    	})
+    	})	
+    	
+			
+
+
+    
+	
+	 </script>
+	<!-- <script>
+	function doRegist(){
+		var email =  $('#email1').val();
+		var password =  $('#password1').val();
+		var uname =  $('#uname').val();
+		var pararms ={'registemail':email1,'registpwd':password1,'registuname':uname};// 定义一个js对象
+		$.ajax({
+			url:'toregist',
+			type:'post',
+			contentType:'application/json;charset=UTF-8',//request请求的类型是json类型,字符编码是utf-8
+			data:JSON.stringify(pararms),//将json对象转换成字符串,再向后台传递
+			success:function(e){//e变量就是后台返回的Map对象
+				
+				/* 
+				if(data =="a") {
+					$("#bbb").text("用户名已存在");
+				}else if(data=="b")
+					$("#bbb").text("用户名不能为空");
+				else{
+					$("#bbb").text("");
+				}
+			},
+		});
+	} */
+		
+		
+		
+	}
+	
+	
+	
+	
+	/* $(function(){
 		$("#account1").blur(function() {
 			var value1 = $("#account1").val();
 							$.ajax({
-								url: "registerServlet",
+								url: "register",
 								type: "post",
 								dataType: "text",
 								data: {
@@ -87,10 +179,10 @@
 					},
 				});
 			});
-	})
+	}) */
 	
-	</script>
-	
+	</script> 
+	 -->
 </head>
 <body class="layui-bg-gray" style="width: 100%;height: 100%;">
 	
@@ -109,37 +201,48 @@
 			
 			<div class="login-register">
 				<div class="infor">
-					<form action="" method="post">
+					<form action="login" method="post" id=myform>
 						<div class="input-field">
-							<input name="account" id="account" type="text" spellcheck="false" placeholder="账号" autocomplete="off" />
+							<input name="email" id="email" type="text" spellcheck="false" placeholder="邮箱" autocomplete="off" />
 							<span id="sss"></span>
 						</div>
 						<div class="input-field">
 							<input name="password" id="password" spellcheck="false" type="password" placeholder="密码" autocomplete="off" />
 							<span id="aaa"></span>
 						</div>
+						
 						<div class="action">
 							<input id="subaction" name="subaction" class="subaction" type="submit" value="登录"/>
 						</div>
 					</form>
 				</div>
 				
-				<div class="infor" style="display: none;">
-					<form>
+				
+				
+			
+			
+				<!-- zhuce  -->
+			<div class="infor" style="display: none;">
+					<form action="regist" method="post">
 						<div class="input-field">
-							<input name="account" id="account1" type="text" spellcheck="false" placeholder="账号" autocomplete="off"/>
-							<span id="bbb"></span>
+							<input name="email" id="email1" type="text" spellcheck="false" placeholder="邮箱" autocomplete="off"/>
+							<span id="emailmsg" style="color:red; font-size:14px"></span>
 						</div>
+						<div class="input-field">
+							<input name="uname" id="uname" spellcheck="false" type="text" placeholder="昵称" autocomplete="off" />
+							<span id="ccc" style="color:red; font-size:14px"></span>
+						</div>
+						
 						<div class="input-field">
 							<input name="password" id="password1" spellcheck="false" type="password" placeholder="密码" autocomplete="off" />
-							<span id="ccc"></span>
-						</div>
+							<span id="ggg" style="color:red; font-size:14px"></span>
+						</div> <br>
+						角色:&nbsp;&nbsp;<input type="radio" name="role" value="0"> 教师
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" name="role" value="1" checked="checked"> 学生 <br>
 						<div class="action">
-							<input id="subaction1" name="subaction" class="subaction" type="submit" value="注册"/><br>
+							<input id="subaction1" name="regist" class="subaction" type="submit" value="注册" />
 							<span id="eee" style="font-size:16px"></span>
-							角色:&nbsp;&nbsp;<input type="radio" name="role" value="0">     教师
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                              <input type="radio" name="role" value="1" checked="checked"> 学生 <br>
 						</div>
 					</form>
 				</div>
