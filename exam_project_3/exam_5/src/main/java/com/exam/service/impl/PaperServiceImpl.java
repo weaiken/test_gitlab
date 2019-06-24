@@ -21,7 +21,6 @@ import com.exam.entity.QuesSingleExample.Criteria;
 import com.exam.entity.QuesSingleWithBLOBs;
 import com.exam.service.PaperExamService;
 
-
 @Service
 public class PaperServiceImpl implements PaperExamService{
 	@Autowired

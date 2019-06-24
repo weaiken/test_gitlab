@@ -2,8 +2,6 @@ package com.exam.service;
 
 import java.util.List;
 
-import org.springframework.cache.annotation.Cacheable;
-
 import com.exam.entity.Paper;
 
 public interface PaperService {
