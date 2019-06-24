@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>烂笔头在线测试网 - 首页</title>
+
+		<link type="text/css" rel="stylesheet" href="layui/css/layui.css" th:href="@{static/layui/css/layui.css}" />
+		<script type="text/javascript" src="layui/layui.js" th:src="@{static/layui/layui.js}"></script>
+
+		<script type="text/javascript" src="js/jquery-3.4.1.min.js" th:src="@{static/js/jquery-3.4.1.min.js}"></script>
+
+		<style type="text/css">
+			
+			#app_div {
+				background: gray;
+				height: 100VH;
+				background-position: 50% center;
+				background-repeat: no-repeat;
+				background-size: cover;
+				filter: blur(90px);
+				opacity: 0.6;
+			}
+			#app {
+				height: 100%;
+				width: 100%;
+				background-repeat: no-repeat;
+				background-size: cover;
+			}
+			
+			.app_div {
+				background: gray;
+				height: 100VH;
+				background-position: 50% center;
+				background-repeat: no-repeat;
+				background-size: cover;
+				filter: blur(90px);
+				opacity: 0.6;
+			}
+			.app {
+				height: 100%;
+				width: 100%;
+				background-repeat: no-repeat;
+				background-size: cover;
+			}
+			/*
+			#app {
+				background: gray;
+				background-image: url(img/bg_1.gif);
+				background-image: url(img/bg_2.jpg);
+				background-image: url(img/bg_3.jpg);
+				height: 100VH;
+				background-position: 50% center;
+				background-repeat: no-repeat;
+				background-size: cover;
+				filter: blur(90px);
+				opacity: 0.6;
+			}
+			*/
+			.layui-nav .layui-nav-more {
+				border-style: solid dashed dashed;
+				border-color: #000000 transparent transparent;
+			}
+			.layui-nav .layui-nav-mored,.layui-nav-itemed>a .layui-nav-more {
+				margin-top: -9px;
+				border-style: dashed dashed solid;
+				border-color: transparent transparent #000000;
+			}
+			
+			.layui-nav-item.nav_li:hover {
+				background: rgba(0, 0, 0, 0.1);
+				border-radius: 10px;
+				cursor: pointer;
+			}
+
+			/* .nav_ul li a {
+				color: #000000;
+				font-size: 18px;
+			}
+			
+			.layui-nav-item a {
+				color: #000000;
+				font-size: 18px;
+			}
+			
+			.layui-nav-item {
+				color: #000000;
+			} */
+
+			.layui-nav-item {
+				border: none;
+			}
+
+			.layui-nav-bar {
+				border: none;
+				display: none;
+				text-decoration: none;
+			}
+
+			.nav_ul li a:hover {
+				color: #00FF00;
+			}
+
+			/* 设置 width宽 height高 line-height行高 */
+			.layui-form-switch {
+				width: 75px;
+				height: 30px;
+				line-height: 30px;
+			}
+
+			/* 设置 width宽 height高 两者尺寸保持一样 圆形 top:控制定位上方距离 left:控制左侧距离 */
+			.layui-form-switch i {
+				width: 30px;
+				height: 30px;
+				line-height: 30px;
+				border-radius: 50%;
+				left: 0px;
+				top: 0px;
+			}
+
+			.layui-form-onswitch i {
+				width: 30px;
+				height: 30px;
+				line-height: 30px;
+				border-radius: 50%;
+				left: 75px;
+				top: 0px;
+				/* margin-right: 0px; */
+			}
+
+			.layui-form-switch em {
+				font-size: 18px;
+				margin-left: 35px;
+				text-align: right;
+			}
+
+			/* 操作开关里面的字体 */
+			.layui-form-onswitch em {
+				font-size: 18px;
+				margin-left: 15px;
+			}
+
+			#exam_enter_div,#report_find_div {
+				display: none;
+				position: absolute;
+				top: 275px;
+				left: 12.5%;
+			}
+			
+			.layui-btn:hover {
+				background: none;
+				border: #000000 solid 2px;
+				color: #000000;
+			}
+			
+			.layui-form-item input {
+				height: 45px;
+				margin-top: 15px;
+				font-size: 16px;
+				/* padding-bottom: 4px; */
+				padding: 10px;
+				line-height: 20px;
+				border-style: none none solid;
+				border-radius: 5px;
+				/*
+				border-color: rgba(0, 0, 0, 0. 7);
+				background: rgba(0, 0, 0, 0.1); */
+				
+				border-color: rgba(51,206,195, 0.5);
+				background: rgba(93,206,198, :;);
+				
+				/* width: 350px; */
+				color: black;
+				font-weight: bolder;
+			}
+		</style>
+
+	</head>
+	<body class="" style="width: 100%;height: 100%;">
+		<div id="app_div">
+			<img id="app" src="img/bg_2.jpg" th:src="@{static/img/bg_2.jpg}">
+		</div>
+		
+		<div id="" class="layui-container" style="width: 100%;padding: 0px;position: absolute;top: 0px;">
+
+			<!-- 顶部导航栏 -->
+			<div class="layui-header layui-row" style="width: 100%;padding: 0px;">
+				<!-- <div style=""></div> -->
+				
+				<ul class="layui-nav nav_ul layui-col-md12" th:if="${session.currentUser?.role == 1}" style="padding: 0px;margin: 0px;padding-left: 100px;padding-right: 100px;background: rgba(255, 255, 255, 0.3);">
+					<li class="layui-nav-item">
+						<a href="/to_home">
+							<img src="img/Logo_1.png" th:src="@{static/img/Logo_1.png}" style="width: 125px;height: 47.46835443037975px;" />
+						</a>
+					</li>
+					<li class="layui-nav-item nav_li"><a style="color: #000000;font-size: 18px;" href="/to_home">首页</a></li>
+					<li class="layui-nav-item nav_li">
+						<a style="color: #000000;font-size: 18px;" href="/to_bank_shop">分享社区</a>
+				
+						<!-- 二级菜单 -->
+						<!-- <dl class="layui-nav-child">
+							<dd><a href="#">寻找题库</a></dd>
+							<dd><a href="#">寻找试卷</a></dd>
+						</dl> -->
+					</li>
+				
+					<div id="" style="float: right;">
+						<li class="layui-nav-item">
+							<a href="#" style="color: black;">
+								<img class="layui-nav-img" src="img/photo/tea.jpg" th:src="@{static/img/photo/} + ${session.currentUser.photo}">
+								<label th:text="${session.currentUser.uname}">Resun</label>
+							</a>
+							
+							<!-- 二级菜单 -->
+							<dl class="layui-nav-child">
+								<dd><a href="/toTeaPaperSpace">我的试卷</a></dd>
+								<dd><a href="/toTeaBankSpace">我的题库</a></dd>
+								<dd><a href="/to_edit_info">修改个人信息</a></dd>
+								<dd><a href="/logout">退出</a></dd>
+							</dl>
+						</li>
+					</div>
+				</ul>
+				
+				<ul class="layui-nav nav_ul layui-col-md12" th:if="${session.currentUser?.role == 0}" style="padding: 0px;margin: 0px;padding-left: 100px;padding-right: 100px;background: rgba(255, 255, 255, 0.3);">
+					<li class="layui-nav-item">
+						<a href="/to_home">
+							<img src="img/Logo_1.png" th:src="@{static/img/Logo_1.png}" style="width: 125px;height: 47.46835443037975px;" />
+						</a>
+					</li>
+					<li class="layui-nav-item nav_li"><a style="color: #000000;font-size: 18px;" href="/to_home">首页</a></li>
+					<li class="layui-nav-item nav_li">
+						<a style="color: #000000;font-size: 18px;" href="/to_paper_shop">分享社区</a>
+				
+						<!-- 二级菜单 -->
+						<!-- <dl class="layui-nav-child">
+							<dd><a href="#">寻找题库</a></dd>
+							<dd><a href="#">寻找试卷</a></dd>
+						</dl> -->
+					</li>
+				
+					<div id="" style="float: right;">
+						<li class="layui-nav-item">
+							<a href="#" style="color: black;">
+								<img class="layui-nav-img" src="img/photo/tea.jpg" th:src="@{static/img/photo/} + ${session.currentUser.photo}">
+								<label th:text="${session.currentUser.uname}">Resun</label>
+							</a>
+							
+							<!-- 二级菜单 -->
+							<dl class="layui-nav-child">
+								<dd><a href="/to_stu_space">我的成绩</a></dd>
+								<dd><a href="#">考试入口</a></dd>
+								<dd><a href="#">成绩查询</a></dd>
+								<dd><a href="/to_edit_info">修改个人信息</a></dd>
+								<dd><a href="/logout">退出</a></dd>
+							</dl>
+						</li>
+					</div>
+				</ul>
+				
+				<ul class="layui-nav nav_ul layui-col-md12" th:unless="${session.currentUser}" style="padding: 0px;margin: 0px;padding-left: 100px;padding-right: 100px;background: rgba(255, 255, 255, 0.3);">
+					<li class="layui-nav-item">
+						<a href="/to_home">
+							<img src="img/Logo_1.png" th:src="@{static/img/Logo_1.png}" style="width: 125px;height: 47.46835443037975px;" />
+						</a>
+					</li>
+					<li class="layui-nav-item nav_li"><a style="color: #000000;font-size: 18px;" href="/to_home">首页</a></li>
+					<li class="layui-nav-item nav_li">
+						<a style="color: #000000;font-size: 18px;">分享社区</a>
+				
+						<!-- 二级菜单 -->
+						<dl class="layui-nav-child">
+							<dd><a href="/to_bank_shop">寻找题库</a></dd>
+							<dd><a href="/to_paper_shop">寻找试卷</a></dd>
+						</dl>
+					</li>
+				
+					<div id="" style="float: right;">
+						<li class="layui-nav-item">
+							<button id="login_btn" class="layui-btn layui-btn-normal">登录</button>
+						</li>
+						<span>&nbsp;&nbsp;</span>
+						<li class="layui-nav-item">
+							<button id="register_btn" class="layui-btn layui-btn-danger">注册</button>
+						</li>
+					</div>
+				</ul>
+				
+			</div> <!-- 顶部导航栏结尾 -->
+
+			<!-- 网页主体 -->
+			<div class="layui-row" style="width: 100%;height: 100%;">
+				<!-- <div class="app_div" style="background: ;">
+					
+				</div> -->
+				
+				<div id="">
+					<div style="width: 375px;height: 375px;text-align: center;margin: auto;margin-top: 50px;">
+						<img src="img/Logo_2.png" th:src="@{static/img/Logo_2.png}" style="width: 375px;height: 375px;text-align: center;margin: auto;" />
+					</div>
+
+					<h1 style="text-align: center;">烂笔头在线测试网</h1>
+					<br />
+					<div style="width: 375px;text-align: center;margin: auto;">
+						<hr class="layui-bg-blue">
+						<h2 style="text-align: center;">纸上得来终觉浅</h2>
+						<hr class="layui-bg-blue">
+					</div>
+
+					<div style="font-size: 0px;margin: auto;width: 400px;margin-top: 150px;">
+						<button id="exam_enter_btn" class="layui-btn layui-btn-radius" style="width: 200px;height: 75px;font-size: 24px;border-top-right-radius: 0;border-bottom-right-radius: 0;margin: 0px;margin: 0px;border-right: rgba(255, 255, 255, 0.7) solid 3px;">考试入口</button>px
+						<button id="report_find_btn" class="layui-btn layui-btn-radius" style="width: 200px;height: 75px;font-size: 24px;border-top-left-radius: 0;border-bottom-left-radius: 0;margin: 0px;">查询成绩</button>
+					</div>
+
+				</div>
+				
+				<!-- 进入考试弹窗 -->
+				<div id="exam_enter_div" class="layui-anim layui-anim-up" style="width: 55%;height: 500px;margin: auto;border-radius: 15px;overflow: hidden;left: 22.5%;">
+					<!-- <div id="" style="width: 100%;height: 100%;background: rgba(255, 255, 255, 1);background: url(img/bg_3.jpg);filter: blur(50px);"></div> -->
+
+					<div id="" style="position: absolute;top: 0px;width: 100%;height: 100%;background: rgba(255, 255, 255, 0.7);">
+						<br>
+						<h1 style="text-align: center;">考试入口</h1>
+
+						<div class="layui-row" style="width: 100%;height: 100%;">
+
+							<div id="" class="layui-row" style="height: 75%;width: 85%;margin: auto;top: 75px;position: absolute;margin-left: 7.5%;position: absolute;background: rgba(255, 255, 255, 1);">
+								
+								<div class="layui-col-md4 layui-row" style="height: 100%;border-right: lightgray double 2px;position: absolute;top: 0px;">
+									<!-- <div id="" style="width: 100%;height: 100%;background: rgba(255, 255, 255,0.5);filter: blur(90px);"></div> -->
+									<!-- background: lightgray;opacity: 0.3; -->
+									<div id="" class="layui-form layui-col-md12" style="padding: 15px;position: absolute;top: 0px;">
+										<div class="layui-form-item" id="" style="">
+											<label class="layui-form-label" style="width: 110px;color: #000000;font-size: 18px;padding: 15px;">有无邀请码：</label>
+
+											<div id="invite_code_check_div" class="layui-input-block " style="width: 125px;">
+												<input id="invite_code_check" type="checkbox" name="switch" lay-skin="switch" lay-text="有|无" value="1" checked style="margin: 0px;">
+											</div>
+
+											<div id="invite_code_div" class="layui-form-item layui-anim layui-anim-scale" style="margin: 15px auto;">
+												<input class="layui-input" required="required" placeholder="考试邀请码" style="text-align: center;" />
+											</div>
+
+											<div id="examinee_info_div" class="layui-form-item layui-anim layui-anim-scale" style="display: none;">
+												<input class="layui-input" required="required" placeholder="姓名" style="text-align: center;" />
+												<input class="layui-input" required="required" placeholder="邮箱" style="text-align: center;" />
+											</div>
+
+											<button id="get_paper_btn" class="layui-btn :hover{color: #000000;}" style="margin: auto;width: 100%;">查询考试</button>
+											
+											<button id="close_paper_btn" class="layui-btn :hover{color: #000000;} layui-btn-normal" style="margin: auto;width: 100%;margin-top: 15px;">关闭</button>
+										</div>
+
+									</div>
+
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				
+				<!-- 查询成绩弹窗 -->
+				<div id="report_find_div" class="layui-anim layui-anim-up" style="width: 55%;height: 500px;margin: auto;border-radius: 15px;overflow: hidden;left: 22.5%;">
+					<!-- <div id="" style="width: 100%;height: 100%;background: rgba(255, 255, 255, 1);background: url(img/bg_3.jpg);filter: blur(50px);"></div> -->
+				
+					<div id="" style="position: absolute;top: 0px;width: 100%;height: 100%;background: rgba(255, 255, 255, 0.7);">
+						<br>
+						<h1 style="text-align: center;">查询成绩</h1>
+				
+						<div class="layui-row" style="width: 100%;height: 100%;">
+				
+							<div id="" class="layui-row" style="height: 75%;width: 85%;margin: auto;top: 75px;position: absolute;margin-left: 7.5%;position: absolute;background: rgba(255, 255, 255, 1);">
+								
+								<div class="layui-col-md4 layui-row" style="height: 100%;border-right: lightgray double 2px;position: absolute;top: 0px;">
+									<!-- <div id="" style="width: 100%;height: 100%;background: rgba(255, 255, 255,0.5);filter: blur(90px);"></div> -->
+									<!-- background: lightgray;opacity: 0.3; -->
+									<div id="" class="layui-form layui-col-md12" style="padding: 15px;position: absolute;top: 0px;">
+										<div class="layui-form-item" id="" style="">
+				
+											<div id="invite_code_div" class="layui-form-item layui-anim layui-anim-up" style="margin: 15px auto;">
+												<input class="layui-input" required="required" placeholder="成绩查询码" style="text-align: center;" />
+											</div>
+				
+											<button id="report_find_btn" class="layui-btn :hover{color: #000000;}" style="margin: auto;width: 100%;">查询成绩</button>
+											<button id="close_report_btn" class="layui-btn :hover{color: #000000;} layui-btn-normal" style="margin: auto;width: 100%;margin-top: 15px;">关闭</button>
+										</div>
+				
+									</div>
+				
+								</div>
+							</div>
+				
+						</div>
+					</div>
+				</div>
+				
+			</div>
+
+
+		</div>
+	</body>
+</html>
+
+<script type="text/javascript">
+	layui.use(['element', 'layer', 'form'], function() {
+		var element = layui.element,
+			layer = layui.layer,
+			form = layui.form;
+	});
+	
+	$('#login_btn').click(function(){
+		window.location.href = '/to_login';
+	})
+	$('#register_btn').click(function(){
+		window.location.href = '/to_register';
+	})
+
+	$('#invite_code_check_div').click(function() {
+
+		if ($('#invite_code_check').is(':checked') != true) {
+			$('#invite_code_div').hide();
+			$('#examinee_info_div').show();
+			return;
+		}
+
+		$('#examinee_info_div').hide();
+		$('#invite_code_div').show();
+	})
+
+	$('#exam_enter_btn').click(function() {
+		$('#exam_enter_div').show();
+	})
+	$('#close_paper_btn').click(function(){
+		$('#exam_enter_div').hide();
+	})
+	$('#report_find_btn').click(function() {
+		$('#report_find_div').show();
+	})
+	$('#close_report_btn').click(function(){
+		$('#report_find_div').hide();
+	})
+</script>

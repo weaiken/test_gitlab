@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exam.dao.UserinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.exam.entity.Userinfo" >
+    <id column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="uname" property="uname" jdbcType="VARCHAR" />
+    <result column="role" property="role" jdbcType="INTEGER" />
+    <result column="photo" property="photo" jdbcType="VARCHAR" />
+    <result column="active" property="active" jdbcType="INTEGER" />
+    <result column="int_1" property="int1" jdbcType="INTEGER" />
+    <result column="int_2" property="int2" jdbcType="INTEGER" />
+    <result column="var_1" property="var1" jdbcType="VARCHAR" />
+    <result column="var_2" property="var2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    uid, email, password, uname, role, photo, active, int_1, int_2, var_1, var_2
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.exam.entity.UserinfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from userinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from userinfo
+    where uid = #{uid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from userinfo
+    where uid = #{uid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.exam.entity.UserinfoExample" >
+    delete from userinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.exam.entity.Userinfo" >
+    insert into userinfo (uid, email, password, 
+      uname, role, photo, 
+      active, int_1, int_2, 
+      var_1, var_2)
+    values (#{uid,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{uname,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER}, #{photo,jdbcType=VARCHAR}, 
+      #{active,jdbcType=INTEGER}, #{int1,jdbcType=INTEGER}, #{int2,jdbcType=INTEGER}, 
+      #{var1,jdbcType=VARCHAR}, #{var2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.exam.entity.Userinfo" >
+    insert into userinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="uname != null" >
+        uname,
+      </if>
+      <if test="role != null" >
+        role,
+      </if>
+      <if test="photo != null" >
+        photo,
+      </if>
+      <if test="active != null" >
+        active,
+      </if>
+      <if test="int1 != null" >
+        int_1,
+      </if>
+      <if test="int2 != null" >
+        int_2,
+      </if>
+      <if test="var1 != null" >
+        var_1,
+      </if>
+      <if test="var2 != null" >
+        var_2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="uname != null" >
+        #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null" >
+        #{role,jdbcType=INTEGER},
+      </if>
+      <if test="photo != null" >
+        #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="active != null" >
+        #{active,jdbcType=INTEGER},
+      </if>
+      <if test="int1 != null" >
+        #{int1,jdbcType=INTEGER},
+      </if>
+      <if test="int2 != null" >
+        #{int2,jdbcType=INTEGER},
+      </if>
+      <if test="var1 != null" >
+        #{var1,jdbcType=VARCHAR},
+      </if>
+      <if test="var2 != null" >
+        #{var2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.exam.entity.UserinfoExample" resultType="java.lang.Integer" >
+    select count(*) from userinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update userinfo
+    <set >
+      <if test="record.uid != null" >
+        uid = #{record.uid,jdbcType=INTEGER},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uname != null" >
+        uname = #{record.uname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.role != null" >
+        role = #{record.role,jdbcType=INTEGER},
+      </if>
+      <if test="record.photo != null" >
+        photo = #{record.photo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.active != null" >
+        active = #{record.active,jdbcType=INTEGER},
+      </if>
+      <if test="record.int1 != null" >
+        int_1 = #{record.int1,jdbcType=INTEGER},
+      </if>
+      <if test="record.int2 != null" >
+        int_2 = #{record.int2,jdbcType=INTEGER},
+      </if>
+      <if test="record.var1 != null" >
+        var_1 = #{record.var1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.var2 != null" >
+        var_2 = #{record.var2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update userinfo
+    set uid = #{record.uid,jdbcType=INTEGER},
+      email = #{record.email,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      uname = #{record.uname,jdbcType=VARCHAR},
+      role = #{record.role,jdbcType=INTEGER},
+      photo = #{record.photo,jdbcType=VARCHAR},
+      active = #{record.active,jdbcType=INTEGER},
+      int_1 = #{record.int1,jdbcType=INTEGER},
+      int_2 = #{record.int2,jdbcType=INTEGER},
+      var_1 = #{record.var1,jdbcType=VARCHAR},
+      var_2 = #{record.var2,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.exam.entity.Userinfo" >
+    update userinfo
+    <set >
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="uname != null" >
+        uname = #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null" >
+        role = #{role,jdbcType=INTEGER},
+      </if>
+      <if test="photo != null" >
+        photo = #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="active != null" >
+        active = #{active,jdbcType=INTEGER},
+      </if>
+      <if test="int1 != null" >
+        int_1 = #{int1,jdbcType=INTEGER},
+      </if>
+      <if test="int2 != null" >
+        int_2 = #{int2,jdbcType=INTEGER},
+      </if>
+      <if test="var1 != null" >
+        var_1 = #{var1,jdbcType=VARCHAR},
+      </if>
+      <if test="var2 != null" >
+        var_2 = #{var2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where uid = #{uid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.exam.entity.Userinfo" >
+    update userinfo
+    set email = #{email,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      uname = #{uname,jdbcType=VARCHAR},
+      role = #{role,jdbcType=INTEGER},
+      photo = #{photo,jdbcType=VARCHAR},
+      active = #{active,jdbcType=INTEGER},
+      int_1 = #{int1,jdbcType=INTEGER},
+      int_2 = #{int2,jdbcType=INTEGER},
+      var_1 = #{var1,jdbcType=VARCHAR},
+      var_2 = #{var2,jdbcType=VARCHAR}
+    where uid = #{uid,jdbcType=INTEGER}
+  </update>
+  
+   <insert id="addUser">
+  	insert into userinfo (email,password,role,uname,active) values (#{email},#{password},#{role},#{uname},0)
+  </insert> 
+  
+  
+  
+  
+  
+  
+  <!-- 经过分析，原来是因为配置文件中，mybatis指定别名时，指定的是一个包路径，而不是一个具体的类。恰巧该项目依赖的jar包中，有2个不同jar包，存在同名类，并且所在包路径的顶层是相同的，故而出现此错误。
+修改方法很简单，可以修改配置文件中的包路径，或者修改其中一个类名。
+
+   -->
+</mapper>

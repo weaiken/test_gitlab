@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exam.dao.BankToQUesMapper" >
+  <resultMap id="BaseResultMap" type="com.exam.entity.BankToQUes" >
+    <id column="bqid" property="bqid" jdbcType="INTEGER" />
+    <result column="bid" property="bid" jdbcType="INTEGER" />
+    <result column="qid" property="qid" jdbcType="INTEGER" />
+    <result column="qorder" property="qorder" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="int_1" property="int1" jdbcType="INTEGER" />
+    <result column="int_2" property="int2" jdbcType="INTEGER" />
+    <result column="var_1" property="var1" jdbcType="VARCHAR" />
+    <result column="var_2" property="var2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    bqid, bid, qid, qorder, type, int_1, int_2, var_1, var_2
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.exam.entity.BankToQUesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bank_ques_mapping
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from bank_ques_mapping
+    where bqid = #{bqid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bank_ques_mapping
+    where bqid = #{bqid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.exam.entity.BankToQUesExample" >
+    delete from bank_ques_mapping
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.exam.entity.BankToQUes" >
+    insert into bank_ques_mapping (bqid, bid, qid, 
+      qorder, type, int_1, 
+      int_2, var_1, var_2)
+    values (#{bqid,jdbcType=INTEGER}, #{bid,jdbcType=INTEGER}, #{qid,jdbcType=INTEGER}, 
+      #{qorder,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{int1,jdbcType=INTEGER}, 
+      #{int2,jdbcType=INTEGER}, #{var1,jdbcType=VARCHAR}, #{var2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.exam.entity.BankToQUes" >
+    insert into bank_ques_mapping
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bqid != null" >
+        bqid,
+      </if>
+      <if test="bid != null" >
+        bid,
+      </if>
+      <if test="qid != null" >
+        qid,
+      </if>
+      <if test="qorder != null" >
+        qorder,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="int1 != null" >
+        int_1,
+      </if>
+      <if test="int2 != null" >
+        int_2,
+      </if>
+      <if test="var1 != null" >
+        var_1,
+      </if>
+      <if test="var2 != null" >
+        var_2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bqid != null" >
+        #{bqid,jdbcType=INTEGER},
+      </if>
+      <if test="bid != null" >
+        #{bid,jdbcType=INTEGER},
+      </if>
+      <if test="qid != null" >
+        #{qid,jdbcType=INTEGER},
+      </if>
+      <if test="qorder != null" >
+        #{qorder,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="int1 != null" >
+        #{int1,jdbcType=INTEGER},
+      </if>
+      <if test="int2 != null" >
+        #{int2,jdbcType=INTEGER},
+      </if>
+      <if test="var1 != null" >
+        #{var1,jdbcType=VARCHAR},
+      </if>
+      <if test="var2 != null" >
+        #{var2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.exam.entity.BankToQUesExample" resultType="java.lang.Integer" >
+    select count(*) from bank_ques_mapping
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update bank_ques_mapping
+    <set >
+      <if test="record.bqid != null" >
+        bqid = #{record.bqid,jdbcType=INTEGER},
+      </if>
+      <if test="record.bid != null" >
+        bid = #{record.bid,jdbcType=INTEGER},
+      </if>
+      <if test="record.qid != null" >
+        qid = #{record.qid,jdbcType=INTEGER},
+      </if>
+      <if test="record.qorder != null" >
+        qorder = #{record.qorder,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.int1 != null" >
+        int_1 = #{record.int1,jdbcType=INTEGER},
+      </if>
+      <if test="record.int2 != null" >
+        int_2 = #{record.int2,jdbcType=INTEGER},
+      </if>
+      <if test="record.var1 != null" >
+        var_1 = #{record.var1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.var2 != null" >
+        var_2 = #{record.var2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update bank_ques_mapping
+    set bqid = #{record.bqid,jdbcType=INTEGER},
+      bid = #{record.bid,jdbcType=INTEGER},
+      qid = #{record.qid,jdbcType=INTEGER},
+      qorder = #{record.qorder,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=INTEGER},
+      int_1 = #{record.int1,jdbcType=INTEGER},
+      int_2 = #{record.int2,jdbcType=INTEGER},
+      var_1 = #{record.var1,jdbcType=VARCHAR},
+      var_2 = #{record.var2,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.exam.entity.BankToQUes" >
+    update bank_ques_mapping
+    <set >
+      <if test="bid != null" >
+        bid = #{bid,jdbcType=INTEGER},
+      </if>
+      <if test="qid != null" >
+        qid = #{qid,jdbcType=INTEGER},
+      </if>
+      <if test="qorder != null" >
+        qorder = #{qorder,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="int1 != null" >
+        int_1 = #{int1,jdbcType=INTEGER},
+      </if>
+      <if test="int2 != null" >
+        int_2 = #{int2,jdbcType=INTEGER},
+      </if>
+      <if test="var1 != null" >
+        var_1 = #{var1,jdbcType=VARCHAR},
+      </if>
+      <if test="var2 != null" >
+        var_2 = #{var2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where bqid = #{bqid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.exam.entity.BankToQUes" >
+    update bank_ques_mapping
+    set bid = #{bid,jdbcType=INTEGER},
+      qid = #{qid,jdbcType=INTEGER},
+      qorder = #{qorder,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      int_1 = #{int1,jdbcType=INTEGER},
+      int_2 = #{int2,jdbcType=INTEGER},
+      var_1 = #{var1,jdbcType=VARCHAR},
+      var_2 = #{var2,jdbcType=VARCHAR}
+    where bqid = #{bqid,jdbcType=INTEGER}
+  </update>
+</mapper>

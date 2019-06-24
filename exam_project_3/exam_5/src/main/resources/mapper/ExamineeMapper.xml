@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exam.dao.ExamineeMapper" >
+  <resultMap id="BaseResultMap" type="com.exam.entity.Examinee" >
+    <id column="eid" property="eid" jdbcType="INTEGER" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="ename" property="ename" jdbcType="VARCHAR" />
+    <result column="eemail" property="eemail" jdbcType="VARCHAR" />
+    <result column="classs" property="classs" jdbcType="VARCHAR" />
+    <result column="studentid" property="studentid" jdbcType="INTEGER" />
+    <result column="isfinish" property="isfinish" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="isLimit" property="islimit" jdbcType="INTEGER" />
+    <result column="beg_time" property="begTime" jdbcType="VARCHAR" />
+    <result column="end_time" property="endTime" jdbcType="VARCHAR" />
+    <result column="int_1" property="int1" jdbcType="INTEGER" />
+    <result column="int_2" property="int2" jdbcType="INTEGER" />
+    <result column="var_1" property="var1" jdbcType="VARCHAR" />
+    <result column="var_2" property="var2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    eid, pid, ename, eemail, classs, studentid, isfinish, uid, isLimit, beg_time, end_time, 
+    int_1, int_2, var_1, var_2
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.exam.entity.ExamineeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from examinee
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from examinee
+    where eid = #{eid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from examinee
+    where eid = #{eid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.exam.entity.ExamineeExample" >
+    delete from examinee
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.exam.entity.Examinee" >
+    insert into examinee (eid, pid, ename, 
+      eemail, classs, studentid, 
+      isfinish, uid, isLimit, 
+      beg_time, end_time, int_1, 
+      int_2, var_1, var_2)
+    values (#{eid,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, #{ename,jdbcType=VARCHAR}, 
+      #{eemail,jdbcType=VARCHAR}, #{classs,jdbcType=VARCHAR}, #{studentid,jdbcType=INTEGER}, 
+      #{isfinish,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{islimit,jdbcType=INTEGER}, 
+      #{begTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR}, #{int1,jdbcType=INTEGER}, 
+      #{int2,jdbcType=INTEGER}, #{var1,jdbcType=VARCHAR}, #{var2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.exam.entity.Examinee" >
+    insert into examinee
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="eid != null" >
+        eid,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="ename != null" >
+        ename,
+      </if>
+      <if test="eemail != null" >
+        eemail,
+      </if>
+      <if test="classs != null" >
+        classs,
+      </if>
+      <if test="studentid != null" >
+        studentid,
+      </if>
+      <if test="isfinish != null" >
+        isfinish,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="islimit != null" >
+        isLimit,
+      </if>
+      <if test="begTime != null" >
+        beg_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="int1 != null" >
+        int_1,
+      </if>
+      <if test="int2 != null" >
+        int_2,
+      </if>
+      <if test="var1 != null" >
+        var_1,
+      </if>
+      <if test="var2 != null" >
+        var_2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="eid != null" >
+        #{eid,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="ename != null" >
+        #{ename,jdbcType=VARCHAR},
+      </if>
+      <if test="eemail != null" >
+        #{eemail,jdbcType=VARCHAR},
+      </if>
+      <if test="classs != null" >
+        #{classs,jdbcType=VARCHAR},
+      </if>
+      <if test="studentid != null" >
+        #{studentid,jdbcType=INTEGER},
+      </if>
+      <if test="isfinish != null" >
+        #{isfinish,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="islimit != null" >
+        #{islimit,jdbcType=INTEGER},
+      </if>
+      <if test="begTime != null" >
+        #{begTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="int1 != null" >
+        #{int1,jdbcType=INTEGER},
+      </if>
+      <if test="int2 != null" >
+        #{int2,jdbcType=INTEGER},
+      </if>
+      <if test="var1 != null" >
+        #{var1,jdbcType=VARCHAR},
+      </if>
+      <if test="var2 != null" >
+        #{var2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.exam.entity.ExamineeExample" resultType="java.lang.Integer" >
+    select count(*) from examinee
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update examinee
+    <set >
+      <if test="record.eid != null" >
+        eid = #{record.eid,jdbcType=INTEGER},
+      </if>
+      <if test="record.pid != null" >
+        pid = #{record.pid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ename != null" >
+        ename = #{record.ename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eemail != null" >
+        eemail = #{record.eemail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classs != null" >
+        classs = #{record.classs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentid != null" >
+        studentid = #{record.studentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.isfinish != null" >
+        isfinish = #{record.isfinish,jdbcType=INTEGER},
+      </if>
+      <if test="record.uid != null" >
+        uid = #{record.uid,jdbcType=INTEGER},
+      </if>
+      <if test="record.islimit != null" >
+        isLimit = #{record.islimit,jdbcType=INTEGER},
+      </if>
+      <if test="record.begTime != null" >
+        beg_time = #{record.begTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endTime != null" >
+        end_time = #{record.endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.int1 != null" >
+        int_1 = #{record.int1,jdbcType=INTEGER},
+      </if>
+      <if test="record.int2 != null" >
+        int_2 = #{record.int2,jdbcType=INTEGER},
+      </if>
+      <if test="record.var1 != null" >
+        var_1 = #{record.var1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.var2 != null" >
+        var_2 = #{record.var2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update examinee
+    set eid = #{record.eid,jdbcType=INTEGER},
+      pid = #{record.pid,jdbcType=INTEGER},
+      ename = #{record.ename,jdbcType=VARCHAR},
+      eemail = #{record.eemail,jdbcType=VARCHAR},
+      classs = #{record.classs,jdbcType=VARCHAR},
+      studentid = #{record.studentid,jdbcType=INTEGER},
+      isfinish = #{record.isfinish,jdbcType=INTEGER},
+      uid = #{record.uid,jdbcType=INTEGER},
+      isLimit = #{record.islimit,jdbcType=INTEGER},
+      beg_time = #{record.begTime,jdbcType=VARCHAR},
+      end_time = #{record.endTime,jdbcType=VARCHAR},
+      int_1 = #{record.int1,jdbcType=INTEGER},
+      int_2 = #{record.int2,jdbcType=INTEGER},
+      var_1 = #{record.var1,jdbcType=VARCHAR},
+      var_2 = #{record.var2,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.exam.entity.Examinee" >
+    update examinee
+    <set >
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="ename != null" >
+        ename = #{ename,jdbcType=VARCHAR},
+      </if>
+      <if test="eemail != null" >
+        eemail = #{eemail,jdbcType=VARCHAR},
+      </if>
+      <if test="classs != null" >
+        classs = #{classs,jdbcType=VARCHAR},
+      </if>
+      <if test="studentid != null" >
+        studentid = #{studentid,jdbcType=INTEGER},
+      </if>
+      <if test="isfinish != null" >
+        isfinish = #{isfinish,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="islimit != null" >
+        isLimit = #{islimit,jdbcType=INTEGER},
+      </if>
+      <if test="begTime != null" >
+        beg_time = #{begTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="int1 != null" >
+        int_1 = #{int1,jdbcType=INTEGER},
+      </if>
+      <if test="int2 != null" >
+        int_2 = #{int2,jdbcType=INTEGER},
+      </if>
+      <if test="var1 != null" >
+        var_1 = #{var1,jdbcType=VARCHAR},
+      </if>
+      <if test="var2 != null" >
+        var_2 = #{var2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where eid = #{eid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.exam.entity.Examinee" >
+    update examinee
+    set pid = #{pid,jdbcType=INTEGER},
+      ename = #{ename,jdbcType=VARCHAR},
+      eemail = #{eemail,jdbcType=VARCHAR},
+      classs = #{classs,jdbcType=VARCHAR},
+      studentid = #{studentid,jdbcType=INTEGER},
+      isfinish = #{isfinish,jdbcType=INTEGER},
+      uid = #{uid,jdbcType=INTEGER},
+      isLimit = #{islimit,jdbcType=INTEGER},
+      beg_time = #{begTime,jdbcType=VARCHAR},
+      end_time = #{endTime,jdbcType=VARCHAR},
+      int_1 = #{int1,jdbcType=INTEGER},
+      int_2 = #{int2,jdbcType=INTEGER},
+      var_1 = #{var1,jdbcType=VARCHAR},
+      var_2 = #{var2,jdbcType=VARCHAR}
+    where eid = #{eid,jdbcType=INTEGER}
+  </update>
+</mapper>

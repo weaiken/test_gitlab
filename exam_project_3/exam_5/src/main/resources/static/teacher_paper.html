@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>我的考试</title>
+		
+		<link type="text/css" rel="stylesheet" href="layui/css/layui.css" th:href="@{static/layui/css/layui.css}"/>
+		<script type="text/javascript" src="layui/layui.js" th:src="@{static/layui/layui.js}"></script>
+		
+		<script type="text/javascript" src="js/jquery-3.4.1.min.js" th:src="@{static/js/jquery-3.4.1.min.js}"></script>
+		
+		<style>
+			.nav_ul li a {
+				font-size: 18px;
+				width: 100px;
+				text-align: center;
+				color: white;
+				font-weight: bold;
+			}
+			
+			.layui-tab-title li{
+				display: block;
+			}
+			.layui-tab-title{
+				float: left;
+			}
+			.layui-tab-content{
+				float: left;
+			}
+			
+			.layui-tab-title li {
+				border: none;
+			}
+			.layui-tab-title li a {
+				font-size: 18px;
+			}
+			.layui-tab-title li:hover {
+				background: #00FF00;
+			}
+			
+			
+			.paper_div {
+				/* border-top: #009688 solid 5px; */
+				padding: 0px;
+			}
+			
+			.paper_setting_menu {
+				display: none;
+				text-align: center;
+				width: 120px;
+				background: white;
+				box-shadow: 2px 2px 25px cadetblue;
+				z-index: 999999;
+				border-radius: 5px;
+				font-weight: bold;
+			}
+			
+			.paper_setting_menu ul li {
+				font-size: 14px;
+				height: 40px;
+			}
+			
+			.paper_setting_menu ul li:hover {
+				background: #2D93CA;
+				color: white;
+				border-radius: 5px;
+			}
+			
+		</style>
+		
+	</head>
+	<body class="layui-bg-gray" style="width: 100%;height: 100%;">
+		<!-- 页面容器/ -->
+		<div class="layui-container" style="width: 100%;padding: 0px;">
+			
+			<!-- 顶部导航栏 -->
+			<div class="layui-row">
+				<ul class="layui-nav nav_ul"  style="padding: 0px;margin: 0px;padding-left: 100px;padding-right: 100px;background: #409EFF;">
+					<li class="layui-nav-item"><a>首页</a></li>
+					<li class="layui-nav-item"><a>考试</a></li>
+					<li class="layui-nav-item"><a>题库</a></li>
+					<li class="layui-nav-item"><a>寻找题库</a></li>
+					
+					<!-- 用户名 -->
+					<li class="layui-nav-item" style="float: right;">
+						<a href="#" style="color: black;">
+							<img class="layui-nav-img" src="img/photo/tea.jpg">
+							Resun
+						</a>
+						
+						<!-- 二级菜单 -->
+						<dl class="layui-nav-child">
+							<dd><a href="#">修改个人信息</a></dd>
+							<dd><a href="#">退出</a></dd>
+						</dl>
+					</li>
+				</ul>
+			</div> <!-- 顶部导航栏结尾 -->
+			
+			<div class="layui-row" style="width: 100%;height: 900px;padding: 0px;margin: 0px;">
+				<!-- 创建试卷 -->
+				
+				<!-- 其他功能实现 -->
+				<div class="layui-row layui-tab layui-tab-brief" lay-filter="docDemoTabBrief" style="height: 100%;">
+					
+					<div class="layui-col-md1" style="background: #009688;height: 100%;">
+						<!-- 创建试卷 -->
+						<button class="layui-btn layui-btn-normal" style="width: 100%;height: 50px;margin: auto;font-size: 20px;">
+							<i class="layui-icon">&#xe654;</i>&nbsp;创建试卷
+							</button>
+						
+						<ul class="layui-tab-title tab_title" style="font-size: 30px;font-weight: bold;width: 100%;">
+							<li class="layui-this" id="my_papers_li"><a>我的试卷</a></li>
+							<li><a>正在进行</a></li>
+							<li><a>我的邀请</a></li>
+							<li><a>我的分享</a></li>
+						</ul>
+					</div>
+					
+					<div class="layui-tab-content layui-col-md11" style="height: 100%;">
+						<!-- 我的试卷tab content -->
+						<div id="my_papers_div" th:fragment="my_papers_div" class="layui-tab-item layui-row grid-demo layui-show" style="padding: 25px;width: 95%;">
+							
+							<div class="paper_div layui-col-md3" th:each="paper,stat:${paper_list}" style="padding-left: 25px;padding-right: 25px;margin-bottom: 25px;">
+								<div class="pid" style="display: none;" th:text="${paper.pid}">试卷id</div>
+								<div class="layui-card" style="border-top: #009688 solid 3px;">
+									<div class="layui-card-header">
+										<a id="paper_name" style="font-size: 24px;" th:text="${paper.pname}">试卷名</a>
+										<a class="paper_setting_a" style="float: right;">
+											<i class="layui-icon" style="font-size: 20px;">&#xe614;</i>
+											<div class="paper_setting_menu" style="">
+												<ul class="">													
+													<li class="paper_setting"><i class="layui-icon">&#xe631;</i>&nbsp;考试设置</li>
+													<li class="col_info_li"><i class="layui-icon">&#xe612;</i>&nbsp;采集信息</li>
+													<li class="copy_paper_li"><i class="layui-icon">&#xe63c;</i>&nbsp;复制试卷</li>
+													<li><i class="layui-icon">&#xe642;</i>&nbsp;编辑试卷</li>
+													<li class="share_paper_li"><i class="layui-icon">&#xe641;</i>&nbsp;分享考试</li>
+													<li class="del_paper_li"><i class="layui-icon">&#x1006;</i>&nbsp;删除试卷</li>
+												</ul>
+											</div>
+										</a>
+									</div>
+									<div class="layui-card-body">
+										<div><a style="font-size: 15px;" th:text="${paper.date}">试卷更新时间</a></div><br />
+										<div>
+											<a style="color: red;" th:if="${paper.type eq 0}"><i class="layui-icon">&#xe673;</i>私有</a>
+											<a style="color: limegreen;" th:if="${paper.type eq 1}"><i class="layui-icon">&#xe672;</i>公开</a>
+											
+											<button style="width: 70px;height: 25px;float: right;background: #01AAED;border: none;font-weight: bold;color: white;">
+												考生录入
+											</button>
+										</div>
+									</div>
+									<div class="paper_exam" style="padding-left: 15px;padding-right: 15px;background: #f5f7fa;margin: 0px;padding-top: 10px;height: 30px;">
+										<a>
+											<i class="layui-icon">&#xe613;</i>
+											<span class="layui-badge-rim" th:text="${examineeNum[stat.index]}"></span>
+										</a>
+										
+										<a style="float: right;">
+											<i class="layui-icon" style="color: black;font-size: 18px;font-weight: bolder;">&#xe60a;</i>
+											<span class="layui-badge-rim" th:text="${reportNum[stat.index]}">15</span>
+										</a>
+									</div>
+								</div>
+							</div>
+							
+							
+						</div>
+						
+						<div class="layui-tab-item">
+							正在进行的考试……
+						</div>
+						
+						<div class="layui-tab-item">
+							<table class="layui-table" lay-skin="line">
+								<colgroup>
+									<col width="" />
+									<col width="" />
+									<col width="" />
+								</colgroup>
+								
+								<thead>
+									<tr>
+										<th>姓名</th>
+										<th>邮箱</th>
+										<th>邀请时间</th>
+										<th>参与考试</th>
+										<th>允许进入时间</th>
+										<th>失效时间</th>
+										<th>答题状态</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Resun</td>
+										<td>1111@qq.com</td>
+										<td>2019-6-17 18:00</td>
+										<td>试卷一</td>
+										<td>2019-6-17 19:00</td>
+										<td>2019-6-17 20:00</td>
+										<td>否</td>
+										<td><a style="color: #0000FF;cursor: pointer;text-decoration: underline;">删除</a></td>
+									</tr>
+									<tr>
+										<td>Resun_1</td>
+										<td>1111@qq.com</td>
+										<td>2019-6-17 18:00</td>
+										<td>试卷一</td>
+										<td>2019-6-17 19:00</td>
+										<td>2019-6-17 20:00</td>
+										<td>否</td>
+										<td><a style="color: #0000FF;cursor: pointer;text-decoration: underline;">删除</a></td>
+									</tr>
+									<tr>
+										<td>Resun_2</td>
+										<td>1111@qq.com</td>
+										<td>2019-6-17 18:00</td>
+										<td>试卷一</td>
+										<td>2019-6-17 19:00</td>
+										<td>2019-6-17 20:00</td>
+										<td>否</td>
+										<td><a style="color: #0000FF;cursor: pointer;text-decoration: underline;">删除</a></td>
+									</tr>
+									
+								</tbody>
+								
+							</table>
+						</div>
+						
+						<div class="layui-tab-item">kaoshi tab 4</div>
+						
+						
+						<!-- 考试设置 -->
+						<div id="paper_setting_div" class="layui-row" style="margin-top: 25px;display: none;width: 100%;">
+							<div class=" layui-col-md10 layui-col-md-offset1 layui-row" style="width: 550px;">
+						
+								<fieldset class="layui-elem-field" style="padding-top: 15px;padding-bottom: 15px;">
+									<legend>考试开放时间区间</legend>
+						
+									<div class="layui-field-box">
+										<div class="layui-form">
+						
+											<div id="date_div" class="layui-form-item">
+												<!-- 设置考试时间开关 -->
+												<label class="layui-form-label" style="width: 100px;">设置考试时间</label>
+												<div class="layui-input-block">
+													<input id="set_date" type="checkbox" name="switch" lay-skin="switch" lay-text="√|×" value="1">
+												</div>
+												
+												<!-- 设置时间面板 -->
+												<div id="date_input_div" class="layui-row layui-col-space30" style="display: none;">
+													
+													<!-- 考试开始时间设置 -->
+													<div class="layui-col-md6" style="">
+														<p class="" style="text-align: center;width: 100%;font-size: 18px;">开始</p>
+														
+														<div class="" style="height: 30px;padding: 5px 15px;margin-bottom: 5px;">
+															<label class="" style="display: inline-block;width: 50px;line-height: 25px;text-align: center;">日期</label>
+															<div class="" style="width: 50px;display: inline-block;">
+																<input id="start_date" type="text" class="" placeholder="" style="width: 150px;text-align: center;line-height: 25px">
+															</div>
+														</div>
+														
+														<div class="" style="height: 30px;padding: 5px 15px;margin-bottom: 5px;">
+															<label class="" style="display: inline-block;width: 50px;line-height: 25px;text-align: center;">时间</label>
+															<div class="" style="width: 50px;display: inline-block;">
+																<input id="start_time" type="text" class="" placeholder="" style="width: 150px;text-align: center;line-height: 25px">
+															</div>
+														</div>
+														
+													</div>
+													
+													<!-- 考试结束时间设置 -->
+													<div class="layui-col-md6" style="">
+														<p class="" style="text-align: center;width: 100%;font-size: 18px;">结束</p>
+														
+														<div class="" style="height: 30px;padding: 5px 15px;margin-bottom: 5px;">
+															<label class="" style="display: inline-block;width: 50px;line-height: 25px;text-align: center;">日期</label>
+															<div class="" style="width: 50px;display: inline-block;">
+																<input id="end_date" type="text" class="" placeholder="" style="width: 150px;text-align: center;line-height: 25px">
+															</div>
+														</div>
+														
+														<div class="" style="height: 30px;padding: 5px 15px;margin-bottom: 5px;">
+															<label class="" style="display: inline-block;width: 50px;line-height: 25px;text-align: center;">时间</label>
+															<div class="" style="width: 50px;display: inline-block;">
+																<input id="end_time" type="text" class="" placeholder="" style="width: 150px;text-align: center;line-height: 25px">
+															</div>
+														</div>
+														
+													</div>
+													
+													
+												</div>
+											</div>
+										</div>
+									</div>
+								</fieldset>
+						
+								<fieldset class="layui-elem-field" style="padding-top: 15px;padding-bottom: 15px;">
+									<legend>考试权限设置</legend>
+						
+									<div class="layui-field-box">
+										<div class="layui-form">
+											<div class="layui-form-item">
+												<label class="layui-form-label">考试权限</label>
+												<div class="layui-input-block">
+													<input type="radio" name="type" value="0" title="私有">
+													<input type="radio" name="type" value="1" title="公开" checked>
+												</div>
+											</div>
+										</div>
+									</div>
+								</fieldset>
+						
+								<button id="setting_info_submit" type="button" class="layui-btn" style="width: 150px;margin-left: 200px;margin-top: 15px;">提交</button>
+							</div>
+						</div>
+						
+						<!-- 采集信息设置 -->
+						<div id="col_info_setting_div" class="layui-row" style="width: 350px;display: none;">
+							<div class="layui-form layui-form-pane layui-col-md10 layui-col-md-offset1" style="padding: 5px;">
+									<div class="layui-form-item" style="padding: 0px;">
+										<div class="layui-input-block layui-col-md12" style="padding: 0px;margin-left: 0px;display: block;">
+											<label class="layui-form-label" style="width: 100%;border-left: none;border-right: none;">采集信息</label>
+										</div>
+										<!-- <br /> -->
+										
+										<!-- <div class="layui-input-block " style="display: block;padding: 0px;margin-left: 0px;width: 100%;margin-top: 0px;padding-top: 0px;top: 15px;">
+											<input class="" type="checkbox" name="name" title="姓名" checked disabled style="background: #00FF00;color: #00FF00;">
+											<input type="checkbox" name="email_checkbox" title="邮箱" checked disabled style="background: #00FF00;color: #00FF00;">
+											<input type="checkbox" name="class_checkbox" title="班级" value="1">
+											<input type="checkbox" name="id_checkbox" title="学号" value="1">
+										</div> -->
+										<div class="layui-input-block " style="display: block;padding: 0px;margin-left: 0px;width: 190px;margin-top: 0px;padding-top: 0px;top: 15px;margin: auto;">
+											<input class="" type="checkbox" name="name" title="姓名" checked disabled style="background: #00FF00;color: #00FF00;">
+											<input type="checkbox" name="email_checkbox" title="邮箱" checked disabled style="background: #00FF00;color: #00FF00;">
+											<br />
+											<input type="checkbox" name="class_checkbox" title="班级" value="1">
+											<input type="checkbox" name="id_checkbox" title="学号" value="1">
+										</div>
+									</div>
+									
+									<div class="layui-input-block " style="display: block;padding: 0px;margin-left: 0px;width: 100%;margin-top: 0px;padding-top: 0px;top: 10px;">
+										<button id="pick_info_btn" class="layui-btn layui-btn-normal" style="display: block;width: 125px;margin: auto;top: 15px;">设置采集信息</button>
+									</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+
+	</body>
+</html>
+
+<script>
+	
+	var select_pid = '';
+	
+	$('#setting_info_submit').click(function(){
+		
+		var msg = '';
+		
+		var start_date = '';
+		var start_time = '';
+		var end_date = '';
+		var end_time= '';
+		
+		var type = $('input[name="type"]:checked').val();
+		
+		if ($('#set_date').is(':checked') == true) {
+			start_date = $('#start_date').val();
+			start_time = $('#start_time').val();
+			end_date = $('#end_date').val();
+			end_time = $('#end_time').val();
+			
+			var start = start_date + ' ' + start_time;
+			var end = end_date + ' ' + end_time;
+			
+			$.post('setExamTime', {'pid':select_pid, 'startTime':start, 'endTime':end}, function(res){
+				if (res == 1) {
+					msg += '试卷时间修改成功！';
+				} else {
+					msg += '试卷时间修改失败！';
+				}
+				layer.msg(msg);
+			})
+		}
+		
+		// var res = start_date + '-' + start_time + '-' + end_date + '-' + end_time + '-' + type;
+		// alert(res)
+		// alert(pid)
+		
+		$.post('setPaperType', {'pid':select_pid, 'type':type}, function(res){
+			if (res == 1) {
+				msg += '试卷权限修改成功！';
+			} else {
+				msg += '试卷权限修改失败！';
+			}
+			layer.msg(msg);
+		})
+		
+		
+		
+	})
+	
+	$(function(){
+		$('#my_papers_li').click();
+		
+	})
+	
+	layui.use(['element','layer','form'],function(){
+		var element = layui.element,layer = layui.layer,form=layui.form;
+	});
+	
+	$('#my_papers_li').click(function(){
+		// $('#my_papers_div').show();
+		$('#my_papers_div').load('/getPaperLs')
+	});
+	
+	$(document).on('click','.paper_setting_a',function(event){
+		event.stopPropagation();
+		$(this).children('.paper_setting_menu').css('display','block');
+		$(this).children('.paper_setting_menu').css('position','absolute');
+		$(this).children('.paper_setting_menu').css('float','right');
+		select_pid = $(this).parent().parent().siblings('.pid').text();
+		// alert(select_pid)
+	});
+	
+	$(document).click(function(){
+		$('.paper_setting_menu').hide();
+	});
+	
+	$('.tab_title li').click(function(){
+		$(this).css('background','green');
+		$(this).siblings().css('background','none');
+	});
+	
+	// 考试设置
+	$(document).on('click', '.paper_setting', paper_setting_layer);
+	
+	function paper_setting_layer(){
+		layer.open({
+		  type: 1,
+		  title: '试卷设置',
+		  shade: 0.4,
+		  area: ['750px', '600px'],
+		  shadeClose: false, //点击遮罩关闭
+		  content: $('#paper_setting_div')
+		});
+	}
+	
+	layui.use('laydate', function() {
+		var laydate = layui.laydate;
+		
+		laydate.render({
+			elem: '#start_date',
+			type: 'date',
+			value: '1989-10-14',
+			isInitValue: true
+			// range: true
+		});
+		
+		laydate.render({
+			elem: '#start_time',
+			type: 'time',
+			value: '',
+			isInitValue: true
+		})
+		
+		//日期时间范围
+		laydate.render({
+			elem: '#end_date',
+			type: 'date',
+			value: '1989-10-14',
+			isInitValue: true
+			// range: true
+		});
+		
+		laydate.render({
+			elem: '#end_time',
+			type: 'time',
+			value: '',
+			isInitValue: true
+		})
+	})
+	
+	$('#date_div').click(function() {
+	
+		if ($('#set_date').is(':checked') != true) {
+			$('#date_input_div').hide();
+			return;
+		}
+	
+		$('#date_input_div').show();
+		now_time = getCurrentDate(2);
+		// alert(now_time);
+	})
+	
+	// 采集信息
+	
+	$(document).on('click', '.col_info_li', col_info_layer);
+	
+	function col_info_layer(){
+		layer.open({
+		  type: 1,
+		  title: '采集信息设置',
+		  shade: 0.4,
+		  area: ['370px', '350px'],
+		  shadeClose: false, //点击遮罩关闭
+		  content: $('#col_info_setting_div')
+		});
+	}
+	
+	$('#pick_info_btn').click(function(){
+		
+		var class_stat = $('input[name="class_checkbox"]:checked').val();
+		var id_stat = $('input[name="id_checkbox"]:checked').val();
+		
+		var res = '';
+		
+		if ( id_stat && class_stat ) {
+			res = 'a';
+		} else if ( class_stat ) {
+			res = 'c';
+		} else if ( id_stat ) {
+			res = 's';
+		}
+		
+		// alert(res);
+		
+		$.post('setPickInfo', {'pid':select_pid, 'pick_info':res}, function(result){
+			var msg = '';
+			if (result == 1) {
+				msg += '试卷采集信息修改成功！';
+			} else {
+				msg += '试卷采集信息修改失败！';
+			}
+			layer.msg(msg);
+		})
+	})
+	
+	// 分享试卷
+	// $('.share_paper_li').click()
+	$(document).on('click', '.share_paper_li', share_paper_layer);
+	
+	function share_paper_layer(){
+		layer.confirm('确认分享此试卷吗？', {
+			title: '分享试卷',
+			btn: ['确认', '取消']
+		}, function(index, layero) {
+			// alert('确认分享')
+			
+			share_paper();
+			
+			layer.close(index);
+		}, function(index) {
+			// alert('取消分享')
+		});
+	}
+	
+	function share_paper(){
+		$.post('setPaperShare', {'pid':select_pid}, function(result){
+			var msg = '';
+			if (result == 1) {
+				msg += '试卷分享成功！';
+			} else if ( result == -1 ) {
+				msg += '试卷已经分享过了！';
+			} else {
+				msg += '试卷分享失败！';
+			}
+			layer.msg(msg);
+		})
+	}
+	
+	// 复制试卷
+	$(document).on('click', '.copy_paper_li', copy_paper_layer);
+	
+	
+	function copy_paper_layer(){
+		layer.confirm('确认创建此试卷的副本吗？', {
+			title: '复制试卷',
+			btn: ['创建', '取消']
+		}, function(index, layero) {
+			share_paper();
+			layer.close(index);
+		}, function(index) {
+			// alert('取消分享')
+		});
+	}
+	
+	function share_paper(){
+		$.post('PaperCopy', {'pid':select_pid}, function(result){
+			var msg = '';
+			if (result == 1) {
+				msg += '试卷复制成功！';
+				$('#my_papers_li').click();
+			} else if ( result == -1 ) {
+				msg += '试卷已经复制过了！';
+			} else {
+				msg += '试卷复制失败！';
+			}
+			layer.msg(msg);
+		})
+		// alert('复制成功！')
+	}
+	
+	// 删除试卷
+	$(document).on('click', '.del_paper_li', del_paper_layer);
+	
+	
+	function del_paper_layer(){
+		layer.confirm('确认删除此试卷吗？', {
+			title: '删除试卷',
+			btn: ['确认', '取消']
+		}, function(index, layero) {
+			del_paper();
+			layer.close(index);
+		}, function(index) {
+			// alert('取消分享')
+		});
+	}
+	
+	function del_paper(){
+		$.post('delPaper', {'pid':select_pid}, function(result){
+			var msg = '';
+			if (result == 1) {
+				msg += '试卷删除成功！';
+				$('#my_papers_li').click();
+			} else {
+				msg += '试卷删除失败！';
+			}
+			layer.msg(msg);
+		})
+	}
+	
+</script>
+

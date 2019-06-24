@@ -1,0 +1,126 @@
+<!-- <!DOCTYPE html> -->
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>首页</title>
+		<link type="text/css" rel="stylesheet" href="layui/css/layui.css" th:href="@{static/layui/css/layui.css}" />
+		<script type="text/javascript" src="layui/layui.js" th:src="@{static/layui/layui.js}"></script>
+
+		<script type="text/javascript" src="js/jquery-3.4.1.min.js" th:src="@{static/js/jquery-3.4.1.min.js}"></script>
+
+	</head>
+
+	<body style="background-image: url(layui/images/exam.jpg);">
+		<div class="layui-layout layui-layout-admin">
+			<div class="layui-header">
+				<div class="layui-logo">百一测评</div>
+				<!-- 头部区域（可配合layui已有的水平导航） -->
+				<ul class="layui-nav layui-layout-left">
+					<li class="layui-nav-item">
+						<a href="">首页</a>
+					</li>
+					<li class="layui-nav-item">
+						<a href="javascript:;">商店</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="#">我要买题</a>
+							</dd>
+							<dd>
+								<a href="#">我要练习</a>
+							</dd>
+						</dl>
+					</li>
+					<li class="layui-nav-item">
+						<a href="">社区</a>
+					</li>
+					<li class="layui-nav-item">
+						<a href="">服务说明</a>
+					</li>
+					<li class="layui-nav-item">
+					</li>
+				</ul>
+
+				<ul class="layui-nav layui-layout-right" style="padding-top: 10px;">
+					<li class="layui-btn layui-btn-normal">
+						<a href="#">登录</a>
+					</li>
+					<li class="layui-btn layui-btn-normal">
+						<a href="#">注册</a>
+					</li>
+					<li class="layui-btn layui-btn-danger">
+						<a href="#">考试入口</a>
+					</li>
+				</ul>
+			</div>
+
+			<div class="layui-form-item" style="margin-left: 550px;margin-top: 100px;">
+				<p>
+					<h1>进入考试</h1>
+				</p>
+				<p>如果获得了考试口令，请在下面的框中输入口令进入考试。</p>
+				<p>如果收到了邀请邮件，请直接点击邮件中的考试链接进入考试。</p>
+
+				<form action="examcontroller" method="post">
+					<input type="text" name="examkey" style="height: 37px;" size="40" placeholder="请输入6位考试口令" />
+					<input class="layui-btn layui-btn-normal" type="submit" value="进入考试" />
+				</form>
+				<br /> <br /> <br /> <br /> <br />
+				<p>
+					<h1>没有收到邀请考试的邮件？</h1>
+				</p>
+				<p>请输入你的姓名和邮箱（如果收到了短信提醒，请输入短信中的姓名和邮箱）</p>
+				<form action="nameandemailcontroller" method="post">
+					<input type="text" name="name" style="height: 37px;" placeholder="姓名" />
+					<input type="text" name="email" style="height: 37px;" placeholder="邮件" />
+					<input class="layui-btn layui-btn-normal" type="submit" value="查询" />
+				</form>
+				<br /> <br /> <br /> <br /> <br />
+				<p>
+					<h1>查询成绩</h1>
+					<p>请输入考试结束页面的查询码</p>
+					<form action="chaxunCJ" method="post">
+						<input type="text" name="grade" style="height: 37px;" placeholder="请输入6位查询码" />
+						<input class="layui-btn layui-btn-normal" type="submit" value="查询成绩" />
+					</form>
+				</p>
+			</div>
+		</div>
+		<!-- <div style="margin-left: 22.5%; margin-right: 22.5%">
+					<p><h1>注意事项</h1></p>
+					
+					<p>1. 请使用IE9及以上版本、Chrome、Sogou、Firefox、Safari、QQ、360浏览器。Sogou、360浏览器请使用极速模式，不能使用兼容模式。如果遇到异常可以换一个浏览器再试。</p>
+					<p style="color: red;">2. 正式考试之前请关闭弹窗应用如QQ、屏保等，答题中不要访问考试窗口之外的区域。如果有窗口意外弹出请立即关闭。</p>
+					<p>3. 请在规定时间作答完全部题目，考试时间结束时，无论是否答完系统都将自动交卷。</p>
+					<p>4. 如果答题过程中因电源、网络故障等造成中断，请退出并在几分钟之内再次按照相同的步骤进入考试，从中断处继续答题。</p>
+				<br />
+				<br />
+				<br />
+					<p><h1>Q&A:</h1></p>	
+					<p>Q. 我收到了通知考试的短信，没有收到邀请邮件，怎么办？</p>
+					<p>A. 请检查下垃圾邮件箱，如果还是没有，请去掉反垃圾设置，并将我们加入白名单，然后在本页面中，输入短信中的姓名和邮箱，给自己重发一封邀请邮件。</p>
+					<br />
+					<p>Q. 我怎样进入考试？</p>
+					<p>A. 如果收到了考试邀请邮件，则直接点击邮件中的链接即可进入考试。或者，如果得到了考试口令，则在本页面中输入考试口令进入考试。</p>
+						<br />
+					<p>Q. 参加电脑考试必须要有摄像头吗？</p>
+					<p>A. 系统使用flash技术和摄像头进行拍照和监考，如果试卷上设置了需要拍照和监考，则答题的电脑必须安装flash和摄像头，否则不需要。一般情况下远程考试都需要在监考环境下进行。</p>
+						<br />
+					<p>Q. 考试完毕后可以查成绩吗？</p>
+					<p>A. 请在本页面输入考试结束时的查询码查成绩和错题；或使用考试时填写的身份信息来注册，登录后在页面右上角我的成绩中查询。手机端答题按同样方式查询。上述查询需要试卷开放查询权限，否则不允许查询，请联系考试的组织者。</p>
+				
+				</div> -->
+
+	</body>
+	
+	<script src="layui/layui.js"></script>
+	
+	<script>
+		//JavaScript代码区域
+		layui.use('element', function() {
+			var element = layui.element;
+
+		});
+	</script>
+	
+</html>

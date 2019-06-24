@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<title>编辑个人信息</title>
+		
+		<link type="text/css" rel="stylesheet" href="layui/css/layui.css" th:href="@{static/layui/css/layui.css}"/>
+		<script type="text/javascript" src="layui/layui.js" th:src="@{static/layui/layui.js}"></script>
+		
+		<script type="text/javascript" src="js/jquery-3.4.1.min.js" th:src="@{static/js/jquery-3.4.1.min.js}"></script>
+		
+		<style>
+			.nav_tree li {
+				cursor: pointer;
+			}
+			.nav_tree li:hover {
+				background: #00FF00;
+				/* border-radius: 25px; */
+			}
+		</style>
+	</head>
+	<body class="layui-bg-gray" style="width: 100%;height: 100%;">
+		<div class="layui-container" style="width: 750px;border: orangered dashed 0.1px;top: 150px;padding: 0px;margin: auto;">
+			<div class="layui-row">
+				<!-- 侧边栏 -->
+				<div class="layui-col-md3" style="">
+					<ul class="layui-nav layui-tree nav_tree" style="width: 100%;padding: 0px;">
+						<li id="mod_info_li" class="" style="width: 100%;margin: 0px;padding-top: 75px;padding-bottom: 75px;border-bottom: gray 2px solid;">
+							<div style="margin: auto;text-align: center;height: 50px;">
+								<i class="layui-icon" style="font-size: 50px;">&#xe66f;</i>
+								<div id="" style="margin-top: 5px;">
+									<label style="font-size: 16px;">基本信息修改</label>
+								</div>
+							</div>
+						</li>
+						
+						<li id="mod_pw_li" class="" style="width: 100%;padding-top: 75px;padding-bottom: 75px;">
+							<div style="margin: auto;text-align: center;height: 50px;">
+								<i class="layui-icon" style="font-size: 50px;">&#xe673;</i>
+								<div id="" style="margin-top: 5px;">
+									<label style="font-size: 16px;">密码修改</label>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				
+				<!-- 信息编辑 -->
+				<div class="layui-col-md9">
+					<!-- 基本信息修改 -->
+					<div id="mod_info_div" class="layui-row">
+						<div class="layui-col-md10 layui-col-md-offset1" style="padding-top: 25px;">
+							<form >
+								
+								<div class="layui-upload">
+									<div class="layui-upload-list" style="width: 55px;height: 55px;">
+										<img class="layui-upload-img" id="photo_show" style="width: 50px;height: 50px;border-radius: 50%;border: #00F7DE solid 1px;" th:src="@{static/upload/}+${session.currentUser.photo}">
+									</div>
+									<i id="edit_photo" class="layui-icon" style="width: 50px;height: 50px;border-radius: 50%;border: #00F7DE solid 1px;font-size: 50px;">
+										&#xe642;
+									</i>
+								</div>
+								
+								<div class="layui-form-item">
+									<label class="layui-form-label">昵称</label>
+									<div class="layui-input-inline">
+										<input id="uname" type="text" name="uname" required lay-verify="required" placeholder="请输入昵称" autocomplete="off" class="layui-input" th:value="${session.currentUser.uname}">
+										<!-- <input id="uname" type="text" name="uname" required class="layui-input" th:value="${session.currentUser.uname}"> -->
+										
+									</div>
+									<div id="uname_msg" class="layui-form-mid layui-word-aux">昵称前后不能有空格</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">邮箱</label>
+									<div class="layui-input-block">
+										<input th:value="${session.currentUser.email}" type="text" name="title" required lay-verify="required" placeholder="请输入邮箱" autocomplete="off" class="layui-input" readonly="readonly">
+									</div>
+								</div>
+								
+								
+								<div class="layui-form-item">
+									<div class="layui-input-block">
+										<button id="mod_info_submit" class="layui-btn">立即提交</button>
+										<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+										<span id="mod_msg"></span>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+					
+					<!-- 密码修改 -->
+					<div id="mod_pw_div" class="layui-row">
+						<div class="layui-col-md10 layui-col-md-offset1" style="padding-top: 25px;">
+							<form >
+								<div class="layui-form-item">
+									<label class="layui-form-label">旧密码</label>
+									<div class="layui-input-block">
+										<input id="old_pw" type="password" name="old_pw" required lay-verify="required" placeholder="请输入旧密码" class="layui-input">
+									</div>
+									<span id="old_pw_msg"></span>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">新密码</label>
+									<div class="layui-input-block">
+										<input id="new_pw" type="password" name="new_pw" required lay-verify="required" placeholder="请输入新密码" class="layui-input">
+									</div>
+									<span id="new_pw_msg"></span>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">确认密码</label>
+									<div class="layui-input-block">
+										<input type="password" name="new_pw_2" required lay-verify="required" placeholder="请再次输入新密码" class="layui-input">
+									</div>
+									<span id="new_pw_msg_2"></span>
+								</div>
+								
+								<!-- <div class="layui-form-item"> -->
+									<div class="layui-input-block">
+										<button type="button" id="mod_pw_submit" class="layui-btn">立即提交</button>
+										<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+										<br>
+										<span id="mod_pw_msg"></span>
+									</div>
+								<!-- </div> -->
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+
+<script>
+	
+	$(function(){
+		$('#mod_info_div').show();
+		$('#mod_pw_div').hide();
+	})
+	
+	layui.use(['element','layer'],function(){
+		var element = layui.element,
+			layer = layui.layer;
+	});
+
+	layui.use('upload', function() {
+		var $ = layui.jquery,
+			upload = layui.upload;
+		// var upload = layui.upload;
+
+		var uploadInst = upload.render({
+			elem: '#edit_photo',
+			url: '/upload_photo',
+			auto: false,
+			size: 2048, //限制文件大小，单位 KB,
+			accept:'images',
+			exts: 'jpg|png|gif|bmp|jpeg',
+			bindAction: '#mod_info_submit', 
+			choose: function(obj) {
+				// $('#edit_photo').hide();
+				// $('#photo_show').show();
+				obj.preview(function(index, file, result){
+					
+					// obj.resetFile(index, file, '123.jpg');
+					obj.resetFile(index, file, '123.jpg');
+					$('#photo_show').attr('src', result); //图片链接（base64）
+				});
+			},
+			before: function(obj) {
+			},
+			done: function(res) {
+				//如果上传失败
+				if (res.code > 0) {
+					return layer.msg('上传失败');
+				}
+				//上传成功
+			},
+			error: function() {
+				//演示失败状态，并实现重传
+				var demoText = $('#demoText');
+				demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+				demoText.find('.demo-reload').on('click', function() {
+					uploadInst.upload();
+				});
+			}
+		});
+	});
+	
+	$('#mod_info_li').click(function(){
+		$('#mod_info_div').show();
+		$('#mod_pw_div').hide();
+		
+		$(this).css('background', 'green');
+		$('#mod_pw_li').css('background', 'none');
+	})
+	
+	$('#mod_pw_li').click(function(){
+		$('#mod_info_div').hide();
+		$('#mod_pw_div').show();
+		
+		$(this).css('background', 'green');
+		$('#mod_info_li').css('background', 'none');
+	})
+	
+	$('#mod_info_submit').click(function(){
+		
+		var uname = $('#uname').val();
+		
+		if(uname == '' || uname == null){
+			$('#uname_msg').text('昵称不能为空！');
+			$('#uname_msg').css('color', 'red');
+			return;
+		}
+		
+		var uname_trim = uname.trim();
+		
+		if(uname_trim == '' || uname_trim == null){
+			$('#uname_msg').text('昵称不能全为空格！');
+			$('#uname_msg').css('color', 'red');
+			return;
+		}
+		
+		if ( uname != uname_trim ){
+			$('#uname_msg').text('昵称前后不能存在空格！');
+			$('#uname_msg').css('color', 'red');
+			return;
+		}
+		
+		$.post('mod_info', {'uname':uname}, function(res) {
+			if ( res == 1 ) {
+				// return layer.msg('修改成功');
+				$('#mod_msg').text('修改成功！');
+				$('#mod_msg').css('color', 'green');
+			} else {
+				// return layer.msg('修改失败');
+				$('#mod_msg').text('修改失败，您可以重试！');
+				$('#mod_msg').css('color', 'red');
+			}
+		})
+	});
+	
+	$('#mod_pw_submit').click(function(){
+		var old_pw = $('#old_pw').val();
+		var new_pw = $('#new_pw').val();
+		var new_pw_2 = $('#new_pw_2').val();
+		// alert(old_pw + ' ' + new_pw);
+		/**
+		 * 1.加上新密码的强度检测功能
+		 * 2.新密码与旧密码不能相同
+		 * 3.需要验证旧密码正误（在servlet进行验证）
+		 */
+		// var data_temp = {'old_pw':old_pw, 'new_pw':new_pw};
+		// var data = JSON.stringify(data_temp);
+		
+		$.ajax({
+			url: '/mod_pw',
+			type: 'get',
+			data: {'old_pw':old_pw, 'new_pw':new_pw},
+			contentType: "application/json;charset=utf-8",
+			dateType:"json",
+			success: function(res){
+				if ( res == '1' ) {
+					// return layer.msg('修改成功');
+					$('#mod_pw_msg').text('密码修改成功！');
+					$('#mod_pw_msg').css('color', 'green');
+				} else if ( res == '2' ){
+					// return layer.msg('修改失败');
+					$('#mod_pw_msg').text('修改失败，旧密码错误，请重新输入！');
+					$('#mod_pw_msg').css('color', 'red');
+				} else if (res == '0' ){
+					$('#mod_pw_msg').text('修改失败，请重试！');
+					$('#mod_pw_msg').css('color', 'red');
+				}
+			},
+			error: function(){
+				$('#mod_pw_msg').text('异步提交失败，请重试！');
+				$('#mod_pw_msg').css('color', 'red');
+			}
+		})
+		
+		// $.post('/mod_pw', {'old_pw':old_pw, 'new_pw':new_pw}, function(res) {
+		// 	if ( res == 1 ) {
+		// 		// return layer.msg('修改成功');
+		// 		$('#mod_pw_msgmod_pw_msg').text('密码修改成功！');
+		// 		$('#mod_pw_msg').css('color', 'green');
+		// 	} else if ( res == 2 ){
+		// 		// return layer.msg('修改失败');
+		// 		$('#mod_pw_msg').text('修改失败，旧密码错误，请重新输入！');
+		// 		$('#mod_pw_msg').css('color', 'red');
+		// 	} else if (res == 0 ){
+		// 		$('#mod_pw_msg').text('修改失败，请重试！');
+		// 		$('#mod_pw_msg').css('color', 'red');
+		// 	}
+		// })
+		
+	})
+	
+	
+	
+</script>

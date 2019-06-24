@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exam.dao.QuesBankMapper" >
+  <resultMap id="BaseResultMap" type="com.exam.entity.QuesBank" >
+    <id column="bid" property="bid" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="bname" property="bname" jdbcType="VARCHAR" />
+    <result column="qsi_num" property="qsiNum" jdbcType="INTEGER" />
+    <result column="qm_num" property="qmNum" jdbcType="INTEGER" />
+    <result column="qj_num" property="qjNum" jdbcType="INTEGER" />
+    <result column="qf_num" property="qfNum" jdbcType="INTEGER" />
+    <result column="qsh_num" property="qshNum" jdbcType="INTEGER" />
+    <result column="date" property="date" jdbcType="VARCHAR" />
+    <result column="int_1" property="int1" jdbcType="INTEGER" />
+    <result column="int_2" property="int2" jdbcType="INTEGER" />
+    <result column="var_1" property="var1" jdbcType="VARCHAR" />
+    <result column="var_2" property="var2" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.exam.entity.QuesBank" extends="BaseResultMap" >
+    <result column="bdescribe" property="bdescribe" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    bid, uid, bname, qsi_num, qm_num, qj_num, qf_num, qsh_num, date, int_1, int_2, var_1, 
+    var_2
+  </sql>
+  <sql id="Blob_Column_List" >
+    bdescribe
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.exam.entity.QuesBankExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ques_bank
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.exam.entity.QuesBankExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ques_bank
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ques_bank
+    where bid = #{bid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ques_bank
+    where bid = #{bid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.exam.entity.QuesBankExample" >
+    delete from ques_bank
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.exam.entity.QuesBank" >
+    insert into ques_bank (bid, uid, bname, 
+      qsi_num, qm_num, qj_num, 
+      qf_num, qsh_num, date, 
+      int_1, int_2, var_1, var_2, 
+      bdescribe)
+    values (#{bid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{bname,jdbcType=VARCHAR}, 
+      #{qsiNum,jdbcType=INTEGER}, #{qmNum,jdbcType=INTEGER}, #{qjNum,jdbcType=INTEGER}, 
+      #{qfNum,jdbcType=INTEGER}, #{qshNum,jdbcType=INTEGER}, #{date,jdbcType=VARCHAR}, 
+      #{int1,jdbcType=INTEGER}, #{int2,jdbcType=INTEGER}, #{var1,jdbcType=VARCHAR}, #{var2,jdbcType=VARCHAR}, 
+      #{bdescribe,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.exam.entity.QuesBank" >
+    insert into ques_bank
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bid != null" >
+        bid,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="bname != null" >
+        bname,
+      </if>
+      <if test="qsiNum != null" >
+        qsi_num,
+      </if>
+      <if test="qmNum != null" >
+        qm_num,
+      </if>
+      <if test="qjNum != null" >
+        qj_num,
+      </if>
+      <if test="qfNum != null" >
+        qf_num,
+      </if>
+      <if test="qshNum != null" >
+        qsh_num,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="int1 != null" >
+        int_1,
+      </if>
+      <if test="int2 != null" >
+        int_2,
+      </if>
+      <if test="var1 != null" >
+        var_1,
+      </if>
+      <if test="var2 != null" >
+        var_2,
+      </if>
+      <if test="bdescribe != null" >
+        bdescribe,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bid != null" >
+        #{bid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="bname != null" >
+        #{bname,jdbcType=VARCHAR},
+      </if>
+      <if test="qsiNum != null" >
+        #{qsiNum,jdbcType=INTEGER},
+      </if>
+      <if test="qmNum != null" >
+        #{qmNum,jdbcType=INTEGER},
+      </if>
+      <if test="qjNum != null" >
+        #{qjNum,jdbcType=INTEGER},
+      </if>
+      <if test="qfNum != null" >
+        #{qfNum,jdbcType=INTEGER},
+      </if>
+      <if test="qshNum != null" >
+        #{qshNum,jdbcType=INTEGER},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="int1 != null" >
+        #{int1,jdbcType=INTEGER},
+      </if>
+      <if test="int2 != null" >
+        #{int2,jdbcType=INTEGER},
+      </if>
+      <if test="var1 != null" >
+        #{var1,jdbcType=VARCHAR},
+      </if>
+      <if test="var2 != null" >
+        #{var2,jdbcType=VARCHAR},
+      </if>
+      <if test="bdescribe != null" >
+        #{bdescribe,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.exam.entity.QuesBankExample" resultType="java.lang.Integer" >
+    select count(*) from ques_bank
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ques_bank
+    <set >
+      <if test="record.bid != null" >
+        bid = #{record.bid,jdbcType=INTEGER},
+      </if>
+      <if test="record.uid != null" >
+        uid = #{record.uid,jdbcType=INTEGER},
+      </if>
+      <if test="record.bname != null" >
+        bname = #{record.bname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qsiNum != null" >
+        qsi_num = #{record.qsiNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.qmNum != null" >
+        qm_num = #{record.qmNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.qjNum != null" >
+        qj_num = #{record.qjNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.qfNum != null" >
+        qf_num = #{record.qfNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.qshNum != null" >
+        qsh_num = #{record.qshNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.date != null" >
+        date = #{record.date,jdbcType=VARCHAR},
+      </if>
+      <if test="record.int1 != null" >
+        int_1 = #{record.int1,jdbcType=INTEGER},
+      </if>
+      <if test="record.int2 != null" >
+        int_2 = #{record.int2,jdbcType=INTEGER},
+      </if>
+      <if test="record.var1 != null" >
+        var_1 = #{record.var1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.var2 != null" >
+        var_2 = #{record.var2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bdescribe != null" >
+        bdescribe = #{record.bdescribe,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update ques_bank
+    set bid = #{record.bid,jdbcType=INTEGER},
+      uid = #{record.uid,jdbcType=INTEGER},
+      bname = #{record.bname,jdbcType=VARCHAR},
+      qsi_num = #{record.qsiNum,jdbcType=INTEGER},
+      qm_num = #{record.qmNum,jdbcType=INTEGER},
+      qj_num = #{record.qjNum,jdbcType=INTEGER},
+      qf_num = #{record.qfNum,jdbcType=INTEGER},
+      qsh_num = #{record.qshNum,jdbcType=INTEGER},
+      date = #{record.date,jdbcType=VARCHAR},
+      int_1 = #{record.int1,jdbcType=INTEGER},
+      int_2 = #{record.int2,jdbcType=INTEGER},
+      var_1 = #{record.var1,jdbcType=VARCHAR},
+      var_2 = #{record.var2,jdbcType=VARCHAR},
+      bdescribe = #{record.bdescribe,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ques_bank
+    set bid = #{record.bid,jdbcType=INTEGER},
+      uid = #{record.uid,jdbcType=INTEGER},
+      bname = #{record.bname,jdbcType=VARCHAR},
+      qsi_num = #{record.qsiNum,jdbcType=INTEGER},
+      qm_num = #{record.qmNum,jdbcType=INTEGER},
+      qj_num = #{record.qjNum,jdbcType=INTEGER},
+      qf_num = #{record.qfNum,jdbcType=INTEGER},
+      qsh_num = #{record.qshNum,jdbcType=INTEGER},
+      date = #{record.date,jdbcType=VARCHAR},
+      int_1 = #{record.int1,jdbcType=INTEGER},
+      int_2 = #{record.int2,jdbcType=INTEGER},
+      var_1 = #{record.var1,jdbcType=VARCHAR},
+      var_2 = #{record.var2,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.exam.entity.QuesBank" >
+    update ques_bank
+    <set >
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="bname != null" >
+        bname = #{bname,jdbcType=VARCHAR},
+      </if>
+      <if test="qsiNum != null" >
+        qsi_num = #{qsiNum,jdbcType=INTEGER},
+      </if>
+      <if test="qmNum != null" >
+        qm_num = #{qmNum,jdbcType=INTEGER},
+      </if>
+      <if test="qjNum != null" >
+        qj_num = #{qjNum,jdbcType=INTEGER},
+      </if>
+      <if test="qfNum != null" >
+        qf_num = #{qfNum,jdbcType=INTEGER},
+      </if>
+      <if test="qshNum != null" >
+        qsh_num = #{qshNum,jdbcType=INTEGER},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="int1 != null" >
+        int_1 = #{int1,jdbcType=INTEGER},
+      </if>
+      <if test="int2 != null" >
+        int_2 = #{int2,jdbcType=INTEGER},
+      </if>
+      <if test="var1 != null" >
+        var_1 = #{var1,jdbcType=VARCHAR},
+      </if>
+      <if test="var2 != null" >
+        var_2 = #{var2,jdbcType=VARCHAR},
+      </if>
+      <if test="bdescribe != null" >
+        bdescribe = #{bdescribe,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where bid = #{bid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.exam.entity.QuesBank" >
+    update ques_bank
+    set uid = #{uid,jdbcType=INTEGER},
+      bname = #{bname,jdbcType=VARCHAR},
+      qsi_num = #{qsiNum,jdbcType=INTEGER},
+      qm_num = #{qmNum,jdbcType=INTEGER},
+      qj_num = #{qjNum,jdbcType=INTEGER},
+      qf_num = #{qfNum,jdbcType=INTEGER},
+      qsh_num = #{qshNum,jdbcType=INTEGER},
+      date = #{date,jdbcType=VARCHAR},
+      int_1 = #{int1,jdbcType=INTEGER},
+      int_2 = #{int2,jdbcType=INTEGER},
+      var_1 = #{var1,jdbcType=VARCHAR},
+      var_2 = #{var2,jdbcType=VARCHAR},
+      bdescribe = #{bdescribe,jdbcType=LONGVARCHAR}
+    where bid = #{bid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.exam.entity.QuesBank" >
+    update ques_bank
+    set uid = #{uid,jdbcType=INTEGER},
+      bname = #{bname,jdbcType=VARCHAR},
+      qsi_num = #{qsiNum,jdbcType=INTEGER},
+      qm_num = #{qmNum,jdbcType=INTEGER},
+      qj_num = #{qjNum,jdbcType=INTEGER},
+      qf_num = #{qfNum,jdbcType=INTEGER},
+      qsh_num = #{qshNum,jdbcType=INTEGER},
+      date = #{date,jdbcType=VARCHAR},
+      int_1 = #{int1,jdbcType=INTEGER},
+      int_2 = #{int2,jdbcType=INTEGER},
+      var_1 = #{var1,jdbcType=VARCHAR},
+      var_2 = #{var2,jdbcType=VARCHAR}
+    where bid = #{bid,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectTeaBanks" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ques_bank
+    where uid = #{uid,jdbcType=INTEGER}
+  </select>
+  
+<!--   <select id="countQuesNum" resultType="java.lang.Integer" parameterType="java.lang.Integer" > -->
+<!--     select  -->
+<!--     from ques_bank -->
+<!--     where ques_bank.bid = #{bid,jdbcType=INTEGER} -->
+<!--   </select> -->
+
+	<insert id="creatBank" parameterType="com.exam.entity.QuesBank">
+		<selectKey order="AFTER" keyProperty="bid" resultType="java.lang.Integer">
+			select LAST_INSERT_ID()
+		</selectKey>
+		
+		insert into ques_bank (uid,bname,bdescribe,date) values(#{uid},#{bname},#{bdescribe},#{date})
+	</insert>
+	
+	<select id="selectBank" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select ques_bank.* 
+		from ques_bank,store_ques_bank 
+		where ques_bank.bid=store_ques_bank.bid 
+		and (
+		ques_bank.bname LIKE #{keyword,jdbcType=VARCHAR } or ques_bank.bdescribe LIKE #{keyword,jdbcType=VARCHAR}
+		)
+	</select> 
+	
+<!-- 	<insert id="addUserInfo" parameterType="userinfo"> -->
+<!-- 	<selectKey order="AFTER" keyProperty="id" resultType="int"> -->
+<!-- 	select LAST_INSERT_ID() -->
+<!-- 	</selectKey> -->
+<!-- 	insert into userinfo (name,password) values(#{name},#{password}) -->
+<!-- 	</insert> -->
+  
+</mapper>

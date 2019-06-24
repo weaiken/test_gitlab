@@ -1,0 +1,136 @@
+.content{
+	height: 100%;
+	width: 450px;
+	background: rgba(255, 255, 255, 0.3);
+	margin: auto;
+}
+
+.login-box{
+	width: 350px;
+	height: 450px;
+	top: 150px;
+	margin: auto;
+	padding: 50px;
+}
+.login-item{
+	font-size: 0px;
+	color: #222222;
+}
+li{
+	font-size: 20px;
+	font-weight: 700;
+	width: 44.00001%;
+	text-align: center;
+	display: inline-block;
+	cursor: pointer;
+	border: gray solid 1px;
+	border-radius: 5px;
+	
+}
+li span{
+	color: gray;
+	margin-bottom: 10px;
+	width: 100%;
+	padding-bottom: 10px;
+	letter-spacing: 2px;
+	line-height: 28px;
+	cursor: pointer;
+}
+li.choosed{
+	border: 2px solid deepskyblue;
+	border-radius: 5px;
+	background: deepskyblue;
+}
+li.choosed span{
+	color: rgba(255, 255, 255, 1);
+}
+
+.login-div {
+	width: 100%;
+	height: 100%;
+	padding: 15px;
+}
+
+.input-field {
+	/* position: relative; */
+	font-size: 16px;
+	color: #666666;
+}
+
+.input-field input {
+	height: 45px;
+	margin-top: 15px;
+	font-size: 16px;
+	padding-bottom: 4px;
+	padding: 10px;
+	line-height: 20px;
+	border-style: none none solid;
+	border-radius: 5px;
+	/*
+	border-color: rgba(0, 0, 0, 0. 7);
+	background: rgba(0, 0, 0, 0.1); */
+	
+	border-color: rgba(51,206,195, 0.5);
+	background: rgba(93,206,198, :;);
+	
+	width: 350px;
+	color: black;
+	font-weight: bolder;
+}
+.action{
+	margin-top: 3px;
+	margin-bottom: 10px;
+	font-size: 13px;
+	color: #222222;
+	display: block;
+}
+.agreement{
+	position: absolute;
+	border: 0px;
+	outline: 0px;
+	margin-left: 0px;
+}
+.label{
+	color: #777777;
+	font-size: 12px;
+	line-height: 18px;
+	margin-top: 10px;
+}
+.subaction{
+	margin-bottom: 12px;
+	height: 40px;
+	line-height: 40px;
+	color: #FFFFFF;
+	font-size: 18px;
+	font-weight: 700;
+	border-radius: 4px;
+	letter-spacing: 3px;
+	width: 350px;
+	text-align: center;
+	background-color: limegreen;
+	margin-top: 20px;
+	border: 0px;
+}
+
+.subaction:hover{
+	background: rgba(0, 0, 0, 0);
+	border: black solid 2px;
+	color: #000000;
+}
+#reg .info_pass {
+    width: 290px;
+    height: 34px;
+    padding: 4px 0 0 16px;
+    top: 5px;
+    left: 295px;
+    letter-spacing: 0;
+    display: none;
+}
+#reg .info_pass p {
+height:10px;
+line-height:10px;
+color:#666;
+}
+#reg .info_pass p strong.s {
+color:#ccc;
+}

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+ PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<!--连接mysql数据库的驱动 ，改location="自己工程下数据库的jar包"-->
+	<classPathEntry location="C:\Users\weizh\Documents\Programs\eclipse-workspace\exam\exam\src\main\resources\mybatis\mysql-connector-java-5.1.6-bin.jar" />
+	<context id="DB2Tables" targetRuntime="MyBatis3">
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+
+		<!--数据库的用户名，密码   改jdbcConnection="自己工程的数据库连接"-->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost:3306/exam" userId="root" password="15690">
+		</jdbcConnection>
+		
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+		
+		<!--自动生成实体类的文件    ，改targetPackage="放置自动生成文件的目录"  -->
+		<javaModelGenerator targetPackage="com.exam.entity" targetProject="C:\Users\weizh\Documents\Programs\eclipse-workspace\exam2\src\main\java\com\exam">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+		<!--自动生成表的操作语句(映射文件)    ，改targetPackage="放置自动生成文件的目录"  -->
+		<sqlMapGenerator targetPackage="com.exam.dao" targetProject="C:\Users\weizh\Documents\Programs\eclipse-workspace\exam2\src\main\java\com\exam">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+		<!--自动生成dao类()          ，改targetPackage="放置自动生成的DAO文件的目录"  -->
+		<javaClientGenerator type="XMLMAPPER" targetPackage="com.exam.dao" targetProject="C:\Users\weizh\Documents\Programs\eclipse-workspace\exam2\src\main\resources\mapper">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+		
+		<!-- 要新生成的数据库表，注意：已经生成成功的,一定要注释掉,否则会覆盖.我们只生成新表！ -->		
+<!--         <table tableName="userinfo" domainObjectName="Userinfo"/> -->
+<!--         <table tableName="examinee" domainObjectName="Examinee"/> -->
+<!--         <table tableName="examinee_ans" domainObjectName="ExamineeAns"/> -->
+<!--         <table tableName="paper" domainObjectName="Paper"/> -->
+<!--         <table tableName="ques_bank" domainObjectName="QuesBank"/> -->
+<!--         <table tableName="ques_fill" domainObjectName="QuesFill"/> -->
+<!--         <table tableName="ques_judge" domainObjectName="QuesJudge"/> -->
+<!--         <table tableName="ques_mul" domainObjectName="QuesMul"/> -->
+<!--         <table tableName="ques_single" domainObjectName="QuesSingle"/> -->
+<!--         <table tableName="ques_short" domainObjectName="QuesShort"/> -->
+<!--         <table tableName="records_buy" domainObjectName="RecordBuy"/> -->
+<!--         <table tableName="records_sell" domainObjectName="RecordSell"/> -->
+<!--         <table tableName="report" domainObjectName="Report"/> -->
+<!--         <table tableName="store_paper" domainObjectName="StorePaper"/> -->
+        <table tableName="store_ques_bank" domainObjectName="StoreQuesBank"/>
+<!--         <table tableName="paper_ques_mapping" domainObjectName="PaperToQues"/> -->
+<!--         <table tableName="bank_ques_mapping" domainObjectName="BankToQUes"/> -->
+
+	</context>
+
+</generatorConfiguration>

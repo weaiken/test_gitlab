@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>登录</title>
+
+		<link type="text/css" rel="stylesheet" href="layui/css/layui.css" th:href="@{static/layui/css/layui.css}"/>
+		<script type="text/javascript" src="layui/layui.js" th:src="@{static/layui/layui.js}"></script>
+		
+		<script type="text/javascript" src="js/jquery-3.4.1.min.js" th:src="@{static/js/jquery-3.4.1.min.js}"></script>
+		
+		<link type="text/css" rel="stylesheet" href="css/login_css.css" th:href="@{static/css/login_css.css}"/>
+		
+		<!-- <script type="text/javascript" src="js/login_js.js" th:src="@{static/js/login_js.js}"></script> -->
+
+		<script>
+
+		</script>
+	</head>
+	
+	<body class="layui-bg-gray" style="width: 100%; height: 100%;">
+		
+		<!-- 容器 -->
+		<div class="content">
+			
+			<!-- 登录元素容器 -->
+			<div class="login-box">
+				
+				<!-- 选项卡 -->
+				<div class="login-item">
+					<ul style="list-style: none;">
+						<li class="choosed"><span>登录</span></li>
+						<!-- <li><span>注册</span></li> -->
+					</ul>
+				</div>
+				
+				<!-- 信息输入区域 -->
+				<div class="login-register">
+					<div class="infor">
+						<form id="myform">
+							<div class="input-field">
+								<input name="email" id="email" type="text" spellcheck="false" placeholder="邮箱" autocomplete="off" />
+								<br>
+								<span id="sss"></span>
+							</div>
+							<div class="input-field">
+								<input name="password" id="password" spellcheck="false" type="password" placeholder="密码" autocomplete="off" />
+								<br>
+								<span id="aaa"></span>
+							</div>
+							<span id="ssss" style="color: red"></span>
+							
+							<div class="action">
+								<input id="subaction" name="subaction" class="subaction" type="button" value="登录" />
+							</div>
+
+						</form>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</body>
+</html>
+
+<script>
+	$('#email').blur(checkemail);
+	$('#password').blur(checkPassword);
+	
+	$('#email').focus(function(){
+		$('#sss').text('');
+	})
+	
+	$('#password').focus(function(){
+		$('#aaa').text('');
+	})
+	
+	function checkemail() {
+		//定义一个邮箱的正则表达式  ,并用 test方法验证正则表达式
+		var regCode = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+		var emailcheck = $('#email').val();
+		// var $msg = $('#emailmsg').html("");
+		
+		if (emailcheck == '' || emailcheck == null) {
+			$('#sss').text('email不能为空!');
+			$('#sss').css('color', 'red');
+			return false;
+		} else if (regCode.test(emailcheck) == false) {
+			$('#sss').text('格式错误!');
+			$('#sss').css('color', 'red');
+			return false;
+		}
+		
+		return true;
+	};
+	
+	function checkPassword() {
+		var pwd_length = $('#password').val().length;
+		// alert(pwd_length)
+		
+		if ( pwd_length == 0 ) {
+			$('#aaa').text('密码不能为空!');
+			$('#aaa').css('color', 'red');
+			return false;
+		} else if (pwd_length <= 6 || pwd_length >= 20) {
+			$('#aaa').text('密码长度应该为 6~20 位!');
+			$('#aaa').css('color', 'red');
+			return false;
+		}
+		
+		return true;
+	}
+	
+	
+	// 登录时js
+	$('#subaction').click(function() {
+		$.ajax({
+			type: "post",
+			url: "/login",
+			data: {
+				'email': $("#email").val(),
+				'password': $("#password").val()
+			},
+			dataTpye: "json",
+			success: function(data) {
+				if (data == "f") {
+					$("#ssss").text("账号或密码错误");
+				} else if (data == "t1") {
+					$("#ssss").text("该用户未激活");
+				} else {
+					layer.msg('登录成功!');
+					window.location.href = "/toHome";
+				}
+			},
+			error: function() {
+				layer.msg('异步提交失败!');
+			}
+		})
+	});
+	
+	layui.use(['element','layer','form'],function(){
+		var element = layui.element,
+			layer = layui.layer,
+			form = layui.form;
+	});
+</script>

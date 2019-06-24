@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exam.dao.QuesMulMapper" >
+  <resultMap id="BaseResultMap" type="com.exam.entity.QuesMul" >
+    <id column="qmid" property="qmid" jdbcType="INTEGER" />
+    <result column="standard_ans" property="standardAns" jdbcType="VARCHAR" />
+    <result column="knowledge" property="knowledge" jdbcType="VARCHAR" />
+    <result column="difficulty" property="difficulty" jdbcType="INTEGER" />
+    <result column="int_1" property="int1" jdbcType="INTEGER" />
+    <result column="int_2" property="int2" jdbcType="INTEGER" />
+    <result column="var_1" property="var1" jdbcType="VARCHAR" />
+    <result column="var_2" property="var2" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.exam.entity.QuesMulWithBLOBs" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="chioce1" property="chioce1" jdbcType="LONGVARCHAR" />
+    <result column="chioce2" property="chioce2" jdbcType="LONGVARCHAR" />
+    <result column="chioce3" property="chioce3" jdbcType="LONGVARCHAR" />
+    <result column="chioce4" property="chioce4" jdbcType="LONGVARCHAR" />
+    <result column="chioce5" property="chioce5" jdbcType="LONGVARCHAR" />
+    <result column="chioce6" property="chioce6" jdbcType="LONGVARCHAR" />
+    <result column="chioce7" property="chioce7" jdbcType="LONGVARCHAR" />
+    <result column="analysis" property="analysis" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    qmid, standard_ans, knowledge, difficulty, int_1, int_2, var_1, var_2
+  </sql>
+  <sql id="Blob_Column_List" >
+    content, chioce1, chioce2, chioce3, chioce4, chioce5, chioce6, chioce7, analysis
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.exam.entity.QuesMulExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ques_mul
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.exam.entity.QuesMulExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ques_mul
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ques_mul
+    where qmid = #{qmid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ques_mul
+    where qmid = #{qmid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.exam.entity.QuesMulExample" >
+    delete from ques_mul
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.exam.entity.QuesMulWithBLOBs" >
+    insert into ques_mul (qmid, standard_ans, knowledge, 
+      difficulty, int_1, int_2, 
+      var_1, var_2, content, 
+      chioce1, chioce2, chioce3, 
+      chioce4, chioce5, chioce6, 
+      chioce7, analysis)
+    values (#{qmid,jdbcType=INTEGER}, #{standardAns,jdbcType=VARCHAR}, #{knowledge,jdbcType=VARCHAR}, 
+      #{difficulty,jdbcType=INTEGER}, #{int1,jdbcType=INTEGER}, #{int2,jdbcType=INTEGER}, 
+      #{var1,jdbcType=VARCHAR}, #{var2,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}, 
+      #{chioce1,jdbcType=LONGVARCHAR}, #{chioce2,jdbcType=LONGVARCHAR}, #{chioce3,jdbcType=LONGVARCHAR}, 
+      #{chioce4,jdbcType=LONGVARCHAR}, #{chioce5,jdbcType=LONGVARCHAR}, #{chioce6,jdbcType=LONGVARCHAR}, 
+      #{chioce7,jdbcType=LONGVARCHAR}, #{analysis,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.exam.entity.QuesMulWithBLOBs" >
+    insert into ques_mul
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="qmid != null" >
+        qmid,
+      </if>
+      <if test="standardAns != null" >
+        standard_ans,
+      </if>
+      <if test="knowledge != null" >
+        knowledge,
+      </if>
+      <if test="difficulty != null" >
+        difficulty,
+      </if>
+      <if test="int1 != null" >
+        int_1,
+      </if>
+      <if test="int2 != null" >
+        int_2,
+      </if>
+      <if test="var1 != null" >
+        var_1,
+      </if>
+      <if test="var2 != null" >
+        var_2,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="chioce1 != null" >
+        chioce1,
+      </if>
+      <if test="chioce2 != null" >
+        chioce2,
+      </if>
+      <if test="chioce3 != null" >
+        chioce3,
+      </if>
+      <if test="chioce4 != null" >
+        chioce4,
+      </if>
+      <if test="chioce5 != null" >
+        chioce5,
+      </if>
+      <if test="chioce6 != null" >
+        chioce6,
+      </if>
+      <if test="chioce7 != null" >
+        chioce7,
+      </if>
+      <if test="analysis != null" >
+        analysis,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="qmid != null" >
+        #{qmid,jdbcType=INTEGER},
+      </if>
+      <if test="standardAns != null" >
+        #{standardAns,jdbcType=VARCHAR},
+      </if>
+      <if test="knowledge != null" >
+        #{knowledge,jdbcType=VARCHAR},
+      </if>
+      <if test="difficulty != null" >
+        #{difficulty,jdbcType=INTEGER},
+      </if>
+      <if test="int1 != null" >
+        #{int1,jdbcType=INTEGER},
+      </if>
+      <if test="int2 != null" >
+        #{int2,jdbcType=INTEGER},
+      </if>
+      <if test="var1 != null" >
+        #{var1,jdbcType=VARCHAR},
+      </if>
+      <if test="var2 != null" >
+        #{var2,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="chioce1 != null" >
+        #{chioce1,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="chioce2 != null" >
+        #{chioce2,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="chioce3 != null" >
+        #{chioce3,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="chioce4 != null" >
+        #{chioce4,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="chioce5 != null" >
+        #{chioce5,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="chioce6 != null" >
+        #{chioce6,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="chioce7 != null" >
+        #{chioce7,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="analysis != null" >
+        #{analysis,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.exam.entity.QuesMulExample" resultType="java.lang.Integer" >
+    select count(*) from ques_mul
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ques_mul
+    <set >
+      <if test="record.qmid != null" >
+        qmid = #{record.qmid,jdbcType=INTEGER},
+      </if>
+      <if test="record.standardAns != null" >
+        standard_ans = #{record.standardAns,jdbcType=VARCHAR},
+      </if>
+      <if test="record.knowledge != null" >
+        knowledge = #{record.knowledge,jdbcType=VARCHAR},
+      </if>
+      <if test="record.difficulty != null" >
+        difficulty = #{record.difficulty,jdbcType=INTEGER},
+      </if>
+      <if test="record.int1 != null" >
+        int_1 = #{record.int1,jdbcType=INTEGER},
+      </if>
+      <if test="record.int2 != null" >
+        int_2 = #{record.int2,jdbcType=INTEGER},
+      </if>
+      <if test="record.var1 != null" >
+        var_1 = #{record.var1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.var2 != null" >
+        var_2 = #{record.var2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.chioce1 != null" >
+        chioce1 = #{record.chioce1,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.chioce2 != null" >
+        chioce2 = #{record.chioce2,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.chioce3 != null" >
+        chioce3 = #{record.chioce3,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.chioce4 != null" >
+        chioce4 = #{record.chioce4,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.chioce5 != null" >
+        chioce5 = #{record.chioce5,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.chioce6 != null" >
+        chioce6 = #{record.chioce6,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.chioce7 != null" >
+        chioce7 = #{record.chioce7,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.analysis != null" >
+        analysis = #{record.analysis,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update ques_mul
+    set qmid = #{record.qmid,jdbcType=INTEGER},
+      standard_ans = #{record.standardAns,jdbcType=VARCHAR},
+      knowledge = #{record.knowledge,jdbcType=VARCHAR},
+      difficulty = #{record.difficulty,jdbcType=INTEGER},
+      int_1 = #{record.int1,jdbcType=INTEGER},
+      int_2 = #{record.int2,jdbcType=INTEGER},
+      var_1 = #{record.var1,jdbcType=VARCHAR},
+      var_2 = #{record.var2,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=LONGVARCHAR},
+      chioce1 = #{record.chioce1,jdbcType=LONGVARCHAR},
+      chioce2 = #{record.chioce2,jdbcType=LONGVARCHAR},
+      chioce3 = #{record.chioce3,jdbcType=LONGVARCHAR},
+      chioce4 = #{record.chioce4,jdbcType=LONGVARCHAR},
+      chioce5 = #{record.chioce5,jdbcType=LONGVARCHAR},
+      chioce6 = #{record.chioce6,jdbcType=LONGVARCHAR},
+      chioce7 = #{record.chioce7,jdbcType=LONGVARCHAR},
+      analysis = #{record.analysis,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ques_mul
+    set qmid = #{record.qmid,jdbcType=INTEGER},
+      standard_ans = #{record.standardAns,jdbcType=VARCHAR},
+      knowledge = #{record.knowledge,jdbcType=VARCHAR},
+      difficulty = #{record.difficulty,jdbcType=INTEGER},
+      int_1 = #{record.int1,jdbcType=INTEGER},
+      int_2 = #{record.int2,jdbcType=INTEGER},
+      var_1 = #{record.var1,jdbcType=VARCHAR},
+      var_2 = #{record.var2,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.exam.entity.QuesMulWithBLOBs" >
+    update ques_mul
+    <set >
+      <if test="standardAns != null" >
+        standard_ans = #{standardAns,jdbcType=VARCHAR},
+      </if>
+      <if test="knowledge != null" >
+        knowledge = #{knowledge,jdbcType=VARCHAR},
+      </if>
+      <if test="difficulty != null" >
+        difficulty = #{difficulty,jdbcType=INTEGER},
+      </if>
+      <if test="int1 != null" >
+        int_1 = #{int1,jdbcType=INTEGER},
+      </if>
+      <if test="int2 != null" >
+        int_2 = #{int2,jdbcType=INTEGER},
+      </if>
+      <if test="var1 != null" >
+        var_1 = #{var1,jdbcType=VARCHAR},
+      </if>
+      <if test="var2 != null" >
+        var_2 = #{var2,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="chioce1 != null" >
+        chioce1 = #{chioce1,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="chioce2 != null" >
+        chioce2 = #{chioce2,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="chioce3 != null" >
+        chioce3 = #{chioce3,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="chioce4 != null" >
+        chioce4 = #{chioce4,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="chioce5 != null" >
+        chioce5 = #{chioce5,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="chioce6 != null" >
+        chioce6 = #{chioce6,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="chioce7 != null" >
+        chioce7 = #{chioce7,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="analysis != null" >
+        analysis = #{analysis,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where qmid = #{qmid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.exam.entity.QuesMulWithBLOBs" >
+    update ques_mul
+    set standard_ans = #{standardAns,jdbcType=VARCHAR},
+      knowledge = #{knowledge,jdbcType=VARCHAR},
+      difficulty = #{difficulty,jdbcType=INTEGER},
+      int_1 = #{int1,jdbcType=INTEGER},
+      int_2 = #{int2,jdbcType=INTEGER},
+      var_1 = #{var1,jdbcType=VARCHAR},
+      var_2 = #{var2,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR},
+      chioce1 = #{chioce1,jdbcType=LONGVARCHAR},
+      chioce2 = #{chioce2,jdbcType=LONGVARCHAR},
+      chioce3 = #{chioce3,jdbcType=LONGVARCHAR},
+      chioce4 = #{chioce4,jdbcType=LONGVARCHAR},
+      chioce5 = #{chioce5,jdbcType=LONGVARCHAR},
+      chioce6 = #{chioce6,jdbcType=LONGVARCHAR},
+      chioce7 = #{chioce7,jdbcType=LONGVARCHAR},
+      analysis = #{analysis,jdbcType=LONGVARCHAR}
+    where qmid = #{qmid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.exam.entity.QuesMul" >
+    update ques_mul
+    set standard_ans = #{standardAns,jdbcType=VARCHAR},
+      knowledge = #{knowledge,jdbcType=VARCHAR},
+      difficulty = #{difficulty,jdbcType=INTEGER},
+      int_1 = #{int1,jdbcType=INTEGER},
+      int_2 = #{int2,jdbcType=INTEGER},
+      var_1 = #{var1,jdbcType=VARCHAR},
+      var_2 = #{var2,jdbcType=VARCHAR}
+    where qmid = #{qmid,jdbcType=INTEGER}
+  </update>
+</mapper>

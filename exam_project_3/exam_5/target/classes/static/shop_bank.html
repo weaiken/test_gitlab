@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>题库商店</title>
+		<link type="text/css" rel="stylesheet" href="layui/css/layui.css" th:href="@{static/layui/css/layui.css}" />
+		<script type="text/javascript" src="layui/layui.js" th:src="@{static/layui/layui.js}"></script>
+
+		<script type="text/javascript" src="js/jquery-3.4.1.min.js" th:src="@{static/js/jquery-3.4.1.min.js}"></script>
+		<style type="text/css">
+			.body-main-top {
+				height: 150px;
+				text-align: center;
+				background-size: auto 150px;
+				background-color: #05a2fa;
+				background-position: center center;
+				background-repeat: no-repeat;
+				position: relative;
+			}
+
+			.paper_div {
+				border-top: #aac3d9 solid 5px;
+				padding: 0px;
+			}
+
+			.search-box {
+				margin-left: 50px;
+				margin-top: 50px;
+				position: relative;
+				width: 500px;
+				height: 42px;
+			}
+
+			.search-input input {
+				float: left;
+				margin-left: 15px;
+				height: 40px;
+				width: 380px;
+				border: 1px solid #fff;
+				border-radius: 5px 0 0 5px;
+			}
+
+			.search-button {
+				float: right;
+				margin-right: 10px;
+				height: 42px;
+				width: 93px;
+			}
+
+			.search-button button {
+				height: 41px;
+				width: 100%;
+				border: 1px solid #37bc9b;
+				background-color: #37bc9b;
+				border-radius: 0 5px 5px 0;
+			}
+		</style>
+	</head>
+
+	<body class="layui-layout-body">
+		<div class="layui-layout layui-layout-admin">
+			<div class="layui-header header-exam" style="background-color: #FFFFFF;">
+				<div class="layui-logo a">101test</div>
+				<ul class="layui-nav layui-layout-left">
+					<li class="layui-nav-item" style="padding-right: 20px;">
+						<a href="" style="color: #26292a;font-size: 16px;">首页</a>
+					</li>
+					<li class="layui-nav-item" style="padding-right: 20px;">
+						<a href="" style="color: #FD482C;font-size: 16px;"><i class="layui-icon" style="margin-right: 10px;">&#xe698;</i>商店</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="">我要买题</a>
+							</dd>
+							<dd>
+								<a href="">我要练习</a>
+							</dd>
+						</dl>
+					</li>
+				</ul>
+				<ul class="layui-nav layui-layout-right" style="padding-right: 100px">
+					<li class="layui-nav-item">
+						<a href="javascript:;" style="padding-right: 30px">
+							<img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+							<span style="color: #26292a">昵称</span>
+						</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="">我的设置</a>
+							</dd>
+							<dd>
+								<a href="">我的账户</a>
+							</dd>
+							<dd>
+								<a href="">安全退出</a>
+							</dd>
+						</dl>
+					</li>
+					<li class="layui-nav-item">
+						<a href="javascript:;" style="color: red;"><i class="layui-icon layui-icon-file-b" style="padding-right: 5px;"></i>考试入口</a>
+					</li>
+				</ul>
+			</div>
+			<div class="main-body">
+				<div class="layui-col-md5" style="width: 100%;">
+					<div class="layui-row grid-demo">
+						<div class="body-main-top" style="background:#05a2fa">
+							<div class="layui-col-md6" style="height: inherit;">
+								<img src="static/img/img2.png" style="width: 100%;height: 100%;">
+							</div>
+							<div class="layui-col-md6" style="height: inherit;">
+								<div class="search-box">
+									<form>
+										<div class="search-input">
+											<input name="keyword" type="text" id="searchbank" placeholder="输入关键字搜一搜" />
+											<div class="search-button">
+												<button class="button" type="button" id="searchbutton1">
+													<span style="color: #FFFFFF;">
+														<i class="layui-icon" style="margin-right: 5px;">&#xe615</i>
+														搜索题库
+													</span>
+												</button>
+											</div>
+										</div>
+									</form>
+									<div>
+										<p style="float: left; margin-left: 15px;margin-top: 10px;font-size: 14px;color: #FFFFFF;">输入您想要找到的题库关键字进行查询</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="body-main-main" style="width: 100%;">
+							<div class="layui-col-md2" style="height: 500px;margin-top: 15px;">
+								<div class="layui-carousel" id="test1">
+									<div carousel-item style="margin-left: 10px;margin-right: 5px;">
+										<div>条目1</div>
+										<div>条目2</div>
+										<div>条目3</div>
+										<div>条目4</div>
+										<div>条目5</div>
+									</div>
+								</div>
+							</div>
+							<div class="layui-col-md10" style="margin-top: 15px;padding: 10px;background: #ededed;">
+								<p style="margin-left: 20px;color: #979d9d;">
+									<button style="width: 70px;height: 38px;background:#05a2fa;border: 1px solid #05a2fa;">题库</button>
+									<span style="margin-left: 20px;">买题库可等到题库用来组卷，购买人对题库拥有完全的权限</span></p>
+								<hr class="layui-bg-blue" style="margin-left: 20px;margin-bottom: 20px;margin-top: 0px;">
+								<div class="md4-collection" id="share_bank_list" th:fragment="share_bank_list_div" style="height: 100%;width:100%">
+
+									<!-- <div class="layui-col-md4" style="margin-bottom: 25px;padding-left:20px;padding-right:20px;"> -->
+									<div class="paper_div layui-card" th:each="ques_bank:${bankList}">
+										<span id="bank_bid" th:text="${ques_bank.bid}" style="display:none"></span>
+										<div class="layui-card-header">
+											<a style="font-size: 24px;" th:text="${ques_bank.bname}"></a>
+										</div>
+										<div class="layui-card-body">
+											<div><i style="font-size: 14px; font:normal;color: #979d9d;" th:text="${ques_bank.date}"></i><br />
+												<i style="font-size: 13px; font:normal;color: #979d9d;" th:text="${ques_bank.bdescribe}"></i>
+											</div>
+											<div>
+												<a style="color: red;"><i class="layui-icon" style="margin-right: 5px;">&#xe735;</i>积分：<i>5.0</i></a>
+												<button id="agree" style="width: 70px;height: 25px;float: right;background: #01AAED;border: none;font-weight: bold;color: white;">
+													采纳
+												</button>
+											</div>
+										</div>
+										<div class="paper_exam" style="padding-left: 15px;padding-right: 15px;background: #f5f7fa;margin: 0px;padding-top: 10px;height: 30px;">
+											<a><i class="layui-icon">&#xe613;</i></a>
+											<a style="float: right;"><i class="layui-icon" style="color: black;font-size: 18px;">&#xe657;</i><span class="layui-badge-rim">15</span></a>
+										</div>
+									</div>
+								<!-- </div> -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+
+<script>
+	//JavaScript代码区域
+	layui.use('element', function() {
+		var element = layui.element;
+
+	});
+	layui.use('carousel', function() {
+		var carousel = layui.carousel;
+		//建造实例
+		carousel.render({
+			elem: '#test1',
+			width: '100%' //设置容器宽度
+				,
+			arrow: 'always',
+			height: '100%' //设置容器高度
+			//始终显示箭头
+			//,anim: 'updown' //切换动画方式
+		});
+	});
+
+	$(function() {
+		$("#searchbutton1").click(function() {
+			var p1 = $("#searchbank").val();
+			$('#share_bank_list').load('/search_share_bank', {'keyword':p1});
+
+		});
+		
+		$(document).on('click', '#agree', function() {
+			var p2 = $("#bank_bid").text();
+
+			$.ajax({
+				url: "/adopt_bank",
+				type: "get",
+				contentType: 'application/json;charset=utf-8',
+				data: {
+					'bank_bid': p2
+				},
+				success: function(e) {
+					alert(e);
+				}
+			});
+		});
+	});
+</script>

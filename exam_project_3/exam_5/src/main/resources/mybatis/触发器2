@@ -1,0 +1,23 @@
+UPDATE paper_ques_mapping SET paper_ques_mapping.`order` = paper_ques_mapping.`order` + 1 WHERE pid = new.pid AND paper_ques_mapping.`order` >= new.`order`;
+
+BEGIN
+	IF new.type = 1 THEN
+		UPDATE ques_bank SET qsi_num = qsi_num + 1 WHERE bid = new.bid;
+	ELSEIF new.type = 2 THEN
+		UPDATE ques_bank SET qm_num = qm_num + 1 WHERE bid = new.bid;
+	ELSEIF new.type = 3 THEN
+		UPDATE ques_bank SET qj_num = qj_num + 1 WHERE bid = new.bid;
+	ELSEIF new.type = 4 THEN
+		UPDATE ques_bank SET qf_num = qf_num + 1 WHERE bid = new.bid;
+	ELSEIF new.type = 5 THEN
+		UPDATE ques_bank SET qsh_num = qsh_num + 1 WHERE bid = new.bid;
+	END IF;
+END
+
+BEGIN
+	DELETE FROM store_paper WHERE store_paper.pid=old.pid;
+END
+
+BEGIN
+	DELETE FROM store_ques_bank WHERE store_ques_bank.bid=old.bid;
+END

@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exam.dao.PaperMapper" >
+  <resultMap id="BaseResultMap" type="com.exam.entity.Paper" >
+    <id column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="pname" property="pname" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="time" property="time" jdbcType="INTEGER" />
+    <result column="Invitation_code" property="invitationCode" jdbcType="VARCHAR" />
+    <result column="out_times" property="outTimes" jdbcType="INTEGER" />
+    <result column="pick_info" property="pickInfo" jdbcType="VARCHAR" />
+    <result column="qsi_num" property="qsiNum" jdbcType="INTEGER" />
+    <result column="qm_num" property="qmNum" jdbcType="INTEGER" />
+    <result column="qj_num" property="qjNum" jdbcType="INTEGER" />
+    <result column="qf_num" property="qfNum" jdbcType="INTEGER" />
+    <result column="qsh_num" property="qshNum" jdbcType="INTEGER" />
+    <result column="date" property="date" jdbcType="VARCHAR" />
+    <result column="is_limit" property="isLimit" jdbcType="INTEGER" />
+    <result column="beg_time" property="begTime" jdbcType="VARCHAR" />
+    <result column="end_time" property="endTime" jdbcType="VARCHAR" />
+    <result column="int_1" property="int1" jdbcType="INTEGER" />
+    <result column="int_2" property="int2" jdbcType="INTEGER" />
+    <result column="var_1" property="var1" jdbcType="VARCHAR" />
+    <result column="var_2" property="var2" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.exam.entity.Paper" extends="BaseResultMap" >
+    <result column="pdescribe" property="pdescribe" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    pid, uid, pname, type, time, Invitation_code, out_times, pick_info, qsi_num, qm_num, 
+    qj_num, qf_num, qsh_num, date, is_limit, beg_time, end_time, int_1, int_2, var_1, 
+    var_2
+  </sql>
+  <sql id="Blob_Column_List" >
+    pdescribe
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.exam.entity.PaperExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from paper
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.exam.entity.PaperExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from paper
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from paper
+    where pid = #{pid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from paper
+    where pid = #{pid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.exam.entity.PaperExample" >
+    delete from paper
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.exam.entity.Paper" >
+    insert into paper (pid, uid, pname, 
+      type, time, Invitation_code, 
+      out_times, pick_info, qsi_num, 
+      qm_num, qj_num, qf_num, 
+      qsh_num, date, is_limit, 
+      beg_time, end_time, int_1, 
+      int_2, var_1, var_2, pdescribe
+      )
+    values (#{pid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{pname,jdbcType=VARCHAR}, 
+      #{type,jdbcType=INTEGER}, #{time,jdbcType=INTEGER}, #{invitationCode,jdbcType=VARCHAR}, 
+      #{outTimes,jdbcType=INTEGER}, #{pickInfo,jdbcType=VARCHAR}, #{qsiNum,jdbcType=INTEGER}, 
+      #{qmNum,jdbcType=INTEGER}, #{qjNum,jdbcType=INTEGER}, #{qfNum,jdbcType=INTEGER}, 
+      #{qshNum,jdbcType=INTEGER}, #{date,jdbcType=VARCHAR}, #{isLimit,jdbcType=INTEGER}, 
+      #{begTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR}, #{int1,jdbcType=INTEGER}, 
+      #{int2,jdbcType=INTEGER}, #{var1,jdbcType=VARCHAR}, #{var2,jdbcType=VARCHAR}, #{pdescribe,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.exam.entity.Paper" >
+    insert into paper
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="pname != null" >
+        pname,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="invitationCode != null" >
+        Invitation_code,
+      </if>
+      <if test="outTimes != null" >
+        out_times,
+      </if>
+      <if test="pickInfo != null" >
+        pick_info,
+      </if>
+      <if test="qsiNum != null" >
+        qsi_num,
+      </if>
+      <if test="qmNum != null" >
+        qm_num,
+      </if>
+      <if test="qjNum != null" >
+        qj_num,
+      </if>
+      <if test="qfNum != null" >
+        qf_num,
+      </if>
+      <if test="qshNum != null" >
+        qsh_num,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="isLimit != null" >
+        is_limit,
+      </if>
+      <if test="begTime != null" >
+        beg_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="int1 != null" >
+        int_1,
+      </if>
+      <if test="int2 != null" >
+        int_2,
+      </if>
+      <if test="var1 != null" >
+        var_1,
+      </if>
+      <if test="var2 != null" >
+        var_2,
+      </if>
+      <if test="pdescribe != null" >
+        pdescribe,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="pname != null" >
+        #{pname,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=INTEGER},
+      </if>
+      <if test="invitationCode != null" >
+        #{invitationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="outTimes != null" >
+        #{outTimes,jdbcType=INTEGER},
+      </if>
+      <if test="pickInfo != null" >
+        #{pickInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="qsiNum != null" >
+        #{qsiNum,jdbcType=INTEGER},
+      </if>
+      <if test="qmNum != null" >
+        #{qmNum,jdbcType=INTEGER},
+      </if>
+      <if test="qjNum != null" >
+        #{qjNum,jdbcType=INTEGER},
+      </if>
+      <if test="qfNum != null" >
+        #{qfNum,jdbcType=INTEGER},
+      </if>
+      <if test="qshNum != null" >
+        #{qshNum,jdbcType=INTEGER},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="isLimit != null" >
+        #{isLimit,jdbcType=INTEGER},
+      </if>
+      <if test="begTime != null" >
+        #{begTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="int1 != null" >
+        #{int1,jdbcType=INTEGER},
+      </if>
+      <if test="int2 != null" >
+        #{int2,jdbcType=INTEGER},
+      </if>
+      <if test="var1 != null" >
+        #{var1,jdbcType=VARCHAR},
+      </if>
+      <if test="var2 != null" >
+        #{var2,jdbcType=VARCHAR},
+      </if>
+      <if test="pdescribe != null" >
+        #{pdescribe,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.exam.entity.PaperExample" resultType="java.lang.Integer" >
+    select count(*) from paper
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update paper
+    <set >
+      <if test="record.pid != null" >
+        pid = #{record.pid,jdbcType=INTEGER},
+      </if>
+      <if test="record.uid != null" >
+        uid = #{record.uid,jdbcType=INTEGER},
+      </if>
+      <if test="record.pname != null" >
+        pname = #{record.pname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.time != null" >
+        time = #{record.time,jdbcType=INTEGER},
+      </if>
+      <if test="record.invitationCode != null" >
+        Invitation_code = #{record.invitationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outTimes != null" >
+        out_times = #{record.outTimes,jdbcType=INTEGER},
+      </if>
+      <if test="record.pickInfo != null" >
+        pick_info = #{record.pickInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qsiNum != null" >
+        qsi_num = #{record.qsiNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.qmNum != null" >
+        qm_num = #{record.qmNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.qjNum != null" >
+        qj_num = #{record.qjNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.qfNum != null" >
+        qf_num = #{record.qfNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.qshNum != null" >
+        qsh_num = #{record.qshNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.date != null" >
+        date = #{record.date,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isLimit != null" >
+        is_limit = #{record.isLimit,jdbcType=INTEGER},
+      </if>
+      <if test="record.begTime != null" >
+        beg_time = #{record.begTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endTime != null" >
+        end_time = #{record.endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.int1 != null" >
+        int_1 = #{record.int1,jdbcType=INTEGER},
+      </if>
+      <if test="record.int2 != null" >
+        int_2 = #{record.int2,jdbcType=INTEGER},
+      </if>
+      <if test="record.var1 != null" >
+        var_1 = #{record.var1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.var2 != null" >
+        var_2 = #{record.var2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pdescribe != null" >
+        pdescribe = #{record.pdescribe,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update paper
+    set pid = #{record.pid,jdbcType=INTEGER},
+      uid = #{record.uid,jdbcType=INTEGER},
+      pname = #{record.pname,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER},
+      time = #{record.time,jdbcType=INTEGER},
+      Invitation_code = #{record.invitationCode,jdbcType=VARCHAR},
+      out_times = #{record.outTimes,jdbcType=INTEGER},
+      pick_info = #{record.pickInfo,jdbcType=VARCHAR},
+      qsi_num = #{record.qsiNum,jdbcType=INTEGER},
+      qm_num = #{record.qmNum,jdbcType=INTEGER},
+      qj_num = #{record.qjNum,jdbcType=INTEGER},
+      qf_num = #{record.qfNum,jdbcType=INTEGER},
+      qsh_num = #{record.qshNum,jdbcType=INTEGER},
+      date = #{record.date,jdbcType=VARCHAR},
+      is_limit = #{record.isLimit,jdbcType=INTEGER},
+      beg_time = #{record.begTime,jdbcType=VARCHAR},
+      end_time = #{record.endTime,jdbcType=VARCHAR},
+      int_1 = #{record.int1,jdbcType=INTEGER},
+      int_2 = #{record.int2,jdbcType=INTEGER},
+      var_1 = #{record.var1,jdbcType=VARCHAR},
+      var_2 = #{record.var2,jdbcType=VARCHAR},
+      pdescribe = #{record.pdescribe,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update paper
+    set pid = #{record.pid,jdbcType=INTEGER},
+      uid = #{record.uid,jdbcType=INTEGER},
+      pname = #{record.pname,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER},
+      time = #{record.time,jdbcType=INTEGER},
+      Invitation_code = #{record.invitationCode,jdbcType=VARCHAR},
+      out_times = #{record.outTimes,jdbcType=INTEGER},
+      pick_info = #{record.pickInfo,jdbcType=VARCHAR},
+      qsi_num = #{record.qsiNum,jdbcType=INTEGER},
+      qm_num = #{record.qmNum,jdbcType=INTEGER},
+      qj_num = #{record.qjNum,jdbcType=INTEGER},
+      qf_num = #{record.qfNum,jdbcType=INTEGER},
+      qsh_num = #{record.qshNum,jdbcType=INTEGER},
+      date = #{record.date,jdbcType=VARCHAR},
+      is_limit = #{record.isLimit,jdbcType=INTEGER},
+      beg_time = #{record.begTime,jdbcType=VARCHAR},
+      end_time = #{record.endTime,jdbcType=VARCHAR},
+      int_1 = #{record.int1,jdbcType=INTEGER},
+      int_2 = #{record.int2,jdbcType=INTEGER},
+      var_1 = #{record.var1,jdbcType=VARCHAR},
+      var_2 = #{record.var2,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.exam.entity.Paper" >
+    update paper
+    <set >
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="pname != null" >
+        pname = #{pname,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=INTEGER},
+      </if>
+      <if test="invitationCode != null" >
+        Invitation_code = #{invitationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="outTimes != null" >
+        out_times = #{outTimes,jdbcType=INTEGER},
+      </if>
+      <if test="pickInfo != null" >
+        pick_info = #{pickInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="qsiNum != null" >
+        qsi_num = #{qsiNum,jdbcType=INTEGER},
+      </if>
+      <if test="qmNum != null" >
+        qm_num = #{qmNum,jdbcType=INTEGER},
+      </if>
+      <if test="qjNum != null" >
+        qj_num = #{qjNum,jdbcType=INTEGER},
+      </if>
+      <if test="qfNum != null" >
+        qf_num = #{qfNum,jdbcType=INTEGER},
+      </if>
+      <if test="qshNum != null" >
+        qsh_num = #{qshNum,jdbcType=INTEGER},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="isLimit != null" >
+        is_limit = #{isLimit,jdbcType=INTEGER},
+      </if>
+      <if test="begTime != null" >
+        beg_time = #{begTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="int1 != null" >
+        int_1 = #{int1,jdbcType=INTEGER},
+      </if>
+      <if test="int2 != null" >
+        int_2 = #{int2,jdbcType=INTEGER},
+      </if>
+      <if test="var1 != null" >
+        var_1 = #{var1,jdbcType=VARCHAR},
+      </if>
+      <if test="var2 != null" >
+        var_2 = #{var2,jdbcType=VARCHAR},
+      </if>
+      <if test="pdescribe != null" >
+        pdescribe = #{pdescribe,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where pid = #{pid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.exam.entity.Paper" >
+    update paper
+    set uid = #{uid,jdbcType=INTEGER},
+      pname = #{pname,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      time = #{time,jdbcType=INTEGER},
+      Invitation_code = #{invitationCode,jdbcType=VARCHAR},
+      out_times = #{outTimes,jdbcType=INTEGER},
+      pick_info = #{pickInfo,jdbcType=VARCHAR},
+      qsi_num = #{qsiNum,jdbcType=INTEGER},
+      qm_num = #{qmNum,jdbcType=INTEGER},
+      qj_num = #{qjNum,jdbcType=INTEGER},
+      qf_num = #{qfNum,jdbcType=INTEGER},
+      qsh_num = #{qshNum,jdbcType=INTEGER},
+      date = #{date,jdbcType=VARCHAR},
+      is_limit = #{isLimit,jdbcType=INTEGER},
+      beg_time = #{begTime,jdbcType=VARCHAR},
+      end_time = #{endTime,jdbcType=VARCHAR},
+      int_1 = #{int1,jdbcType=INTEGER},
+      int_2 = #{int2,jdbcType=INTEGER},
+      var_1 = #{var1,jdbcType=VARCHAR},
+      var_2 = #{var2,jdbcType=VARCHAR},
+      pdescribe = #{pdescribe,jdbcType=LONGVARCHAR}
+    where pid = #{pid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.exam.entity.Paper" >
+    update paper
+    set uid = #{uid,jdbcType=INTEGER},
+      pname = #{pname,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      time = #{time,jdbcType=INTEGER},
+      Invitation_code = #{invitationCode,jdbcType=VARCHAR},
+      out_times = #{outTimes,jdbcType=INTEGER},
+      pick_info = #{pickInfo,jdbcType=VARCHAR},
+      qsi_num = #{qsiNum,jdbcType=INTEGER},
+      qm_num = #{qmNum,jdbcType=INTEGER},
+      qj_num = #{qjNum,jdbcType=INTEGER},
+      qf_num = #{qfNum,jdbcType=INTEGER},
+      qsh_num = #{qshNum,jdbcType=INTEGER},
+      date = #{date,jdbcType=VARCHAR},
+      is_limit = #{isLimit,jdbcType=INTEGER},
+      beg_time = #{begTime,jdbcType=VARCHAR},
+      end_time = #{endTime,jdbcType=VARCHAR},
+      int_1 = #{int1,jdbcType=INTEGER},
+      int_2 = #{int2,jdbcType=INTEGER},
+      var_1 = #{var1,jdbcType=VARCHAR},
+      var_2 = #{var2,jdbcType=VARCHAR}
+    where pid = #{pid,jdbcType=INTEGER}
+  </update>
+
+  
+  <select id="selectTeaPapers" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from paper
+    where uid = #{uid,jdbcType=INTEGER}
+  </select>
+  
+  <select id="countExamineeNum" resultType="java.lang.Integer" parameterType="java.lang.Integer" >
+    select count(examinee.eid)
+    from paper,examinee
+    where paper.pid = examinee.pid and paper.pid = #{pid,jdbcType=INTEGER}
+  </select>
+  
+  <select id="countReportNum" resultType="java.lang.Integer" parameterType="java.lang.Integer" >
+    select count(report.rid)
+    from paper,examinee,report
+    where paper.pid = examinee.pid and examinee.eid = report.eid and paper.pid = #{pid,jdbcType=INTEGER}
+  </select>
+  
+  <insert id="insertPaperNoPrimaryKey" parameterType="com.exam.entity.Paper">
+		<selectKey order="AFTER" keyProperty="pid" resultType="java.lang.Integer">
+			select LAST_INSERT_ID()
+		</selectKey>
+		
+	insert into paper (uid, pname, 
+      type, time, Invitation_code, 
+      out_times, pick_info, qsi_num, 
+      qm_num, qj_num, qf_num, 
+      qsh_num, date, is_limit, 
+      beg_time, end_time, int_1, 
+      int_2, var_1, var_2, pdescribe
+      )
+    values (#{uid,jdbcType=INTEGER}, #{pname,jdbcType=VARCHAR}, 
+      #{type,jdbcType=INTEGER}, #{time,jdbcType=INTEGER}, #{invitationCode,jdbcType=VARCHAR}, 
+      #{outTimes,jdbcType=INTEGER}, #{pickInfo,jdbcType=VARCHAR}, #{qsiNum,jdbcType=INTEGER}, 
+      #{qmNum,jdbcType=INTEGER}, #{qjNum,jdbcType=INTEGER}, #{qfNum,jdbcType=INTEGER}, 
+      #{qshNum,jdbcType=INTEGER}, #{date,jdbcType=VARCHAR}, #{isLimit,jdbcType=INTEGER}, 
+      #{begTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR}, #{int1,jdbcType=INTEGER}, 
+      #{int2,jdbcType=INTEGER}, #{var1,jdbcType=VARCHAR}, #{var2,jdbcType=VARCHAR}, #{pdescribe,jdbcType=LONGVARCHAR}
+      )
+	</insert>
+  
+</mapper>

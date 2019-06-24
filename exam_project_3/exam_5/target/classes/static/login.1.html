@@ -1,0 +1,292 @@
+<!-- <!DOCTYPE html> -->
+<html xmlns="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>登录</title>
+
+		<link type="text/css" rel="stylesheet" href="layui/css/layui.css" th:href="@{static/layui/css/layui.css}" />
+		<script type="text/javascript" src="layui/layui.js" th:src="@{static/layui/layui.js}"></script>
+		
+		<script type="text/javascript" src="js/jquery-3.4.1.min.js" th:src="@{static/js/jquery-3.4.1.min.js}"></script>
+		<link type="text/css" rel="stylesheet" href="css/login_css.css" th:href="@{static/css/login_css.css}" />
+		<script type="text/javascript" src="js/login_js.js" th:src="@{static/js/login_js.js}"></script>
+
+		<style type="text/css">
+			#app {
+				background: gray;
+				background-image: url(img/bg_1.gif);
+				/* background-image: th:url(@{static/img/bg_1.gif}); */
+				background-image: url(img/bg_2.jpg);
+				/* th:background-image: url(@{static/img/bg_2.jpg}); */
+				/* background-image: url(img/bg_3.jpg); */
+				height: 100VH;
+				background-position: 50% center;
+				background-repeat: no-repeat;
+				background-size: cover;
+				filter: blur(90px);
+				opacity: 0.6;
+				
+				/* background-image: url(img/bg_2.jpg); */
+			}
+			
+			
+			.layui-unselect {
+				
+			} 
+			.layui-form-radio div,i {
+				font-size: 18px;
+				font-weight: bold;
+			}
+			.layui-form-radioed{
+				color: green;
+			}
+		</style>
+	</head>
+
+
+	<body class="layui-bg-gray" style="width: 100%;height: 100%;">
+		<!-- <img id="app"  th:src="@{static/img/bg_2.jpg}"> -->
+		<div id="app" ></div>
+
+		<div id="" class="layui-container" style="width: 100%;padding: 0px;position: absolute;top: 0px;">
+			
+			<div style="margin: auto;width: 250px;margin-top: 125px;">
+				<img src="img/Logo_1.png" th:src="@{static/img/Logo_1.png}" style="width: 250px;"/>
+			</div>
+			
+			<div class="content" style="margin-top: 25px;">
+				
+				<div class="login-box">
+					<div class="login-item">
+						<ul style="list-style: none;">
+							<li class="choosed">
+								<span>登录</span>
+							</li>
+							<hr class="layui-bg-blue" style="width: 10%;display: inline-block;">
+							<li>
+								<span>注册</span>
+							</li>
+						</ul>
+					</div>
+
+					<div class="login-register">
+						
+						<!-- 登录 -->
+						<div class="infor">
+							<form method="post" id="myform">
+								<div class="input-field">
+									<input name="email" id="email" type="text" spellcheck="false" placeholder="邮箱" autocomplete="off" />
+									<span id="sss"></span>
+								</div>
+								<div class="input-field">
+									<input name="password" id="password" spellcheck="false" type="password" placeholder="密码" autocomplete="off" />
+									<span id="aaa"></span>
+								</div>
+
+								<div class="action">
+									<input id="subaction" name="subaction" class="subaction" type="submit" value="登录" />
+								</div>
+							</form>
+						</div> <!-- 登录结束 -->
+						
+						<!-- 魏：充数元素，不可删除，否则无法切换标签 2019.6.23-->
+						<div class="infor" style="display: none;"></div>
+						
+						<!-- 注册  -->
+						<div class="infor" style="display: none;" id="myform">
+							<form action="regist" method="post">
+								<div class="input-field">
+									<input name="email" id="email1" type="text" spellcheck="false" placeholder="邮箱" autocomplete="off" />
+									<span id="emailmsg" style="color:red; font-size:14px"></span>
+								</div>
+								<div class="input-field">
+									<input name="uname" id="uname" spellcheck="false" type="text" placeholder="昵称" autocomplete="off" />
+									<span id="ccc" style="color:red; font-size:14px"></span>
+								</div>
+
+								<div class="input-field">
+									<input name="password" id="password1" spellcheck="false" type="password" placeholder="密码" autocomplete="off" />
+									<span id="ggg" style="color:red; font-size:14px"></span>
+								</div> <br>
+								
+								<div class="" style="font-size: 18px;">									
+									<div class="layui-form layui-form-pane">
+										<div class="layui-form-item">
+											<label class="layui-form-label" style="background: rgba(255, 255, 255, 0.7);">角色</label>
+											<div class="layui-input-block" style="background: rgba(255, 255, 255, 0.3);">
+												<input type="radio" name="role" value="0" title="教师">
+												<input type="radio" name="role" value="1" title="学生" checked>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+
+								<div class="action">
+									<input id="subaction1" name="regist" class="subaction" type="submit" value="注册" onsubmit="" />
+									<span id="eee" style="font-size:16px"></span>
+								</div>
+
+								<div class="info_pass">
+									<p>
+										密码安全级别：<strong class="s1">■</strong><strong class="s2">■</strong><strong class="s3">■</strong><strong class="s4"
+										 style="font-weight:normal"></strong>
+									</p>
+									<p>
+										<strong class="q1" style="font-weight:normal">○</strong> 6-20 个字符
+									</p>
+									<p>
+										<strong class="q2" style="font-weight:normal">○</strong>只能包含大小写字母、数字、非空字符
+									</p>
+								</div>
+							</form>
+						</div><!-- 注册结束 -->
+					</div> 
+				</div>
+			</div>
+		</div>
+
+	</body>
+</html>
+
+<script>
+	
+	layui.use(['element', 'layer', 'form'], function() {
+		var element = layui.element,
+			layer = layui.layer,
+			form = layui.form;
+	});
+	
+	
+	$(function() {
+		
+		// 注册操作
+		
+		$('#uname').blur(function() {
+			var unametxt = $(this).val();
+			if (unametxt == '' || unametxt == null) {
+				$('#ccc').text('昵称不能为空')
+			}
+		})
+
+		$('#uname').focus(function() {
+			$('#ccc').text('')
+		})
+
+		$('#email1').blur(checkemail);
+
+		function checkemail() {
+			//定义一个邮箱的正则表达式  ,并用 test方法验证正则表达式
+			var regCode = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+			var emailcheck = $('#email1').val();
+			var $msg = $('#emailmsg').html("");
+			if (emailcheck == '' || emailcheck == null) {
+				$msg.html('邮件不能为空')
+				return false;
+			} else if (regCode.test(emailcheck) == false) {
+
+				$msg.html('格式错误');
+				return false;
+			} else {
+				$.ajax({
+					url: "checkemail",
+					type: "get",
+					contentType: 'application/json;charset=utf-8',
+					dataType: "json",
+					data: {
+						"emailcheck": emailcheck,
+					},
+					success: function(e) {
+						if (e == "0") {
+							$("#emailmsg").text("该邮箱可使用");
+						} else {
+							$("#emailmsg").text("该邮箱已注册");
+						}
+					}
+				});
+			}
+			return true;
+		}
+
+		$(document).ready(function() {
+			$('#password1').bind('focus', focus);
+			$('#password1').bind('blur', blur);
+			$('#password1').bind('keyup', keyup);
+		})
+
+		function focus() {
+			$('.info_pass').css('display', 'block');
+		};
+
+		function blur() {
+			pwd = document.getElementById("password1").value.trim()
+
+			if (pwd == "") {
+				$('.info_pass').css('display', 'none');
+			} else {
+
+				if (keyup()) {
+					$('.info_pass').css('display', 'none');
+				} else {
+					$('.info_pass').css('display', 'none');
+				}
+			}
+		};
+
+		function keyup() {
+			var flag = false;
+			var value = document.getElementById("password1").value.trim();
+			var value_length = value.length;
+			var code_length = 0;
+
+			//6-20位字符验证
+			if (value_length >= 6 && value_length <= 20) {
+				$('.q1').html('●').css('color', 'green');
+			} else {
+				$('.q1').html('○').css('color', '#666');
+			}
+
+			if (/[0-9]/.test(value)) {
+				code_length++;
+			}
+			if (/[a-z]/.test(value)) {
+				code_length++;
+			}
+			if (/[A-Z]/.test(value)) {
+				code_length++;
+			}
+
+			//密码是否包含除数字和字母之外的字符
+			if (value_length > 0 && !/\s/.test(value) && !/[^a-zA-Z0-9]/.test(value) && code_length >= 2) {
+				$('.q2').html('●').css('color', 'green');
+			} else {
+				$('.q2').html('○').css('color', '#666');
+			}
+
+			//安全级别
+			if (code_length >= 2 && value_length >= 15 && ($('.q2').html()) == '●' && ($('.q1').html()) == '●') {
+				$('.s1').css('color', 'green');
+				$('.s2').css('color', 'green');
+				$('.s3').css('color', 'green');
+				$('.s4').html('高').css('color', 'green');
+			} else if (code_length >= 2 && value_length >= 10 && ($('.q2').html()) == '●' && ($('.q1').html()) == '●') {
+				$('.s1').css('color', '#f60');
+				$('.s2').css('color', '#f60');
+				$('.s3').css('color', '#ccc');
+				$('.s4').html('中').css('color', '#f60');
+			} else if (code_length >= 2 && value_length >= 6 && ($('.q2').html()) == '●' && ($('.q1').html()) == '●') {
+				$('.s1').css('color', 'maroon');
+				$('.s2').css('color', '#ccc');
+				$('.s3').css('color', '#ccc');
+				$('.s4').html('低').css('color', 'maroon');
+			} else {
+				$('.s1').css('color', '#ccc');
+				$('.s2').css('color', '#ccc');
+				$('.s3').css('color', '#ccc');
+				$('.s4').html(' ').css('color', '#ccc');
+			}
+			if (value_length >= 6 && value_length <= 20 && code_length >= 2) flag = true;
+			return flag;
+		}
+	})
+</script>

@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>我的题库</title>
+		
+		<link type="text/css" rel="stylesheet" href="layui/css/layui.css" th:href="@{static/layui/css/layui.css}"/>
+		<script type="text/javascript" src="layui/layui.js" th:src="@{static/layui/layui.js}"></script>
+		
+		<script type="text/javascript" src="js/jquery-3.4.1.min.js" th:src="@{static/js/jquery-3.4.1.min.js}"></script>
+		<style>
+			.nav_ul li a {
+				font-size: 18px;
+				width: 100px;
+				text-align: center;
+				color: white;
+				font-weight: bold;
+			}
+			
+			.layui-tab-title li{
+				display: block;
+			}
+			.layui-tab-title{
+				float: left;
+			}
+			.layui-tab-content{
+				float: left;
+			}
+			
+			.layui-tab-title li {
+				border: none;
+			}
+			.layui-tab-title li a {
+				font-size: 18px;
+			}
+			.layui-tab-title li:hover {
+				background: #00FF00;
+			}
+			
+			
+			.bank_div {
+				/* border-top: #009688 solid 5px; */
+				padding: 0px;
+			}
+			
+			.bank_setting_menu {
+				display: none;
+				text-align: center;
+				width: 120px;
+				background: white;
+				box-shadow: 2px 2px 25px cadetblue;
+				z-index: 999999;
+				border-radius: 5px;
+				font-weight: bold;
+			}
+			
+			.bank_setting_menu ul li {
+				font-size: 14px;
+				height: 40px;
+			}
+			
+			.bank_setting_menu ul li:hover {
+				background: #2D93CA;
+				color: white;
+				border-radius: 5px;
+			}
+			
+		</style>
+	</head>
+	<body class="layui-bg-gray" style="width: 100%;height: 100%;">
+		
+		<!-- 页面容器/ -->
+			<div class="layui-container" style="width: 100%;padding: 0px;">
+				
+				<!-- 顶部导航栏 -->
+				<div class="layui-row">
+					<ul class="layui-nav nav_ul"  style="padding: 0px;margin: 0px;padding-left: 100px;padding-right: 100px;background: #409EFF;">
+						<li class="layui-nav-item"><a>首页</a></li>
+						<li class="layui-nav-item"><a>考试</a></li>
+						<li class="layui-nav-item"><a>题库</a></li>
+						<li class="layui-nav-item"><a>寻找题库</a></li>
+						
+						<!-- 用户名 -->
+						<li class="layui-nav-item" style="float: right;">
+							<a href="#" style="color: black;">
+								<img class="layui-nav-img" src="img/photo/tea.jpg">
+								Resun
+							</a>
+							
+							<!-- 二级菜单 -->
+							<dl class="layui-nav-child">
+								<dd><a href="#">修改个人信息</a></dd>
+								<dd><a href="#">退出</a></dd>
+							</dl>
+						</li>
+					</ul>
+				</div> <!-- 顶部导航栏结尾 -->
+				
+				<!-- 其他功能实现 -->
+				<div class="layui-row" style="width: 100%;height: 900px;padding: 0px;margin: 0px;">
+					
+					<div class="layui-row layui-tab layui-tab-brief" lay-filter="docDemoTabBrief" style="height: 100%;">
+						
+						<div class="layui-col-md1" style="background: #009688;height: 100%;">
+							<!-- 创建题库 -->
+							<button id="creat_bank" class="layui-btn layui-btn-normal" style="width: 100%;height: 50px;margin: auto;font-size: 20px;">
+								<i class="layui-icon">&#xe654;</i>&nbsp;创建题库
+								</button>
+							
+							<ul class="layui-tab-title tab_title" style="font-size: 30px;font-weight: bold;width: 100%;">
+								<li id="my_banks_li" class="layui-this"><a>我的题库</a></li>
+								<li id="my_share_li"><a>我的分享</a></li>
+							</ul>
+						</div>
+						
+						<div class="layui-tab-content layui-col-md11" style="height: 100%;">
+							<!-- 我的题库tab content -->
+							<div id="my_banks_div"  th:fragment="my_banks_div" class="layui-tab-item layui-row grid-demo layui-show" style="padding: 25px;width: 95%;">
+								
+								<div class="bank_div layui-col-md3" th:each="bank,stat:${bank_list}" style="padding-left: 25px;padding-right: 25px;margin-bottom: 25px;">
+									<div class="bid" style="display: none;" th:text="${bank.bid}">题库id</div>
+									<div class="layui-card" style="border-top: #009688 solid 3px;">
+										<div class="layui-card-header">
+											<a class="bank_name_a" style="font-size: 24px;" th:text="${bank.bname}">题库名</a>
+											<a class="bank_setting_a" style="float: right;">
+												<i class="layui-icon" style="font-size: 20px;">&#xe614;</i>
+												<div class="bank_setting_menu" style="">
+													<ul class="">
+														<li class="edit_bank_li"><i class="layui-icon">&#xe642;</i>&nbsp;编辑题库</li>
+														<li class="share_bank_li"><i class="layui-icon">&#xe641;</i>&nbsp;分享题库</li>
+														<li class="del_bank_li"><i class="layui-icon">&#x1006;</i>&nbsp;删除题库</li>
+													</ul>
+												</div>
+											</a>
+										</div>
+										<div class="layui-card-body">
+											<div class="bank_bdescribe_div temp" style="display: none;" th:text="${bank.bdescribe}"></div>
+											<div class="bank_date_a"><a style="font-size: 15px;" th:text="${bank.date} + '  更新'">更新日期</a></div><br />
+											<div>
+												<label>
+													<span style="font-size: 24px;color: orangered;" th:text="${bank.qsiNum} + ${bank.qmNum} + ${bank.qjNum} + ${bank.qfNum} + ${bank.qshNum}"></span>
+													 道题
+												</label>
+												<button style="width: 85px;height: 25px;float: right;background: #67C23A;border: none;font-weight: bold;color: #FFFFFF;">
+													<i class="layui-icon">&#xe654;</i> 添加题目
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								
+							</div>
+							
+							<div class="layui-tab-item">kaoshi tab 4</div>
+							
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		
+		</body>
+		
+	</body>
+</html>
+
+<script>
+	
+	var select_bid = '';
+	
+	$(function(){
+		$('#my_banks_li').click();
+	})
+	
+	$('#my_banks_li').click(function(){
+		$('#my_banks_div').load('/getBankLs');
+	});
+	
+	layui.use(['element','layer','form'],function(){
+		var element = layui.element,
+			layer = layui.layer,
+			form = layui.form;
+	});
+	
+	$(document).on('click','.bank_setting_a',function(event){
+		event.stopPropagation();
+		$(this).children('.bank_setting_menu').css('display','block');
+		$(this).children('.bank_setting_menu').css('position','absolute');
+		$(this).children('.bank_setting_menu').css('float','right');
+		
+		select_bid = $(this).parent().parent().siblings('.bid').text();
+	})
+	
+	$(document).click(function(){
+		$('.bank_setting_menu').hide();
+	})
+	
+	$('.tab_title li').click(function(){
+		$(this).css('background','green');
+		$(this).siblings().css('background','none');
+	})
+	
+	$('#creat_bank').click(function(){
+		layer.open({
+		  type: 1,
+		  title: '创建一个题库',
+		  shade: 0.4,
+		  area: ['525px', '300px'],
+		  shadeClose: false, //点击遮罩关闭
+		  content: (
+		  
+		  '<div style="width: 500px;height: 100px;margin-top: 25px;">'+
+'			<form class="layui-form">'+
+'				<div class="layui-form-item">'+
+'					<label class="layui-form-label"><span style="color: red;">*</span>题库标题：</label>'+
+'					<div class="layui-input-block">'+
+'						<input id="bank_name" type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">'+
+'					</div>'+
+'				</div>'+
+'				'+
+'				<div class="layui-form-item layui-form-text">'+
+'					<label class="layui-form-label" ><span style="color: red;">*</span>题库描述：</label>'+
+'					<div class="layui-input-block">'+
+'						<textarea id="bank_describe" name="desc" placeholder="请输入题库描述" class="layui-textarea" required lay-verify="required" ></textarea>'+
+'					</div>'+
+'				</div>'+
+'				<div class="layui-form-item">'+
+'					<div class="layui-input-block">'+
+'						<button id="creat_bank_submit" type="button" class="layui-btn" lay-filter="formDemo">立即提交</button>'+
+'						<button type="reset" class="layui-btn layui-btn-primary">重置</button>'+
+'					</div>'+
+'				</div>'+
+'			</form>'+
+'		</div>'
+		  
+					)
+		});
+	})
+	
+	$(document).on('click', '#creat_bank_submit', function(){
+		// var bname = $('#bank_name').val();
+		// var bdescribe = $('#bank_describe').val();
+		
+		var value1 = $('#bank_name').val();
+		var value2 = $('#bank_describe').val();
+		
+		var t1 = $.trim(value1);
+		var t2 = $.trim(value2);
+		
+		if(value1 == '' || value1 == null){
+			$('#msg').css('color','red');
+			$('#msg').text('题库标题不能为空！');
+			return;
+		}
+		
+		if(t1 == null || t1 == ''){
+			$('#msg').css('color','red');
+			$('#msg').text('题库标题不能全为空格！');
+			return;
+		}
+		
+		if(value2 == '' || value2 == null){
+			$('#msg').css('color','red');
+			$('#msg').text('题库描述内容不能为空！');
+			return;
+		}
+		
+		if(t2 == null || t2 == ''){
+			$('#msg').css('color','red');
+			$('#msg').text('题库描述内容不能全为空格！');
+			return;
+		}
+		
+		var bank_data = {'bname':value1, 'bdescribe':value2};
+		var bank = JSON.stringify(bank_data);
+		
+		$.ajax({
+			type : "POST",                           //通过POST方式上传请求
+			contentType : "application/json",//上传内容格式为json结构
+			data : bank,                                 //上传的参数
+			url : "/creat_bank",     //请求的url。与后端@Request Mapping注解中的值一致。
+			success : function(res) {		      //请求成功的回调函数
+				
+				if ( res != 0  ) {
+					layer.msg('创建题库成功!');
+					
+					if( $('.layui-tab-title .layui-this').attr('id') == 'my_banks_li' ){
+						$('#my_banks_div').load('/getBankLs');
+					}
+				}
+			},
+			error : function(e) {		      //请求失败的回调函数
+				layer.msg('创建题库失败!您可以重试!');
+			}
+		});
+		
+	});
+	
+	// 分享题库
+	$(document).on('click', '.share_bank_li', share_bank_layer);
+	
+	function share_bank_layer(){
+		layer.confirm('确认分享此题库吗？', {
+			title: '分享题库',
+			btn: ['确认', '取消']
+		}, function(index, layero) {
+			// alert('确认分享')
+			
+			share_bank();
+			
+			layer.close(index);
+		}, function(index) {
+			// alert('取消分享')
+		});
+	}
+	
+	function share_bank(){
+		$.post('setBankShare', {'bid':select_bid}, function(result){
+			var msg = '';
+			if (result == 1) {
+				msg += '题库分享成功！';
+			} else if ( result == -1 ) {
+				msg += '题库已经分享过了！';
+			} else {
+				msg += '题库分享失败！';
+			}
+			layer.msg(msg);
+		})
+	}
+	
+	// 删除题库
+	$(document).on('click', '.del_bank_li', del_bank_layer);
+	
+	function del_bank_layer(){
+		layer.confirm('确认删除此题库吗？', {
+			title: '删除题库',
+			btn: ['确认', '取消']
+		}, function(index, layero) {
+			del_bank();
+			layer.close(index);
+		}, function(index) {
+			// alert('取消分享')
+		});
+	}
+	
+	function del_bank(){
+		$.post('delBank', {'bid':select_bid}, function(result){
+			var msg = '';
+			if (result == 1) {
+				msg += '题库删除成功！';
+				$('#my_banks_div').load('/getBankLs');
+			} else {
+				msg += '题库删除失败！';
+			}
+			layer.msg(msg);
+		})
+	}
+	
+	// 编辑题库
+	
+	var bank_bdescribe_old = '';
+	var bank_name_old = '';
+	
+	$(document).on('click', '.edit_bank_li', function(){
+		// alert('ok')
+		
+		bank_bdescribe_old = $(this).parent().parent().parent().parent().siblings().children('.bank_bdescribe_div').text();
+		bank_name_old = $(this).parent().parent().parent().siblings('.bank_name_a').text();
+		// alert(bank_name + ' = ' + bank_bdescribe);
+		
+		layer.open({
+				  type: 1,
+				  title: '创建一个题库',
+				  shade: 0.4,
+				  area: ['525px', '300px'],
+				  shadeClose: false, //点击遮罩关闭
+				  content: (
+				  
+				  '<div style="width: 500px;height: 100px;margin-top: 25px;">'+
+		'			<form class="layui-form">'+
+		'				<div class="layui-form-item">'+
+		'					<label class="layui-form-label"><span style="color: red;">*</span>题库标题：</label>'+
+		'					<div class="layui-input-block">'+
+		'						<input id="bank_name_new" type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" value="' + bank_name_old + '">'+
+		'					</div>'+
+		'				</div>'+
+		'				'+
+		'				<div class="layui-form-item layui-form-text">'+
+		'					<label class="layui-form-label" ><span style="color: red;">*</span>题库描述：</label>'+
+		'					<div class="layui-input-block">'+
+		'						<textarea id="bank_describe_new" name="desc" placeholder="请输入题库描述" class="layui-textarea" required lay-verify="required" value="">' + bank_bdescribe_old + '</textarea>'+
+		'					</div>'+
+		'				</div>'+
+		'				<div class="layui-form-item">'+
+		'					<div class="layui-input-block">'+
+		'						<button id="mod_bank_submit" type="button" class="layui-btn" lay-filter="formDemo">立即提交</button>'+
+		'						<button type="reset" class="layui-btn layui-btn-primary">重置</button>'+
+		'					</div>'+
+		'				</div>'+
+		'			</form>'+
+		'		</div>'
+				  
+							)
+				});
+	})
+	
+	$(document).on('click', '#mod_bank_submit', function(){
+		// var bname = $('#bank_name').val();
+		// var bdescribe = $('#bank_describe').val();
+		
+		var value1 = $('#bank_name_new').val();
+		var value2 = $('#bank_describe_new').val();
+		
+		if ( bank_name_old == value1 && bank_bdescribe_old == value2) {
+			layer.msg('您未修改题库信息！');
+			return;
+		}
+		
+		var t1 = $.trim(value1);
+		var t2 = $.trim(value2);
+		
+		if(value1 == '' || value1 == null){
+			$('#msg').css('color','red');
+			$('#msg').text('题库标题不能为空！');
+			return;
+		}
+		
+		if(t1 == null || t1 == ''){
+			$('#msg').css('color','red');
+			$('#msg').text('题库标题不能全为空格！');
+			return;
+		}
+		
+		if(value2 == '' || value2 == null){
+			$('#msg').css('color','red');
+			$('#msg').text('题库描述内容不能为空！');
+			return;
+		}
+		
+		if(t2 == null || t2 == ''){
+			$('#msg').css('color','red');
+			$('#msg').text('题库描述内容不能全为空格！');
+			return;
+		}
+		
+		var bank_data = {'bid':select_bid, 'bname':value1, 'bdescribe':value2};
+		var bank = JSON.stringify(bank_data);
+		
+		$.ajax({
+			type : "POST",                           //通过POST方式上传请求
+			contentType : "application/json",//上传内容格式为json结构
+			data : bank,                                 //上传的参数
+			url : "/modBankInfo",     //请求的url。与后端@Request Mapping注解中的值一致。
+			success : function(res) {		      //请求成功的回调函数
+				
+				if ( res != 0  ) {
+					layer.msg('修改题库信息成功!');
+					
+					if( $('.layui-tab-title .layui-this').attr('id') == 'my_banks_li' ){
+						$('#my_banks_div').load('/getBankLs');
+					}
+				}
+			},
+			error : function(e) {		      //请求失败的回调函数
+				layer.msg('修改题库信息失败!您可以重试!');
+			}
+		});
+		
+	});
+	
+	
+	// function edit_bank(){
+	// 	$.post('delBank', {'bid':select_bid}, function(result){
+	// 		var msg = '';
+	// 		if (result == 1) {
+	// 			msg += '题库删除成功！';
+	// 			$('#my_banks_div').load('/getBankLs');
+	// 		} else {
+	// 			msg += '题库删除失败！';
+	// 		}
+	// 		layer.msg(msg);
+	// 	})
+	// }
+	// 
+	// // 
+	// 
+	// bank_name_div bank_date_a
+	
+</script>
+

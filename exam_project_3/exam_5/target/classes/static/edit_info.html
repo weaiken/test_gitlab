@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<title>编辑个人信息</title>
+		
+		<link type="text/css" rel="stylesheet" href="layui/css/layui.css" th:href="@{static/layui/css/layui.css}"/>
+		<script type="text/javascript" src="layui/layui.js" th:src="@{static/layui/layui.js}"></script>
+		
+		<script type="text/javascript" src="js/jquery-3.4.1.min.js" th:src="@{static/js/jquery-3.4.1.min.js}"></script>
+		
+		<style>
+			#app_div {
+				background: gray;
+				height: 100VH;
+				background-position: 50% center;
+				background-repeat: no-repeat;
+				background-size: cover;
+				filter: blur(90px);
+				opacity: 0.6;
+			}
+			#app {
+				height: 100%;
+				width: 100%;
+				background-repeat: no-repeat;
+				background-size: cover;
+			}
+			
+			.layui-nav .layui-nav-more {
+				border-style: solid dashed dashed;
+				border-color: #000000 transparent transparent;
+			}
+			.layui-nav .layui-nav-mored,.layui-nav-itemed>a .layui-nav-more {
+				margin-top: -9px;
+				border-style: dashed dashed solid;
+				border-color: transparent transparent #000000;
+			}
+			
+			.layui-nav-item.nav_li:hover {
+				background: rgba(0, 0, 0, 0.1);
+				border-radius: 10px;
+				cursor: pointer;
+			}
+			
+			.layui-nav-item {
+				border: none;
+			}
+			
+			.layui-nav-bar {
+				border: none;
+				display: none;
+				text-decoration: none;
+			}
+			
+			.nav_ul li a {
+				color: black;
+			}
+			
+			.nav_ul li a:hover {
+				color: #00FF00;
+			}
+			
+			.nav_tree {
+				/* border-radius: 15px 0 0 15px; */
+			}
+			
+			.nav_tree li {
+				cursor: pointer;
+				/* background: rgba(255, 255, 255, 1); */
+				/* background: rgba(26,230,230, 1); */
+			}
+			.nav_tree li:hover {
+				background: #00FF00;
+				/* border-radius: 15px 0 0 15px; */
+			}
+			
+			.mod_info_container {
+				width: 750px;
+				height: 400px;
+				top: 175px;
+				padding: 0px;
+				margin: auto;
+				position: relative;
+			}
+			
+			.edit_info_div {
+				border-radius: 0px 15px 15px 0px;
+				border: deepskyblue 1px double;
+				border-left: none;
+			}
+			
+			.msg_div {
+				font-size: 15px;
+				font-weight: blod;
+			}
+			
+		</style>
+	</head>
+	<body class="layui-bg-gray" style="width: 100%;height: 100%;">
+		<div id="app_div">
+			<img id="app" src="img/bg_2.jpg" th:src="@{static/img/bg_2.jpg}">
+		</div>
+		
+		<div id="" class="layui-container" style="width: 100%;padding: 0px;position: absolute;top: 0px;">
+			
+			<!-- 顶部导航栏 -->
+			<div class="layui-header layui-row" style="width: 100%;padding: 0px;position: absolute;top: 0px;">
+				
+				<ul class="layui-nav nav_ul layui-col-md12" th:if="${session.currentUser?.role == 1}" style="padding: 0px;margin: 0px;padding-left: 100px;padding-right: 100px;background: rgba(255, 255, 255, 0.3);">
+					<li class="layui-nav-item">
+						<a href="/to_home">
+							<img src="img/Logo_1.png" th:src="@{static/img/Logo_1.png}" style="width: 125px;height: 47.46835443037975px;" />
+						</a>
+					</li>
+					<li class="layui-nav-item nav_li"><a style="color: #000000;font-size: 18px;" href="/to_home">首页</a></li>
+					<li class="layui-nav-item nav_li">
+						<a style="color: #000000;font-size: 18px;">分享社区</a>
+				
+						<!-- 二级菜单 -->
+						<!-- <dl class="layui-nav-child">
+							<dd><a href="#">寻找题库</a></dd>
+							<dd><a href="#">寻找试卷</a></dd>
+						</dl> -->
+					</li>
+				
+					<div id="" style="float: right;">
+						<li class="layui-nav-item">
+							<a href="#" style="color: black;">
+								<img class="layui-nav-img" src="img/photo/tea.jpg" th:src="@{static/img/photo/} + ${session.currentUser.photo}">
+								<label th:text="${session.currentUser.uname}">Resun</label>
+							</a>
+							
+							<!-- 二级菜单 -->
+							<dl class="layui-nav-child">
+								<dd><a href="/toTeaPaperSpace">我的试卷</a></dd>
+								<dd><a href="/toTeaBankSpace">我的题库</a></dd>
+								<dd><a href="/to_edit_info">修改个人信息</a></dd>
+								<dd><a href="/logout">退出</a></dd>
+							</dl>
+						</li>
+					</div>
+				</ul>
+				
+				<ul class="layui-nav nav_ul layui-col-md12" th:if="${session.currentUser?.role == 0}" style="padding: 0px;margin: 0px;padding-left: 100px;padding-right: 100px;background: rgba(255, 255, 255, 0.3);">
+					<li class="layui-nav-item">
+						<a href="/to_home">
+							<img src="img/Logo_1.png" th:src="@{static/img/Logo_1.png}" style="width: 125px;height: 47.46835443037975px;" />
+						</a>
+					</li>
+					<li class="layui-nav-item nav_li"><a style="color: #000000;font-size: 18px;" href="/to_home">首页</a></li>
+					<li class="layui-nav-item nav_li">
+						<a style="color: #000000;font-size: 18px;">分享社区</a>
+				
+						<!-- 二级菜单 -->
+						<!-- <dl class="layui-nav-child">
+							<dd><a href="#">寻找题库</a></dd>
+							<dd><a href="#">寻找试卷</a></dd>
+						</dl> -->
+					</li>
+				
+					<div id="" style="float: right;">
+						<li class="layui-nav-item">
+							<a href="#" style="color: black;">
+								<img class="layui-nav-img" src="img/photo/tea.jpg" th:src="@{static/img/photo/} + ${session.currentUser.photo}">
+								<label th:text="${session.currentUser.uname}">Resun</label>
+							</a>
+							
+							<!-- 二级菜单 -->
+							<dl class="layui-nav-child">
+								<dd><a href="#">我的成绩</a></dd>
+								<dd><a href="#">考试入口</a></dd>
+								<dd><a href="#">成绩查询</a></dd>
+								<dd><a href="#">修改个人信息</a></dd>
+								<dd><a href="/logout">退出</a></dd>
+							</dl>
+						</li>
+					</div>
+				</ul>
+				
+				<ul class="layui-nav nav_ul layui-col-md12" th:unless="${session.currentUser}" style="padding: 0px;margin: 0px;padding-left: 100px;padding-right: 100px;background: rgba(255, 255, 255, 0.3);">
+					<li class="layui-nav-item">
+						<a href="/to_home">
+							<img src="img/Logo_1.png" th:src="@{static/img/Logo_1.png}" style="width: 125px;height: 47.46835443037975px;" />
+						</a>
+					</li>
+					<li class="layui-nav-item nav_li"><a style="color: #000000;font-size: 18px;" href="/to_home">首页</a></li>
+					<li class="layui-nav-item nav_li">
+						<a style="color: #000000;font-size: 18px;">分享社区</a>
+				
+						<!-- 二级菜单 -->
+						<dl class="layui-nav-child">
+							<dd><a href="#">寻找题库</a></dd>
+							<dd><a href="#">寻找试卷</a></dd>
+						</dl>
+					</li>
+				
+					<div id="" style="float: right;">
+						<li class="layui-nav-item">
+							<button id="login_btn" class="layui-btn layui-btn-normal">登录</button>
+						</li>
+						<span>&nbsp;&nbsp;</span>
+						<li class="layui-nav-item">
+							<button id="register_btn" class="layui-btn layui-btn-danger">注册</button>
+						</li>
+					</div>
+				</ul>
+				
+			</div> <!-- 顶部导航栏结尾 -->
+			
+			<!-- 内容 -->
+			<div class="mod_info_container" style="">
+				<div class="layui-row">
+					<!-- 侧边栏 -->
+					<div class="layui-col-md3" style="height: 400px;">
+						<ul class="layui-nav layui-tree nav_tree" style="width: 100%;padding: 0px;height: 400px;">
+							<li id="mod_info_li" class="" style="width: 100%;margin: 0px;padding-top: 75px;padding-bottom: 75px;border-bottom: gray 2px solid;height: 50px;">
+								<div style="margin: auto;text-align: center;height: 50px;">
+									<i class="layui-icon" style="font-size: 50px;">&#xe66f;</i>
+									<div id="" style="margin-top: 5px;">
+										<label style="font-size: 16px;">基本信息修改</label>
+									</div>
+								</div>
+							</li>
+							
+							<li id="mod_pw_li" class="" style="width: 100%;padding-top: 75px;padding-bottom: 75px;height: 50px;">
+								<div style="margin: auto;text-align: center;height: 50px;">
+									<i class="layui-icon" style="font-size: 50px;">&#xe673;</i>
+									<div id="" style="margin-top: 5px;">
+										<label style="font-size: 16px;">密码修改</label>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					
+					<!-- 信息编辑 -->
+					<div class="layui-col-md9 edit_info_div" style="background: rgba(255, 255, 255, 0.1);height: 400px;">
+						<!-- 基本信息修改 -->
+						<div id="mod_info_div" class="layui-row">
+							<div class="layui-col-md10 layui-col-md-offset1" style="padding-top: 25px;">
+								<form style="padding: 0px;height: 250px;margin: auto;margin-top: 50px;">
+									<div class="layui-form-item">
+										<div class="layui-upload">
+											<div class="layui-upload-list" style="width: 25%;height: 55px;padding: 0px;margin: auto;">
+												<img class="layui-upload-img" id="photo_show" style="width: 50px;height: 50px;border-radius: 50%;border: #00F7DE solid 1px;display: inline-block;" th:src="@{static/img/photo/}+${session.currentUser.photo}">
+												<i id="edit_photo" class="layui-icon" style="width: 50px;height: 50px;border-radius: 50%;border: orange solid 1px;font-size: 45px;display: inline-block;float: right;">
+												&#xe642;
+												</i>
+											</div>
+										</div>
+									</div>
+									
+									<div class="layui-form-item">
+										<label class="layui-form-label">昵称</label>
+										<div class="layui-input-inline">
+											<input id="uname" type="text" name="uname" required lay-verify="required" placeholder="请输入昵称" autocomplete="off" class="layui-input" th:value="${session.currentUser.uname}">
+											<!-- <input id="uname" type="text" name="uname" required class="layui-input" th:value="${session.currentUser.uname}"> -->
+											
+										</div>
+										<div id="uname_msg" class="layui-form-mid layui-word-aux msg_div">昵称前后不能有空格</div>
+									</div>
+									<div class="layui-form-item">
+										<label class="layui-form-label">邮箱</label>
+										<div class="layui-input-inline">
+											<input th:value="${session.currentUser.email}" type="text" name="title" required lay-verify="required" placeholder="请输入邮箱" autocomplete="off" class="layui-input" disabled="disabled" readonly="readonly">
+										</div>
+										<div id="" class="layui-form-mid layui-word-aux msg_div">邮箱不可更改</div>
+									</div>
+									
+									
+									<!-- <div class="layui-form-item"> -->
+									<div class="layui-input-block">
+										<button id="mod_info_submit" class="layui-btn">立即提交</button>
+										<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+										<span id="mod_msg"></span>
+									</div>
+									<!-- </div> -->
+								</form>
+							</div>
+						</div>
+						
+						<!-- 密码修改 -->
+						<div id="mod_pw_div" class="layui-row" style="display: none;">
+							<div class="layui-col-md10 layui-col-md-offset1" style="padding-top: 25px;height: 250px;margin: auto;margin-top: 50px;">
+								<form >
+									<div class="layui-form-item">
+										<label class="layui-form-label">旧密码</label>
+										<div class="layui-input-block">
+											<input id="old_pw" type="password" name="old_pw" required lay-verify="required" placeholder="请输入旧密码" class="layui-input">
+										</div>
+										<span id="old_pw_msg"></span>
+									</div>
+									<div class="layui-form-item">
+										<label class="layui-form-label">新密码</label>
+										<div class="layui-input-block">
+											<input id="new_pw" type="password" name="new_pw" required lay-verify="required" placeholder="请输入新密码" class="layui-input">
+										</div>
+										<span id="new_pw_msg"></span>
+									</div>
+									<div class="layui-form-item">
+										<label class="layui-form-label">确认密码</label>
+										<div class="layui-input-block">
+											<input type="password" name="new_pw_2" required lay-verify="required" placeholder="请再次输入新密码" class="layui-input">
+										</div>
+										<span id="new_pw_msg_2"></span>
+									</div>
+									
+									<!-- <div class="layui-form-item"> -->
+									<div class="layui-input-block">
+										<button type="button" id="mod_pw_submit" class="layui-btn">立即提交</button>
+										<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+										<br>
+										<span id="mod_pw_msg"></span>
+									</div>
+									<!-- </div> -->
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+				
+		</div>
+	</body>
+</html>
+
+<script>
+	
+	// $('#photo_show').click(function(){
+	// 	$('#edit_photo').show();
+	// })
+	// $('#photo_show').mousemove(function(){
+	// 	// $(this).hide();
+	// 	$('#edit_photo').show();
+	// })
+	// $('#edit_photo').mouseleave(function(){
+	// 	$(this).hide();
+	// 	// $('#photo_show').show();
+	// })
+	
+	$(function(){
+		$('#mod_info_div').show();
+		$('#mod_pw_div').hide();
+	})
+	
+	layui.use(['element','layer', 'form'],function(){
+		var element = layui.element,
+			layer = layui.layer,
+			form = layui.form;
+	});
+
+	layui.use('upload', function() {
+		var $ = layui.jquery,
+			upload = layui.upload;
+		// var upload = layui.upload;
+		// alert('ok')
+		var uploadInst = upload.render({
+			elem: '#edit_photo',
+			url: 'upload_photo',
+			auto: false,
+			size: 2048, //限制文件大小，单位 KB,
+			accept:'images',
+			exts: 'jpg|png|gif|bmp|jpeg',
+			bindAction: '#mod_info_submit', 
+			choose: function(obj) {
+				// $('#edit_photo').hide();
+				// $('#photo_show').show();
+				obj.preview(function(index, file, result){
+					
+					// obj.resetFile(index, file, '123.jpg');
+					obj.resetFile(index, file, '123.jpg');
+					$('#photo_show').attr('src', result); //图片链接（base64）
+				});
+			},
+			before: function(obj) {
+			},
+			done: function(res) {
+				//如果上传失败
+				if (res.code > 0) {
+					return layer.msg('上传失败');
+				}
+				//上传成功
+			},
+			error: function() {
+				//演示失败状态，并实现重传
+				var demoText = $('#demoText');
+				demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+				demoText.find('.demo-reload').on('click', function() {
+					uploadInst.upload();
+				});
+			}
+		});
+	});
+	
+	$('#mod_info_li').click(function(){
+		$('#mod_info_div').show();
+		$('#mod_pw_div').hide();
+		
+		$(this).css('background', 'green');
+		$('#mod_pw_li').css('background', 'none');
+	})
+	
+	$('#mod_pw_li').click(function(){
+		$('#mod_info_div').hide();
+		$('#mod_pw_div').show();
+		
+		$(this).css('background', 'green');
+		$('#mod_info_li').css('background', 'none');
+	})
+	
+	$('#mod_info_submit').click(function(){
+		
+		var uname = $('#uname').val();
+		
+		if(uname == '' || uname == null){
+			$('#uname_msg').text('昵称不能为空！');
+			$('#uname_msg').css('color', 'red');
+			return;
+		}
+		
+		var uname_trim = uname.trim();
+		
+		if(uname_trim == '' || uname_trim == null){
+			$('#uname_msg').text('昵称不能全为空格！');
+			$('#uname_msg').css('color', 'red');
+			return;
+		}
+		
+		if ( uname != uname_trim ){
+			$('#uname_msg').text('昵称前后不能存在空格！');
+			$('#uname_msg').css('color', 'red');
+			return;
+		}
+		
+		$.post('mod_info', {'uname':uname}, function(res) {
+			if ( res == 1 ) {
+				// return layer.msg('修改成功');
+				$('#mod_msg').text('修改成功！');
+				$('#mod_msg').css('color', 'green');
+			} else {
+				// return layer.msg('修改失败');
+				$('#mod_msg').text('修改失败，您可以重试！');
+				$('#mod_msg').css('color', 'red');
+			}
+		})
+	});
+	
+	$('#mod_pw_submit').click(function(){
+		var old_pw = $('#old_pw').val();
+		var new_pw = $('#new_pw').val();
+		var new_pw_2 = $('#new_pw_2').val();
+		// alert(old_pw + ' ' + new_pw);
+		/**
+		 * 1.加上新密码的强度检测功能
+		 * 2.新密码与旧密码不能相同
+		 * 3.需要验证旧密码正误（在servlet进行验证）
+		 */
+		// var data_temp = {'old_pw':old_pw, 'new_pw':new_pw};
+		// var data = JSON.stringify(data_temp);
+		
+		$.ajax({
+			url: '/mod_pw',
+			type: 'get',
+			data: {'old_pw':old_pw, 'new_pw':new_pw},
+			contentType: "application/json;charset=utf-8",
+			dateType:"json",
+			success: function(res){
+				if ( res == '1' ) {
+					// return layer.msg('修改成功');
+					$('#mod_pw_msg').text('密码修改成功！');
+					$('#mod_pw_msg').css('color', 'green');
+				} else if ( res == '2' ){
+					// return layer.msg('修改失败');
+					$('#mod_pw_msg').text('修改失败，旧密码错误，请重新输入！');
+					$('#mod_pw_msg').css('color', 'red');
+				} else if (res == '0' ){
+					$('#mod_pw_msg').text('修改失败，请重试！');
+					$('#mod_pw_msg').css('color', 'red');
+				}
+			},
+			error: function(){
+				$('#mod_pw_msg').text('异步提交失败，请重试！');
+				$('#mod_pw_msg').css('color', 'red');
+			}
+		})
+		
+		// $.post('/mod_pw', {'old_pw':old_pw, 'new_pw':new_pw}, function(res) {
+		// 	if ( res == 1 ) {
+		// 		// return layer.msg('修改成功');
+		// 		$('#mod_pw_msgmod_pw_msg').text('密码修改成功！');
+		// 		$('#mod_pw_msg').css('color', 'green');
+		// 	} else if ( res == 2 ){
+		// 		// return layer.msg('修改失败');
+		// 		$('#mod_pw_msg').text('修改失败，旧密码错误，请重新输入！');
+		// 		$('#mod_pw_msg').css('color', 'red');
+		// 	} else if (res == 0 ){
+		// 		$('#mod_pw_msg').text('修改失败，请重试！');
+		// 		$('#mod_pw_msg').css('color', 'red');
+		// 	}
+		// })
+		
+	})
+	
+	
+	
+</script>
